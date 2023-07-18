@@ -1,0 +1,60 @@
+<!-- Taken from https://www.cssscript.com/gallery-swiper-box/ -->
+<!-- and modified to fit our needs -->
+<!-- Use this for the first gallery on a page. Example usage: -->
+<!-- include gallery.html images=page.gallery_images ratio_image="album/ratio.png" -->
+
+<style>
+    .mygal {border:1px solid black;}
+</style>
+
+<script src="/assets/SwiperBox.js"></script>
+
+<div id="gallery">
+<span id="count">0/0</span>
+</div>
+<script>
+    var galleryItems = [
+        {% for file in include.images %}
+        '<div class="myitem"><img src="{{ file }}" /></div>',
+        {% endfor %}
+    ];
+    
+    var gallerySwipe = new SwiperBox({
+        items: galleryItems,
+        ratio: "{{ include.ratio_image }}",
+    });
+
+    
+    function addGallery(id_name, count_name, swipe, items_length) {
+
+        swipe.HTMLElement.style.width = "100%";
+        swipe.HTMLElement.classList.add("mygal");
+        document.getElementById(id_name).appendChild(swipe.HTMLElement);
+        var count = document.getElementById(count_name);
+        count.innerText = "1/" + items_length;
+
+        swipe.onClick = function(index,elem) {
+            if(index == items_length-1) {
+                swipe.GoTo(1);
+            } else {
+                swipe.swiptoLeft();  
+            }
+            UpdateCounter(null);
+        };
+
+        function UpdateCounter(e) {
+            var index = swipe.numx;
+            if(index == 0) {
+                count.innerText = "1/" + items_length;
+            } else {
+                count.innerText = (index + 1) + "/" + items_length;
+            }
+        };
+        
+        
+        swipe.HTMLElement.addEventListener("touchend", UpdateCounter, true);
+        swipe.HTMLElement.addEventListener("mouseout", UpdateCounter, true);
+    }
+    addGallery("gallery", "count", gallerySwipe, galleryItems.length);
+
+</script>
