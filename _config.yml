@@ -1,4 +1,4 @@
-title: "CASS"
+title: "SOCS"
 remote_theme: pmarsceill/just-the-docs
 
 plugins:
@@ -74,7 +74,7 @@ collections:
 just_the_docs:
   collections:
     course:
-      name: Computer Architecture and System Software
+      name: Structuur en organisatie van computersystemen
     exercises:
       name: Exercise sessions
     tutorials:

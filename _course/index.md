@@ -5,12 +5,12 @@ nav_order: 1
 permalink: /
 ---
 
-# Computer Architecture and System Software
+# Structuur en organisatie van computersystemen
 
 This website is the source of all information regarding the exercise sessions of the
-Computer Architecture and System Software course.
+'Structuur en organisatie van computersystemen' course (SOCS).
 
-For a few years now, we provided the exercise sessions as web pages. So far the feedback has been positive, but please reach out to us if you disagree or if you think we could make the course better. If you find mistakes or errors, just reach out to us on Toledo, in person, or through email. You are also most welcome to create pull requests: The source code of this website is available on [GitHub](https://github.com/cass-kul/cass-kul.github.io). Both in the GitHub repository as well as on this website, you may be able to find some pages that are hidden from the menu and that are not unlocked yet (such as future sessions or solutions). You are free to look at these pages, but please be aware that we will be actively working on each session up until the Monday of the session's week - so be careful when roaming around as the pages may not be final yet!
+For a few years now, we provided the exercise sessions as web pages for a similar course, this is the first year we will do it for SOCS. So far the feedback has been positive, but please reach out to us if you disagree or if you think we could make the course better. If you find mistakes or errors, just reach out to us on Toledo, in person, or through email. You are also most welcome to create pull requests: The source code of this website is available on [GitHub](https://github.com/socs-kul/socs-kul.github.io). Both in the GitHub repository as well as on this website, you may be able to find some pages that are hidden from the menu and that are not unlocked yet (such as future sessions or solutions). You are free to look at these pages, but please be aware that we will be actively working on each session up until the Monday of the session's week - so be careful when roaming around as the pages may not be final yet!
 
 ## Exercises
 

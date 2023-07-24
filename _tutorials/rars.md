@@ -6,34 +6,69 @@ nav_exclude: false
 has_children: false
 ---
 
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+
 # Installing and using RARS
 
 [RARS - RISC-V Assembler and Runtime
 Simulator](https://github.com/TheThirdOne/rars) is an assembler and simulator
-for the RISC-V architecture. It allows you to write RISC-V assembly programs,
-and execute and step through the programs that you have written in assembly.
+for the RISC-V architecture. It allows you to write, execute and debug the programs that you have written in RISC-V assembly. There are different flavours of assembly, for example the typical AMD/Intel CPUs you think of only understand x86-64 assembly. RISC-V is easier to start off with since there are less instructions and thus serves as a good foundation for understanding other architectures.
 
-## Install instructions
-Make sure you have at least Java 8 installed. Most Linux distributions have
-something like `openjdk-8-jdk` in Ubuntu. If you are running Windows it is a bit
+
+## Installation instructions
+Make sure you have at least Java 8 installed. 
+
+**On Ubuntu/Mac: (NO WSL)**
+```bash
+$ java -version
+# If this returns something with Java version > 8 or
+# openjdk version > 1.8 you have it installed
+```
+
+If you do not have it installed, install it using your favourite package manager.\
+For Ubuntu:
+```bash
+$ sudo apt install openjdk-<version>-jdk
+# Replace <version> with the version you want
+```
+For Mac, see [stackoverflow](https://stackoverflow.com/questions/65601196/how-to-brew-install-java):
+```bash
+$ brew install java
+```
+Check if the installation was successful with `java -version`. If so, proceed to the installation of RARS.
+
+
+**On Windows:**\
+If you are running Windows it is a bit
 more complicated:
 
-    Download Java: https://java.com/en/download/
-    Run the installer
-    Add Java to your PATH environment variables
+    1) Download Java: https://java.com/en/download/
+    2) Run the installer
+    3) Add Java to your PATH environment variables
         (My Computer > Properties > Advanced > Environment Variables > Path)
         (In a Dutch System, Environment Variables is called Omgevingsvariabelen)
         Lots of documentation is online how to do this. One example is https://explainjava.com/java-path/
 
+Check if the installation was successful with `java -version` in a command prompt (Windows key + R, type cmd). If so, proceed to the installation of RARS.
+
+**Installing RARS:**\
 Once you have Java installed, download the JAR file of the [last RARS
 release](https://github.com/TheThirdOne/rars/releases/tag/continuous).
 
 To execute it, simply run `java -jar rars_xxxxxx.jar` (replace x with the
 numbers of your specific file) when your terminal is in the same folder as the
 JAR file. Double clicking the jar may equally work depending on how you set up
-your system.
+your system.\
+\
+![Example on how to run RARS](/tutorials/img/opening-rars.png "Example on how to run RARS")
 
-> :warning: Do *not* run RARS from inside the wsl Linux windows. Instead, open it by double clicking or run the `java` command in windows `cmd` shell.
+> :warning: Do **not** run RARS from inside the **wsl** Linux windows. Instead, open it by double clicking or run the `java` command in windows `cmd` shell.
+
 
 ## How to use
 1. Write your RISC-V assembly program in the `Edit` window:
@@ -41,7 +76,7 @@ your system.
    - Make your `main` function visible to other files (and to the simulator) with `.globl main`,
    - Don't forget to activate `Settings > "Initialize program counter to global main if defined"`.
 
-   ![A program written in RARS](/tutorials/img/rars_program.png "Example of program wirtten in RARS")
+   ![A program written in RARS](/tutorials/img/rars_program.png "Example of program written in RARS")
 
 2. Assemble your program:
    - Once your program is ready, you can assemble it using the wrench icon (or `run > Assemble`).

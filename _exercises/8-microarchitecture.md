@@ -32,7 +32,7 @@ This session covers the material from section 4.1 to 4.8 in the book. If you are
 Improving runtime performance of software can be done at multiple layers across the computing stack.
 Below, you see a figure of the abstraction layers we can consider in the context of computing, and some possible performance optimizations that can be applied at each layer.
 Starting from the top, maybe the most obvious optimizations to you at this point are optimizations of your code, i.e., optimizations of algorithms.
-While these are an important piece of the optimization puzzle, we will not look at them in the context of CASS.
+While these are an important piece of the optimization puzzle, we will not look at them in the context of SOCS.
 
 Going down the stack, two performance improvements happen at the programming language level.
 The choice of programming language and the optimizations that are done at the assembly level by the compiler may have great impact on the runtime of a function.
