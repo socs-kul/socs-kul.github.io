@@ -452,7 +452,7 @@ Consider the following recursive function which calculates `n!`.
 
 # Excursion: Tail recursion
 
-A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the last instruction of a subroutine (before the return) calls a different subroutine.
+A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the **last** instruction of a subroutine (before the return) calls a different subroutine.
 Compilers can take advantage of tail calls to reduce memory usage. This is because for tail calls, no additional stack frame needs to be entered. Instead, we can simply overwrite the function parameters, jump to the function and execute from there by reusing the original function stack frame.
 This is possible since we do not expect to be returned to and instead refer to our original caller that is on our stack frame. Thus, when the (tail-) called function returns, it will not return to us but directly to the original code that called us.
 

@@ -143,7 +143,8 @@ x = 5; // Assignment of the variable x
 int y = 10; // Both at once
 ```
 
-If we want to do something with these variables, we could insert a function.\
+If we want to do something with these variables, we could insert a function. Don't worry if you do not understand this part yet, in the next exercise session we will go into more depth on functions.
+
 Let's look at a very simple program that adds two numbers together:
 
 ```c
@@ -166,7 +167,7 @@ What if you wanted to put the code of the `int add(int a, int b){}` function bel
 
 Now consider the following equivalent program:
 ```c
-int add(int a, int b); // This is a function declaration
+int add(int, int); // This is a function declaration
 
 int main(void){
     int x;	
@@ -423,7 +424,7 @@ that same function call. You also don't want those function calls to overwrite i
 you store in registers at the time of calling.
 
 The rules for register usage are called *calling conventions*, and we will deal with them in more
-detail in later sessions.
+detail in [later sessions](/exercises/3-functions-stack#summary-complete-calling-conventions).
 
 ## Breakdown of assembly instructions
 
@@ -681,7 +682,7 @@ bytes these types use on your computer.
 Write a C program that asks the user for a positive integer and iteratively computes the
 factorial of this integer.
 
-> Hint: loops work the same way in C as they do in many other languages.
+> Hint: loops work the same way in C as they do in many other languages. Basic structure: `while (condition){}`
 
 {% if site.solutions.show_session_1 %}
 #### Solution

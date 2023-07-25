@@ -25,13 +25,14 @@ Let's start off by practicing everything you've learned about RISC-V assembly in
 session.
 
 ### Exercise 1
+A switch case is a more efficient way to denote multiple if statements on the same variable.
 
 Take the following C code:
 
 ```c
 switch (operation) {
-    case 0: result = a + b; break;
-    case 1: result = a - b; break;
+    case 0: result = a + b; break; // If operation == 0, then result = ...
+    case 1: result = a - b; break; // If operation == 1, then result = ...
     case 2: result = a + 5; break;
     case 3: result = b + 5; break;
 }
@@ -59,7 +60,7 @@ translate them into assembly will be the topic of the [third session](/exercises
 You probably remember that every C program must contain the `int main(void)` function,
 this is where the execution will start. Remember that the first `int` means that
 the function will return an integer value, while `(void)` shows that the function
-does not take any arguments.
+does not take any arguments. The void is optional, it is also possible to write `int main()`
 
 You can use the same syntax to define your own functions in your file:
 
@@ -87,12 +88,12 @@ int difference(int a, int b) {
 What is the role of the first line in the example above?
 
 ```c
-int difference(int, int);
+int difference(int, int); // function declaration
 ```
 
 The compiler moves linearly in the file, it needs to already know the *signature* (return type, parameters) of functions
 when using them (in `main` or in other functions).
-For this reason, it's sometimes necessary to include the function declaration at the
+For this reason, it's sometimes necessary to include the **function declaration** at the
 top of the file.
 
 In the example above, it would have also been fine to just move the function definition
@@ -109,6 +110,9 @@ has to go above the other!)
 Write a C program that computes the factorial of every number between 1 and 10.
 Avoid duplicating code (use loops and functions where applicable).
 
+> Hint: Example syntax of a `for` loop in C: `for (int i; condition; i++){}`
+
+> :pencil: `i++` or `++i` both increment the variable `i` but there is a [slight difference](https://stackoverflow.com/questions/24853/what-is-the-difference-between-i-and-i) in their behaviour (Not relevant for loops)
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```c
@@ -127,7 +131,7 @@ This is possible in C using structs.
 ```c
 struct person {
     int age;
-    char *name;
+    char *name; // Notice the pointer to a string, this will become more clear later
 };
 
 int main(void) {
@@ -175,11 +179,12 @@ the function to update it.
 
 ### Exercise 3
 
-Define a struct containing a float, double, long, integer *pointer*, and a
-single char. Print the size of the struct. Create a new instance of this struct
-and print the addresses of each field. Draw the memory layout chosen by
-the compiler. Did the compiler introduce padding? If so, where and how
-much?
+Define a struct containing a float *f*, double *d*, long *l*, integer *pointer* *p*, and a
+single char *c*.
+* Print the size of the struct.
+* Create a new instance of this struct and print the addresses of each field.
+* Draw the memory layout chosen by the compiler.
+* Did the compiler introduce padding? If so, where and how much?
 
 {% if site.solutions.show_session_2 %}
 #### Solution
@@ -199,7 +204,8 @@ c: 0x7ffe33ed6b40
 ```
 
 To know whether padding was introduced, we need to know the real sizes of the data
-types. There's one thing we can immediately notice: the size of a char is
+types. The real size of a data type [is not fixed](https://www.tutorialspoint.com/cprogramming/c_data_types.htm) in C.
+There's one thing we can immediately notice: the size of a char is
 always 1 byte, and here it is the last element of the struct, placed at
 byte `0x..40`. But the struct has a size of 40 bytes, so the last byte that belongs to it
 in hexadecimal is `0x..20 + 0x27 (39 in decimal) = 0x..47`, meaning there are 7 unused bytes after the
@@ -259,7 +265,7 @@ At the end of this example, `classes` and `copy` will refer to the same memory l
 ## Elements of the array
 
 So now we know that the `classes` variable points to the first element of the array. That means that if
-we want to read or write that value, we can just write `*classes`, as we've done with other pointers.
+we want to read or write that value, we can just dereference the pointer with `*classes`, as we've done with other pointers.
 
 But how can we access the other elements of the array? Since we know that they are placed next to each
 other in memory, we can simply add an offset to the starting pointer to access further elements! If we want to get the
@@ -311,11 +317,11 @@ the possible values are limited. If our array can contain any integer values, wh
 
 ### Exercise 4
 
-Write a C program that prints the array `1, 2, 3, 4, 5` on a single
+Write a C program that prints the array `1, 2, 3, 4, 5` (so you know the length) on a single
 line separated by spaces, together with the addresses of the elements.
 Ask the user for an integer, multiply all elements
 of the original array with this integer and print the array again. Now, define
-a function to print the array to avoid duplicating your code. Don’t hardcode the size of the array in the function: your function should work with various array sizes!
+a function to print the array to avoid duplicating your code. Don’t hardcode the size of the array in the printing function: your function should work with various array sizes!
 
 Hint: Don't be discouraged if your solution looks ugly, you can ask the teaching assistant whether it's correct! :)
 
@@ -348,7 +354,7 @@ Notice that this means that we use one extra byte to store the string, compared 
 C also has special syntax for strings (that we have seen before) to make it easier to work with them.
 
 ```c
-char hello[] = "hello";
+char hello[] = "hello"; // Notice the [] 
 ```
 
 This will allocate the same array as the example before, complete with the terminating null byte.
@@ -360,10 +366,13 @@ the length of the string.
 You can use
 the function `fgets` [with the parameter `stdin`](http://www.cplusplus.com/reference/cstdio/fgets/) to read a whole string from the console.
 
+> :pencil: stdin refers to the standard input, stdout to the standard output. When you run a program in a terminal, stdin is the input from the terminal you can provide.
+
+
 First, write a version using the function `unsigned long strlen(char *)`
-declared in the header `string.h`. Then create a second version where `strlen`
-is not used. Note that the last character of the string will be the line feed
-(hex `0x0a`).
+declared in the header `string.h` to get the length. Then create a second version where `strlen`
+is not used, so you have to implement your own method to count the length of the entered string. Note that the last character of the string will be the null byte
+(`\0`).
 
 {% if site.solutions.show_session_2 %}
 #### Solution
