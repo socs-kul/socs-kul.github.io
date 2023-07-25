@@ -148,16 +148,16 @@ Let's look at a very simple program that adds two numbers together:
 
 ```c
 int add(int a, int b){  // We make a function called add, which takes two arguments: a and b which are both an integer
-	return a+b;  // The function add returns an integer
+    return a+b;  // The function add returns an integer
 }
 
 int main(void){ // The main function takes nothing as an argument, hence the 'void'
-	int x;
-	x = 5;
-	int y = 10;
+    int x;
+    x = 5;
+    int y = 10;
 	
-	int result = add(x, y); // We call the function add
-	return 0; // We return 0 here since our main function is of the integer type (More on this later)
+    int result = add(x, y); // We call the function add
+    return 0; // We return 0 here since our main function is of the integer type (More on this later)
 }
 ```
 Notice the `int main(void){}` function, this is mandatory in every single C program.
@@ -169,16 +169,16 @@ Now consider the following equivalent program:
 int add(int a, int b); // This is a function declaration
 
 int main(void){
-	int x;
-	x = 5;
-	int y = 10;
+    int x;	
+    x = 5;
+    int y = 10;
 	
-	int result = add(x, y);
-	return 0; 
+    int result = add(x, y);
+    return 0; 
 }
 
 int add(int a, int b){
-	return a+b;
+    return a+b;
 }
 ```
 If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](/exercises/1-c-asm-basics/#dissecting-hello-world)
@@ -353,6 +353,19 @@ be ignored.
 In general, if the user's input does not respect the format specified in `scanf`, strange values
 can appear in your program.
 
+
+Most commonly found format specifiers:
+
+Format specifier                    | Usage
+-----------------------------------:|:-------------
+%d                                  | For decimal values, so usually signed integers
+%p                                  | For pointers, so memory addresses
+%u                                  | For unsigned integers
+%s   			                    | For strings
+%c                                  | For a single character
+%lu                                 | l stands for long, u for unsigned int -> Long unsigned integers
+
+[More exhaustive list with examples](https://www.freecodecamp.org/news/format-specifiers-in-c/)
 ### Exercise 1
 
 Write a C program that asks the user for an integer value and prints out the square
@@ -544,7 +557,7 @@ but also `.LC0:`, which points to the string literal.
 
 `main:` is a special label, RARS will start execution from here if it can find it. This is useful if you have
 a longer file, and you don't necessarily want RARS to start executing from the first line. (This will be useful
-for example when you define multiple functions in the same file).
+for example when you define multiple functions in the same file)(Remember to enable "*Initialize Program Counter to global 'main' if defined*" in the settings of RARS)
 
 To enable external programs to also use these labels, you can use the `.globl` directive. For example,
 writing `.globl main` will allow other programs to start executing your program from the `main:` label.
@@ -587,6 +600,27 @@ you can use the `.space N` directive, where `N` is the number of bytes you want 
 For example, you can reserve 4 bytes of space with `empty: .space 4`. In this case,
 you can't provide initial values for the memory, you need to store a value to it
 from your program explicitly.
+
+In the example above we first loaded the address of `a` into `t0` to then load the value stored at the address of `a` into `t1`. We can also do this in a single step, which gives us the same end result:\
+(Under the hood there is a [slight difference](https://stackoverflow.com/a/54011727) but that would take us too far)
+```text
+.data
+    a: .word 5
+.text
+    lw t1, a
+```
+
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+la register,symbol                  | Place the address of the symbol into the register (Does **not** perform memory access)
+lw register,symbol                  | Place the value of the symbol (So which the address points to) into the register (Does perform memory access)
+lb register,symbol                  | The same as lw, but for byte-sized memory accesses
+(t0)                                | Dereference a pointer, * operator in C
+
+
+
 
 ### Exercise 2
 

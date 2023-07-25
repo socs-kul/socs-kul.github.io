@@ -21,7 +21,7 @@ You are probably used a graphical user interface (GUI) to interact with your sys
 ### Moving around Directories and finding files
 To view your current location in the directory, you can use the `pwd` command. This stands for 'print working directory'.
 
-To list all files and folders in your current directory, use the `ls` command. There are some helpful options you could give the `ls` command so it provides more information, such as -la. To find out what options there are and how to use them, use `man ls`. man stands for manual. Usually you can also give `--help` as an argument to get a shorter description. Another great command to get a short recap of how to use a tool is to use `tldr`, you will probably have to install it seperately.
+To list all files and folders in your current directory, use the `ls` command. There are some helpful options you could give the `ls` command so it provides more information, such as -la (list all). To find out what options there are and how to use them, use `man ls`. man stands for manual. Usually you can also give `--help` as an argument to get a shorter description. Another great command to get a short recap of how to use a tool is to use `tldr`, you will probably have to install it separately.
 
 You can use the `cd` command to **c**hange your **d**irectory, for example
 ```bash
@@ -31,9 +31,9 @@ $ cd ~  # ~  refers to your users home directory
 $ cd -  # -  also refers to your users home directory
 $ cd /  # /  refers to the root directory
 ```
-Another thing to note is that you can denote a full path or a relative path.
+When referring to a path in a command, you can choose to do so with a full path or a relative path.
 
-Another useful command to get a quick overview of where you are in the directory is the `tree` command.\
+Another useful command to get a quick overview of where you are in the directory is the `tree` command.
 
 ### Interacting with Files and Directories
 Now that you know how to get around directories, it is probably important to know how to interact with files and directories.
