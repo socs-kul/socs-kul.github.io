@@ -407,7 +407,7 @@ words in memory:
 
 ```text
 .data
-    array: .word 1, 2, 3, 4
+    array: .word 1, 2, 3, 4 # Will reserve 4 consecutive words in memory
 ```
 
 ### Exercise 7
@@ -436,13 +436,33 @@ For strings, we again have special syntax:
 ```
 
 This string notation behaves the same way as in C, complete with the terminating
-zero byte.
+zero byte. You can also see this in RARS, consider the following 'program':
+
+```text
+.data
+    str1: .string "hello"
+    str2: .string "world"
+```
+If you assemble this program and look at the 'Data Segment' you will find both strings, each `\0` terminated:
+
+<center>
+<img src="/exercises/img/string-layout.png" alt="Values of the array in memory" />
+</center>
+Each hexadecimal digit represents 4 bits, and you know a char consists of a single byte. Reading it out gives:
+
+Value                               | To text
+-----------------------------------:|:-------------
+0x6c6c6568                          | lleh
+0x6f77006f                          | ow`\0`o
+0x00646c72                          | `\0`dlr
+
+
 
 ### Exercise 8
 
 Translate the C program calculating the length of a string without `strlen` from exercise 5
 to RISC-V. The string can be provided in the data section. The resulting
-length can be stored in register `a0`.
+length should be stored in register `a0`.
 
 {% if site.solutions.show_session_2 %}
 #### Solution

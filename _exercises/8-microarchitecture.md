@@ -23,7 +23,9 @@ The goal of today's exercise session is to introduce you to some microarchitectu
 Learning about these optimizations will not only make you a better programmer, but will also give you more insight into the wonderful low-level world and enhance your reasoning skills about it.
 This session covers the material from section 4.1 to 4.8 in the book. If you are unsure about any of the concepts, you can look for it in the book first.
 
-> :bulb: **Ripes**: To help you solve and reason about the upcoming exercises, it is advised to install the Ripes RISC-V simulator from [this GitHub page](https://github.com/mortbopet/Ripes/releases/latest). There is support for Windows, Mac and Linux. On Ubuntu, make the `.AppImage` file executable using the command `chmod +x <ripes-filename>` to run the simulator.
+> :bulb: **Ripes**: To help you solve and reason about the upcoming exercises, it is advised to [install the Ripes RISC-V simulator (tutorial)](/tutorials/ripes) from [this GitHub page](https://github.com/mortbopet/Ripes/releases/latest). There is support for Windows, Mac and Linux. 
+
+
 >
 > Using Ripes, you can simulate different processors: a single-cycle, and different pipelined RISC-V cores. It also has a great cache simulator, which can help you better understand what was learned in the last session about caches. All programs presented in this session can be executed cycle per cycle using Ripes.
 
