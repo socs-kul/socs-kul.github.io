@@ -28,7 +28,7 @@ Please note that debugging is a skill that needs practice to become fluent at it
 There's also built in help available (Top bar: Help -> RARS -> Debugging)
 
 ## Debugging C:
-We will not dive too deep into debugging C programs. A useful tip is using the compiler itself, it will notify you if it detects an obvious bug. This doesn't mean to say that a succesfully compiled program doesn't have any bugs!
+We will not dive too deep into debugging C programs. A useful tip is using the compiler itself, it will notify you if it detects an obvious error. This doesn't mean to say that a succesfully compiled program doesn't have any bugs!
 ### A short example:
 ```c
 #include <stdio.h>
@@ -45,6 +45,7 @@ If you try to compile this program with the `-Werror` (treat warnings as errors)
 
 ![error](/tutorials/img/debugging-gcc-error.png)
 
+This error boils down to the `scanf()` function expecting the address of an integer to store the user's input in. So we need to change that line to `scanf("%d", &x);`. Notice the `&`
 
 ## Extra Resources:
 If you want to dive deeper in how to debug C programs, GDB is a very capable debugger. Here is a [short introduction video](https://youtu.be/Dq8l1_-QgAc) on the basics of GDB, please notice that when you compile a C program you usually compile it to x86-64 assembly which differs from RISC-V.
