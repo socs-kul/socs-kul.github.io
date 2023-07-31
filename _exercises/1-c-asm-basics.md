@@ -16,22 +16,21 @@ has_toc: false
 
 # Introduction
 
-In the CASS exercise sessions, you will learn how programs are executed on computers.
+In the SOCS exercise sessions, you will learn how programs are executed on computers.
 We will explain high-level concepts in the C programming language,
 then show how these concepts are translated to assembly code by the compiler.
 You will also learn how the CPU executes the (generated) machine code, and
 which hardware features are used to make this code more performant.
 
 The following table shows which layers of the hardware-software stack
-of computers is covered by CASS and by other courses. CASS covers a broader
+of computers is covered by SOCS and by other courses. SOCS covers a broader
 range in this stack than many other courses.
 
 Course                              | Topics               | Example
 -----------------------------------:|:---------------------|:--------------------
-Methodiek van de Informatica        | Object-Oriented Code | `Car c = new Car();`
-CASS                                | Procedural Code      | `malloc(sizeof(...));`
-CASS                                | Assembly             | `add t0, t1, t2`
-CASS                                | Machine Code         | `...0100110111010...`
+SOCS                                | Procedural Code      | `malloc(sizeof(...));`
+SOCS                                | Assembly             | `add t0, t1, t2`
+SOCS                                | Machine Code         | `...0100110111010...`
 Digitale Elektronica en Processoren | Digital Hardware     | Logic gates
 
 The majority of the sessions will focus on writing assembly programs from scratch.
@@ -67,7 +66,7 @@ values to be stored inside the CPU (but there are only a few of them). Accessing
 is much quicker than accessing the RAM, so registers enable faster computations
 than if the values were fetched directly from RAM. In fact, in later sessions we will see how caches are used
 to speed up accesses to values that are not stored in registers and have to be fetched from
-RAM. The following diagram shows this memory hierarchy; access times increase [dramatically](https://i.imgur.com/k0t1e.png) when moving towards the right.
+RAM. The following diagram shows this memory hierarchy; access times increase dramatically when moving towards the right.
 
 <center>
 <img src="/exercises/img/memory.png" alt="The memory hierarchy" />
@@ -106,7 +105,7 @@ it easier. These days it is being increasingly used not only in academia, but al
 
 # The C programming language
 
-In CASS, we will use the C programming language to showcase programming concepts which we then translate to
+In SOCS, we will use the C programming language to showcase programming concepts which we then translate to
 RISC-V assembly. We chose this language because it's widely used in systems programming, its procedural
 style is not so different from assembly as some other languages (such as object-oriented languages),
 and it's easy to examine the compiled assembly code using built-in tools of the operating system.
@@ -123,6 +122,70 @@ to manage dynamic memory manually; for variable length objects (such as lists co
 the programmer has to manually request memory chunks from the operating system and return them once they are
 no longer needed. Many features in C also require explicitly working with the memory address
 of certain variables, not only their values.
+
+## The very basics of C
+Before considering on how to even run a C program, let's look at the basics. C is a statically typed language, this means that the type associated with each and every variable must be known before compiling.
+
+Some C type examples:
+
+Type                                | C notation           | Example
+-----------------------------------:|:---------------------|:--------------------
+integer                             | int                  | 1, 2, -5, 6...
+character                           | char                 | "a", "b", "z"...
+float                               | float                | 1.5, -2.354, 0.001...
+void			                    | void                 | no type, no value
+
+
+A very simple example, containing only variables:
+```c
+int x; // Declaration of the variable x
+x = 5; // Assignment of the variable x
+int y = 10; // Both at once
+```
+
+If we want to do something with these variables, we could insert a function. Don't worry if you do not understand this part yet, in the next exercise session we will go into more depth on functions.
+
+Let's look at a very simple program that adds two numbers together:
+
+```c
+int add(int a, int b){  // We make a function called add, which takes two arguments: a and b which are both an integer
+    return a+b;  // The function add returns an integer
+}
+
+int main(void){ // The main function takes nothing as an argument, hence the 'void'
+    int x;
+    x = 5;
+    int y = 10;
+	
+    int result = add(x, y); // We call the function add
+    return 0; // We return 0 here since our main function is of the integer type (More on this later)
+}
+```
+Notice the `int main(void){}` function, this is mandatory in every single C program.
+
+What if you wanted to put the code of the `int add(int a, int b){}` function below the main function? Since the compiler reads the source code file from top to bottom, it will panic if it sees the function call to the `add` function inside `int main(void)`. Since it doesn't recognize it. This is where a *function declaration* comes into play, see the code segment below. This declaration simply stands for: I know this function is missing, but trust me, it exists somewhere later.
+
+Now consider the following equivalent program:
+```c
+int add(int, int); // This is a function declaration
+
+int main(void){
+    int x;	
+    x = 5;
+    int y = 10;
+	
+    int result = add(x, y);
+    return 0; 
+}
+
+int add(int a, int b){
+    return a+b;
+}
+```
+If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](/exercises/1-c-asm-basics/#dissecting-hello-world)
+
+
+
 
 ## Compiling C
 
@@ -202,7 +265,7 @@ The first line tells the compiler to include parts of the C standard library, th
 enables us to use predefined functions, such as the `printf` we use to print to the
 console. This `#include` directive is similar to `import` in Python or Java.
 In this case, we include the `stdio.h` *header*, which includes functions related to
-input/output (**st**an**d**ard **i/o**).
+input/output (**st**an**d**ard **i**nput/**o**utput). 
 
 We use the `printf` function from `stdio.h` to print the text "Hello world" followed
 by a line break (`\n`). Later in this session, we will see how to print values of variables
@@ -291,6 +354,19 @@ be ignored.
 In general, if the user's input does not respect the format specified in `scanf`, strange values
 can appear in your program.
 
+
+Most commonly found format specifiers:
+
+Format specifier                    | Usage
+-----------------------------------:|:-------------
+%d                                  | For decimal values, so usually signed integers
+%p                                  | For pointers, so memory addresses
+%u                                  | For unsigned integers
+%s   			                    | For strings
+%c                                  | For a single character
+%lu                                 | l stands for long, u for unsigned int -> Long unsigned integers
+
+[More exhaustive list with examples](https://www.freecodecamp.org/news/format-specifiers-in-c/)
 ### Exercise 1
 
 Write a C program that asks the user for an integer value and prints out the square
@@ -309,7 +385,7 @@ RISC-V is actually a collection of ISAs, it has different variants
 and extensions for different purposes. You can find the descriptions of all base ISA variants and the
 extensions in the [RISC-V specification](https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf).
 
-In CASS, we will use the RV32I (32-bit integer) instruction set. This specifies a total of 32 32-bit
+In SOCS, we will use the RV32I (32-bit integer) instruction set. This specifies a total of 32 32-bit
 registers and 47 instructions. The instructions are also encoded as 32-bit words.
 
 > :pencil: You might have heard about computers switching from 32-bit instruction sets to 64-bit ones. One important
@@ -348,7 +424,7 @@ that same function call. You also don't want those function calls to overwrite i
 you store in registers at the time of calling.
 
 The rules for register usage are called *calling conventions*, and we will deal with them in more
-detail in later sessions.
+detail in [later sessions](/exercises/3-functions-stack#summary-complete-calling-conventions).
 
 ## Breakdown of assembly instructions
 
@@ -482,7 +558,7 @@ but also `.LC0:`, which points to the string literal.
 
 `main:` is a special label, RARS will start execution from here if it can find it. This is useful if you have
 a longer file, and you don't necessarily want RARS to start executing from the first line. (This will be useful
-for example when you define multiple functions in the same file).
+for example when you define multiple functions in the same file)(Remember to enable "*Initialize Program Counter to global 'main' if defined*" in the settings of RARS)
 
 To enable external programs to also use these labels, you can use the `.globl` directive. For example,
 writing `.globl main` will allow other programs to start executing your program from the `main:` label.
@@ -525,6 +601,27 @@ you can use the `.space N` directive, where `N` is the number of bytes you want 
 For example, you can reserve 4 bytes of space with `empty: .space 4`. In this case,
 you can't provide initial values for the memory, you need to store a value to it
 from your program explicitly.
+
+In the example above we first loaded the address of `a` into `t0` to then load the value stored at the address of `a` into `t1`. We can also do this in a single step, which gives us the same end result:\
+(Under the hood there is a [slight difference](https://stackoverflow.com/a/54011727) but that would take us too far)
+```text
+.data
+    a: .word 5
+.text
+    lw t1, a
+```
+
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+la register,symbol                  | Place the address of the symbol into the register (Does **not** perform memory access)
+lw register,symbol                  | Place the value of the symbol (So which the address points to) into the register (Does perform memory access)
+lb register,symbol                  | The same as lw, but for byte-sized memory accesses
+(t0)                                | Dereference a pointer, * operator in C
+
+
+
 
 ### Exercise 2
 
@@ -585,7 +682,7 @@ bytes these types use on your computer.
 Write a C program that asks the user for a positive integer and iteratively computes the
 factorial of this integer.
 
-> Hint: loops work the same way in C as they do in many other languages.
+> Hint: loops work the same way in C as they do in many other languages. Basic structure: `while (condition){}`
 
 {% if site.solutions.show_session_1 %}
 #### Solution

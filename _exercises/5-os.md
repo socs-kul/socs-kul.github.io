@@ -42,13 +42,13 @@ RISC-V offers three privilege levels or *modes*:
 > :bulb: The RISC-V architecture only requires that machine mode is available on a CPU.
 > Therefore, not all three modes are available on all CPUs.
 
-> :pencil: The RARS emulater that you have been using during previous sessions does not only emulate a RISCV-V processor.
+> :pencil: The RARS emulator that you have been using during previous sessions does not only emulate a RISCV-V processor.
 > It also simulates a tiny OS with its own set of services. All the programs that you assembled and executed in RARS were
 > running on this OS in user mode. This means that it's not possible by default to use all instructions of the RISC-V instruction set
 > in RARS.
 
 ## Requesting OS services
-The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different *mode* with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is no need to save callee-saved registers before a system call, contrary to a normal function call (cf. [calling conventions](../3-functions-stack/#summary-complete-calling-conventions)).
+The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different *mode* with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is **no need to save callee-saved registers** before a system call, contrary to a normal function call (cf. [calling conventions](../3-functions-stack/#summary-complete-calling-conventions)).
 
 A system call can be invoked by using the `ecall` instruction in RARS. The system call number has to be placed in `a7` prior to invoking the `ecall` instruction. Some system calls take some input in specific registers and may produce some output. Following table lists a few examples of system calls that are provided by the OS of RARS. The full list is available on [GitHub](https://github.com/TheThirdOne/rars/wiki/Environment-Calls).
 
@@ -199,6 +199,8 @@ The `.text` sections contains the program's code. Every *jump* or *branch* that 
 
 ### Dynamically allocating memory
 The RARS OS provides a system call `sbrk` (system call number 9) to dynamically request memory. When you request `n` bytes with `sbrk`, the OS will increase the heap region with `n` bytes towards the stack and returns an address, pointing inside the heap region, that can be used to store `n` bytes. This system call replaces the use of the simple allocator function. Following code snippet shows how `sbrk` can be used to dynamically allocate 8 bytes and store two integers in this newly allocated heap region.
+
+> :pencil: `sbrk` changes the location of the *program break*, which defines the end of the process's data segment. Hence the abbreviation `sbrk`.
 
 ``` text
 .globl main

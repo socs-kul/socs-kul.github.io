@@ -87,7 +87,7 @@ The answer is simple and slightly difficult at the same time:
 
 # First steps towards common calling conventions
 
-> :bulb: TL;DR: The official *calling conventions* are [here on the official RISC-V website](https://riscv.org/wp-content/uploads/2015/01/riscv-calling.pdf). You can also find the short version on the [RISC-V card](/files/riscv-card.pdf) that you will have access to in the exam.
+> :bulb: TL;DR: The official *calling conventions* are [here on the official RISC-V website](https://riscv.org/wp-content/uploads/2015/01/riscv-calling.pdf). You can also find the short version on the [RISC-V card](/files/riscv-card.pdf) that you will have access to during the tests.
 
 If the above explanation did not fully click for you yet, don't worry. Let's go step by step and understand why conventions are useful and help us write code that can be used across programs and teams.
 Let's take a look at the partial assembly code below. We already created a `main` and a `sum` label:
@@ -129,7 +129,7 @@ sw t3, 8(t0)  # array[2] = 5
 >
 > Here we change the offset by 4 bytes each time because integers take up 4 bytes in memory.
 
-> :fire: Warm-up 1: Extend the program above to sum the two numbers `a` and `b` and store it in `number`.
+> :fire: Warm-up 1: Extend the program above to sum the two numbers `a` and `b` and store it in `number`. You don't need to perform function calls just yet, you can ignore the labels for now.
 
 {% if site.solutions.show_session_3 %}
 
@@ -452,7 +452,7 @@ Consider the following recursive function which calculates `n!`.
 
 # Excursion: Tail recursion
 
-A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the last instruction of a subroutine (before the return) calls a different subroutine.
+A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the **last** instruction of a subroutine (before the return) calls a different subroutine.
 Compilers can take advantage of tail calls to reduce memory usage. This is because for tail calls, no additional stack frame needs to be entered. Instead, we can simply overwrite the function parameters, jump to the function and execute from there by reusing the original function stack frame.
 This is possible since we do not expect to be returned to and instead refer to our original caller that is on our stack frame. Thus, when the (tail-) called function returns, it will not return to us but directly to the original code that called us.
 
