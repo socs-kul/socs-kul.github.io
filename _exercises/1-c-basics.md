@@ -346,7 +346,7 @@ of this value, together with the original number.
 
 # Pointers in C
 
-As mentioned [before](#integers-in-c-and-assembly), variables in C are stored in memory locations.
+As mentioned [before](#integers-in-c), variables in C are stored in memory locations.
 Of course, now we see that to perform operations on these values, first they need to be loaded into
 registers (usually using the `lw` instruction).
 
@@ -434,7 +434,7 @@ encoding.
 In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:
 `sizeof(int)` or `sizeof(a)`.
 
-### Exercise 3
+### Exercise 2
 
 Write a C program that asks the user for an integer. Print the address, the value
 and the size in bytes of this integer. Now store the address of this integer in a pointer.
@@ -456,7 +456,7 @@ bytes these types use on your computer.
 ```
 {% endif %}
 
-### Exercise 4
+### Exercise 3
 
 Write a C program that asks the user for a positive integer and iteratively computes the
 factorial of this integer.
