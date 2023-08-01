@@ -314,7 +314,7 @@ Make sure that your solution works for all `b >= 0`!
 {% if site.solutions.show_session_1 %}
 #### Solution
 ```text
-{% include_relative 1-c-asm-basics/sol6.S %}
+{% include_relative 2-asm-basics/sol3.S %}
 ```
 {% endif %}
 
