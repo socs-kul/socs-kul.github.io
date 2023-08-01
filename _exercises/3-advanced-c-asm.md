@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 2: Advanced C & assembly"
-nav_order: 2
+title: "Session 3: Advanced C & assembly"
+nav_order: 3
 nav_exclude: false
 search_exclude: false
 has_children: false
