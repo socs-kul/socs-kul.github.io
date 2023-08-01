@@ -237,7 +237,7 @@ that your program works as intended!
 {% if site.solutions.show_session_1 %}
 #### Solution
 ```text
-{% include_relative 1-c-asm-basics/sol2.S %}
+{% include_relative 2-asm-basics/sol1.S %}
 ```
 {% endif %}
 
