@@ -6,20 +6,6 @@ nav_exclude: false
 search_exclude: false
 has_children: false
 has_toc: false
-flush_reload:
-    - /exercises/7-cache/flush_reload/flush_reload1.svg
-    - /exercises/7-cache/flush_reload/flush_reload2.svg
-    - /exercises/7-cache/flush_reload/flush_reload3.svg
-    - /exercises/7-cache/flush_reload/flush_reload4.svg
-    - /exercises/7-cache/flush_reload/flush_reload5.svg
-    - /exercises/7-cache/flush_reload/flush_reload6.svg
-prime_probe:
-    - /exercises/7-cache/prime_probe/prime_probe.svg
-    - /exercises/7-cache/prime_probe/prime_probe1.svg
-    - /exercises/7-cache/prime_probe/prime_probe2.svg
-    - /exercises/7-cache/prime_probe/prime_probe3.svg
-    - /exercises/7-cache/prime_probe/prime_probe4.svg
-    - /exercises/7-cache/prime_probe/prime_probe5.svg
 ---
 
 ## Table of contents
@@ -468,4 +454,6 @@ cache.
 #### Solution
 
 The strength of the 1-word block cache is that it has 16 separate blocks.  Although the set-associative has just as many blocks, each block has twice as many potential memory addresses mapped on it. If we use a FIFO replacement, a sequence of 8, 16, 0 would insert and remove 8 out of a set-associative cache. The direct mapped cache would still have the 8.
+
 {% endif %}
+
