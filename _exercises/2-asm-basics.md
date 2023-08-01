@@ -1,4 +1,4 @@
----
+(---
 layout: default
 title: "Session 2: Assembly basics"
 nav_order: 2
@@ -15,4 +15,7 @@ has_toc: false
 {:toc}
 
 # Introduction
+
+## Integers in assembly
+In contrast to C, in RISC-V assembly we can only perform arithmetic operations on values stored in registers:
 
