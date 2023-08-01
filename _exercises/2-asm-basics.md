@@ -292,7 +292,7 @@ at the next instruction (`mul`). You can find other useful branching instruction
 
 ### Exercise 2
 
-Translate the program from exercise 4 to RISC-V. You don't have to ask for user input,
+Translate the following program to RISC-V. The C-program asks the user for a positive integer and iteratively computes the factorial of this integer. You don't have to ask for user input,
 store the input integer in the data section.
 
 {% if site.solutions.show_session_1 %}
