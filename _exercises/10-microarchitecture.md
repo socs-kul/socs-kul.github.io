@@ -511,65 +511,6 @@ applied to predict the outcome of indirect branches or `ret` instructions.
 > but speculative execution [is not the only source of transient
 > execution](https://en.wikipedia.org/wiki/Meltdown_(security_vulnerability)).
 
-### Spectre
-In 2018, [a major vulnerability called Spectre](https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)) became public, which has been
-discovered jointly by academic and industry security researchers. The
-vulnerability had a tremendous impact not only on academic research but also on
-industry: mitigations were proposed for microprocessors, operating systems, and
-other software. With our knowledge about architectures (speculative execution in particular)
-we can now understand what happened!
-
-![Spectre logo](/exercises/8-microarchitecture/spectre.png){: .center-image
-width="250"}
-
-The main idea behind **Spectre attacks** is to exploit prediction mechanisms in
-order to leak secrets to the microarchitectural state during transient
-execution. Transient executions are reverted at the architectural level (they do
-not impact the final value of registers or memory) but *their effect on the
-microarchitectural state (for instance the cache) is not reverted*. This means
-that if a secret is accessed during transient execution, computations on that
-secret can leave traces in the microarchitecture. For instance, if a secret is
-used as an index to load data from memory (`load[secret]`), the state of the
-cache will be affected by the value of `secret`, and an attacker can use cache
-attacks to retrieve the value of that secret.
-
-Consider for instance the following code where an attacker
-wants to learn the value of `secret` but cannot directly access it: they can only call the function `spectre_gadget` with an arbitrary value `i`. Notice that the program is protected against cache attacks because the `secret` cannot be used as a memory index during "normal" (non-transient) execution.
-```c
-int tab[4] = { 0, 1, 2, 3 };
-char tab2[1024];
-int secret; // The secret we want to protect
-
-void spectre_gadget(int i) {  // The attacker calls the function with i=260
-   if (i < 4) {               // The condition mispeculated
-    int index = tab[i];       // index = secret
-    char tmp = tab2[index * 256]; // secret is used as a load index during transient execution
-    // [...]
-   }
-}
-```
-1. The attacker can (optionally) train the branch predictor so that it predicts
-   the condition `(i < 4)` to be true;
-1. The attacker prepares the cache (e.g., by flushing the content of `tab2`);
-1. The attacker calls the victim with a value `i` such that `tab[i]` returns the
-   secret. Remember how [pointer arithmetic
-   works](/exercises/4-dynamic-memory/#pointer-arithmetic): `tab[i] = tab + i *
-   4`. Additionally, notice that `secret` is located at address `tab + 1024 +
-   4*4`. Hence, we need to find `i` such that `tab + i * 4 = tab + 1024 + 4*4`,
-   which is achieved with `i = 260`. In other words, `index = tab[260]` will
-   load `secret` in `index` if the branch is mispredicted to be true!
-1. The processor predicts the branch to be true, accesses the secret and
-   uses it as an index to access `tab2`, which brings `tab2[secret]` into
-   the cache. The processor eventually realizes that the prediction is incorrect
-   and flushes the pipeline, but the state of the cache is not reverted.
-1. Finally, the attacker can use cache attacks (like in the [previous session](/exercises/cache/#basic-cache-attack-flushreload))
-to infer which cache lines have
-   been accessed by the victim and recover the value of `secret`!
-
-The Spectre attack illustrated above abuses the conditional branch predictor, but
-there exist [other variants of Spectre](https://transient.fail/) that exploit
-different prediction mechanisms.
-
 ## Exercise 4 - Code Optimization
 The code below describes a simple function in RISC-V assembly (`A = B + E; C = B +
 F`).
