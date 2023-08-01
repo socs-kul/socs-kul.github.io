@@ -340,7 +340,7 @@ of this value, together with the original number.
 {% if site.solutions.show_session_1 %}
 #### Solution
 ```c
-{% include_relative 1-c-asm-basics/sol1.c %}
+{% include_relative 1-c-basics/sol1.c %}
 ```
 {% endif %}
 
