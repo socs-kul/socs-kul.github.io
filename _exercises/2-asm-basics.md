@@ -298,7 +298,6 @@ store the input integer in the data section.
 ```c
 {% include_relative 1-c-asm-basics/sol4.c %}
 ```
-{% endif %}
 
 {% if site.solutions.show_session_1 %}
 #### Solution
