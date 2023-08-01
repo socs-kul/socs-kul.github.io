@@ -288,7 +288,7 @@ loop:
 In this example, we used the `bne` instruction, which only jumps to the `loop:` label
 if the two register operands are not equal. Otherwise, the program continues executing
 at the next instruction (`mul`). You can find other useful branching instructions on the
-[RISC-V card](/files/riscv-card.pdf).
+.
 
 ### Exercise 2
 
