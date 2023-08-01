@@ -296,13 +296,13 @@ Translate the following program from the [previous session](/exercises/1-c-basic
 store the input integer in the data section.
 
 ```c
-{% include_relative 1-c-asm-basics/sol4.c %}
+{% include_relative 1-c-basics/sol3.c %}
 ```
 
 {% if site.solutions.show_session_1 %}
 #### Solution
 ```text
-{% include_relative 1-c-asm-basics/sol5.S %}
+{% include_relative 2-asm-basics/sol2.S %}
 ```
 {% endif %}
 
