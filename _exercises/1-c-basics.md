@@ -81,28 +81,6 @@ An **assembler** program can compile the mnemonic programs into machine code. Yo
 - Machine code: `00000000010100000000001010010011`
 - Mnemonic form: `addi t0, zero, 5`
 
-## Instruction set architectures (ISAs)
-
-How do we know which instructions we (or the compiler) can use when writing assembly/machine code?
-Different processors can execute different instructions. The list of instructions a given CPU can
-execute is defined in the instruction set architecture (ISA). This specification includes the list of
-possible instructions (and their behavior), but also the list of registers or other hardware features that must be supported
-to be able to execute these instructions.
-
-The most widely used ISA today is x86, which is implemented by almost all Intel and AMD processors. x86 is called a
-CISC (*complex* instruction set computer) ISA, its specification has evolved over many years and currently includes
-thousands of instructions, some of which are very specialized to increase performance (e.g., dedicated
-instructions for performing AES encryption).
-
-In this course, we will focus on a RISC (*reduced* instruction set computer) ISA, namely **RISC-V**. RISC ISAs
-contain a lot fewer instructions and are easier to write by hand and understand. This does not necessarily mean
-worse performance however! Apple's M1 processor also uses a RISC ISA (ARMv8) and outperforms many other
-commercial CPUs.
-
-RISC-V is an open standard, both the [specification](https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf) of the ISA and many of the development tools and
-reusable components are open-source, which makes using the ISA, experimenting with it, and extending
-it easier. These days it is being increasingly used not only in academia, but also in industry.
-
 # The C programming language
 
 In SOCS, we will use the C programming language to showcase programming concepts which we then translate to
