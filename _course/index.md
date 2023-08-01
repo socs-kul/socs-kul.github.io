@@ -16,14 +16,16 @@ For a few years now, we provided the exercise sessions as web pages for a simila
 There will be 2 tests during the semester. The difficulty will not be greater than the more difficult exercises from the exercise sessions. An example test will be made available.
 These tests will take place on a computer.
 
-| Content       | Date             |
+| Test       | Date            |
 | :-----        | :-----------     |
-| Session 1-    | 8 november 2023  |
-| Session .-... | 20 december 2023 |
+| Test 1 (50%) | Nov 8  |
+| Test 2 (50%) | Dec 20 |
+
+Both tests contribute equally to your grade. The first test covers exercise sessions 1-6, the second test covers sessions 7-11. More details about these tests will be provided in the recap sessions (sessions 6 and 11).
 
 ## Exercises
 
-There are 9 exercise sessions in total. The material available on this website contains
+There are 11 exercise sessions in total. The material available on this website contains
 both the theory, the exercises, and the solutions. The solutions are hidden until the end
 of each week.
 
@@ -35,19 +37,21 @@ Even if the solutions are already visible, it is strongly recommended to first w
 solutions on your own (even using external resources, if you understand them) before you
 look at the provided solutions.
 
-The 9 sessions will have the following contents:
+The 11 sessions will have the following contents:
 
-| Week   | Session name |
-| :----- | :----------- |
-| Feb 20 | C & assembly basics |
-| Feb 27 | Advanced C & assembly |
-| Mar 6  | Functions and the stack |
-| Mar 13 | Dynamic memory |
-| Mar 27 | Operating systems |
-| Apr 24 | Large exercise: linked lists |
-| May 1  | Caches |
-| May 8  | Microarchitecture |
-| May 15 | Recap and Q&A |
+| Week       | Session name             |
+| :-----        | :-----------     |
+| Okt 2  | Introduction to C  |
+| Okt 9 | Assembly basics |
+| Okt 16 | Advanced C & assembly |
+| Okt 23 | Functions and the stack |
+| Okt 30 | Dynamic memory |
+| Nov 6 | Recap session 1 |
+| Nov 13 | Operating Systems |
+| Nov 20 | Linked Lists |
+| Nov 27 | Caches |
+| Dec 4 | Performance and Microarchitecture
+| Dec 11 | Recap session 2 |
 
 ## YouTube videos
 
