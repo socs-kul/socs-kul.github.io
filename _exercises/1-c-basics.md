@@ -277,7 +277,7 @@ main function returns an integer value and does not take any parameters (`void`)
 The return value of the `main` function usually signals whether the execution
 was successful. `0` means success, while other values may be interpreted as error codes.
 
-## Integers in C and assembly
+## Integers in C
 
 You can use integer variables and basic arithmetic operations in C like in many other languages.
 
@@ -292,19 +292,6 @@ these variables (such as addition or multiplication), we basically perform these
 at the corresponding memory locations.
 
 > :crystal_ball: A look [forward](#pointers-in-c): You can access the memory address of a variable by adding `&` in front of the variable name. For example, in the program above, `a` refers to the value `4`, but `&a` refers to the memory address where that `4` value is actually stored.
-
-In contrast, in RISC-V assembly we can only perform arithmetic operations on values stored in registers:
-
-```text
-addi t0, zero, 4      # t0 = zero + 4 (zero is a special register containing the value 0)
-addi t1, zero, 5      # t1 = zero + 5
-addi t2, t0, 3        # t2 = t0 + 3
-mul  t2, t2, t1       # t2 = t2 * t1
-```
-
-> :pencil: Hashmarks `#` represent line comments in RISC-V assembly, while in C we can use `//` for the same purpose.
-
-> :fire: Warm-up: Try out this example in [RARS](/tutorials/rars)! Check whether you see the correct value in `t2` after executing the program.
 
 ## Handling user input in C
 
