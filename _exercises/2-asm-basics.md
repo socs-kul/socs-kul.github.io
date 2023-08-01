@@ -296,6 +296,12 @@ Translate the following program to RISC-V. The C-program asks the user for a pos
 store the input integer in the data section.
 
 {% if site.solutions.show_session_1 %}
+```c
+{% include_relative 1-c-asm-basics/sol4.c %}
+```
+{% endif %}
+
+{% if site.solutions.show_session_1 %}
 #### Solution
 ```text
 {% include_relative 1-c-asm-basics/sol5.S %}
