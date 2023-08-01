@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 3: Functions and the stack"
-nav_order: 3
+title: "Session 4: Functions and the stack"
+nav_order: 4
 nav_exclude: false
 search_exclude: false
 has_children: false

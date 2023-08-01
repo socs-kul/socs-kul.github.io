@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 5: Operating Systems"
-nav_order: 5
+title: "Session 7: Operating Systems"
+nav_order: 7
 nav_exclude: false
 search_exclude: false
 has_children: false

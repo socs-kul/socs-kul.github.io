@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Session 1: C & assembly basics"
+title: "Session 1: Introduction to C"
 nav_order: 1
 nav_exclude: false
 search_exclude: false

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 8: Performance and Microarchitecture"
-nav_order: 8
+title: "Session 10: Performance and Microarchitecture"
+nav_order: 10
 nav_exclude: false
 search_exclude: false
 has_children: false
