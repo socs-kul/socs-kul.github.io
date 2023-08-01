@@ -1,6 +1,6 @@
-# CASS Website
+# SOCS Website
 
-This is the repository with the source files for the website of the course CASS. We build it with the awesome [Just the docs theme](https://github.com/pmarsceill/just-the-docs). If you found typos or mistakes, please create a PR!
+This is the repository with the source files for the website of the course SOCS. We build it with the awesome [Just the docs theme](https://github.com/pmarsceill/just-the-docs). If you found typos or mistakes, please create a PR!
 
 ## Files
 
