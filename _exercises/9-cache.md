@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Session 9: Caches and Microarchitectural Timing Attacks"
+title: "Session 9: Caches"
 nav_order: 9
 nav_exclude: false
 search_exclude: false
@@ -454,6 +454,6 @@ cache.
 #### Solution
 
 The strength of the 1-word block cache is that it has 16 separate blocks.  Although the set-associative has just as many blocks, each block has twice as many potential memory addresses mapped on it. If we use a FIFO replacement, a sequence of 8, 16, 0 would insert and remove 8 out of a set-associative cache. The direct mapped cache would still have the 8.
-{% endif %}
 
+{% endif %}
 
