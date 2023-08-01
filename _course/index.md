@@ -16,6 +16,29 @@ For a few years now, we provided the exercise sessions as web pages for a simila
 There will be 2 tests during the semester. The difficulty will not be greater than the more difficult exercises from the exercise sessions. An example test will be made available.
 These tests will take place on a computer.
 
+| Test       | Date            |
+| :-----        | :-----------     |
+| Test 1 (50%) | Nov 8  |
+| Test 2 (50%) | Dec 20 |
+
+Both tests contribute equally to your grade. The first test covers exercise sessions 1-6, the second test covers sessions 7-11. More details about these tests will be provided in the recap sessions (sessions 6 and 11).
+
+## Exercises
+
+There are 11 exercise sessions in total. The material available on this website contains
+both the theory, the exercises, and the solutions. The solutions are hidden until the end
+of each week.
+
+Please bring your laptops to the exercise sessions. You can work at your own pace, and don't
+be afraid of asking questions from the teaching assistant. If you don't have time to finish
+the exercises, it is recommended to finish them before starting the next session.
+
+Even if the solutions are already visible, it is strongly recommended to first write the
+solutions on your own (even using external resources, if you understand them) before you
+look at the provided solutions.
+
+The 11 sessions will have the following contents:
+
 | Week       | Session name             |
 | :-----        | :-----------     |
 | Okt 2  | Introduction to C  |
@@ -29,34 +52,6 @@ These tests will take place on a computer.
 | Nov 27 | Caches |
 | Dec 4 | Performance and Microarchitecture
 | Dec 11 | Recap session 2 |
-
-## Exercises
-
-There are 9 exercise sessions in total. The material available on this website contains
-both the theory, the exercises, and the solutions. The solutions are hidden until the end
-of each week.
-
-Please bring your laptops to the exercise sessions. You can work at your own pace, and don't
-be afraid of asking questions from the teaching assistant. If you don't have time to finish
-the exercises, it is recommended to finish them before starting the next session.
-
-Even if the solutions are already visible, it is strongly recommended to first write the
-solutions on your own (even using external resources, if you understand them) before you
-look at the provided solutions.
-
-The 9 sessions will have the following contents:
-
-| Week   | Session name |
-| :----- | :----------- |
-| Feb 20 | C & assembly basics |
-| Feb 27 | Advanced C & assembly |
-| Mar 6  | Functions and the stack |
-| Mar 13 | Dynamic memory |
-| Mar 27 | Operating systems |
-| Apr 24 | Large exercise: linked lists |
-| May 1  | Caches |
-| May 8  | Microarchitecture |
-| May 15 | Recap and Q&A |
 
 ## YouTube videos
 
