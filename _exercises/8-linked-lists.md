@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 6: Linked Lists"
-nav_order: 6
+title: "Session 8: Linked Lists"
+nav_order: 8
 nav_exclude: false
 search_exclude: false
 has_children: false
