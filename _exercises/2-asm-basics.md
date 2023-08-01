@@ -133,3 +133,111 @@ you store in registers at the time of calling.
 The rules for register usage are called *calling conventions*, and we will deal with them in more
 detail in [later sessions](/exercises/3-functions-stack#summary-complete-calling-conventions).
 
+# Memory sections in assembly
+
+So far, we have only used registers to store values in assembly. But in many cases, we want to store
+values in memory (e.g., if we have more variables than the number of available registers). This is of
+course also possible in assembly.
+
+A program is made up of multiple **memory sections**. The C compiler manages this for us transparently,
+but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](#compiling-c)
+we've seen, you'll see the string `"Hello world"` is stored in `.section .rodata`.
+
+## The `.text` section
+
+In RISC-V assembly, we will make use of two sections. The program code (the instructions) are
+stored in the `.text` section. If you only write instructions in RARS, it will automatically put
+them in this section, this is why the warm-up program worked as it did. But it's good practice to always define it:
+
+```text
+.text
+main:
+    addi t2, t0, 3
+    mul  t2, t2, t1
+```
+
+Notice that we've also added `main:` to our program. This is called a **label**, and it can be used to
+point to a certain instruction or data in memory. In the x86 example above, you can also find a `main:` label,
+but also `.LC0:`, which points to the string literal.
+
+`main:` is a special label, RARS will start execution from here if it can find it. This is useful if you have
+a longer file, and you don't necessarily want RARS to start executing from the first line. (This will be useful
+for example when you define multiple functions in the same file)(Remember to enable "*Initialize Program Counter to global 'main' if defined*" in the settings of RARS)
+
+To enable external programs to also use these labels, you can use the `.globl` directive. For example,
+writing `.globl main` will allow other programs to start executing your program from the `main:` label.
+We will always add this directive when working in RARS.
+
+```text
+.globl main
+.text
+main:
+    addi t2, t0, 3
+```
+
+## The `.data` section
+
+We can store variables in the `.data` section. These will work very similarly to C variables, but there is
+a weaker notion of data types in assembly. For integers, we will usually reserve a word (32 bits) of memory,
+which corresponds to the size of `int` in C in most cases (an `int` in C does not have a concretely defined
+size in the specification).
+
+We also use a label (`a:`) to give a name to our word in memory, otherwise it would be difficult to
+refer back to it.
+
+```text
+.data
+    a: .word 5
+.text
+    la t0, a       # load address of `a` into `t0`
+    lw t1, (t0)    # load value at address `t0` into `t1`
+    addi t1, t1, 3
+    sw t1, (t0)    # store value from `t1` to address `t0`
+```
+
+When reserving a `word`, we can also give it an initial value in memory. In the above example,
+we chose to give our variable `a` the initial value 5. In our program, we first load the address
+of `a` into `t0` (`la`), then load the word at this address (now contained in `t0`)
+into `t1`. After increasing this value by 3, we write it back to the original memory location.
+
+If you want to reserve space in the data section with a byte granularity (not full words),
+you can use the `.space N` directive, where `N` is the number of bytes you want to reserve.
+For example, you can reserve 4 bytes of space with `empty: .space 4`. In this case,
+you can't provide initial values for the memory, you need to store a value to it
+from your program explicitly.
+
+In the example above we first loaded the address of `a` into `t0` to then load the value stored at the address of `a` into `t1`. We can also do this in a single step, which gives us the same end result:\
+(Under the hood there is a [slight difference](https://stackoverflow.com/a/54011727) but that would take us too far)
+```text
+.data
+    a: .word 5
+.text
+    lw t1, a
+```
+
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+la register,symbol                  | Place the address of the symbol into the register (Does **not** perform memory access)
+lw register,symbol                  | Place the value of the symbol (So which the address points to) into the register (Does perform memory access)
+lb register,symbol                  | The same as lw, but for byte-sized memory accesses
+(t0)                                | Dereference a pointer, * operator in C
+
+
+
+
+### Exercise 1
+
+Write a RISC-V program that calculates the following: `c = a^2 + b^2`.
+Use the data section to reserve memory for `a`, `b`, and `c`.
+Use the debugging features in RARS (memory viewer, register contents) to make sure
+that your program works as intended!
+
+{% if site.solutions.show_session_1 %}
+#### Solution
+```text
+{% include_relative 1-c-asm-basics/sol2.S %}
+```
+{% endif %}
+
