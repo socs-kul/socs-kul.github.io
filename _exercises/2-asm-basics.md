@@ -1,4 +1,4 @@
-(---
+---
 layout: default
 title: "Session 2: Assembly basics"
 nav_order: 2
