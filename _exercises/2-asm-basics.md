@@ -15,484 +15,307 @@ has_toc: false
 {:toc}
 
 # Introduction
+After the introductory session to the C programming language, we will now dive into the lower-level assembly code in which the high-level concepts are translated by the compiler. The majority of the sessions will focus on writing assembly programs from scratch. This session is more theoretical and might be a bit overwhelming, but understanding the concepts covered now will be very important for the later sessions. You can also come back here to refresh your knowledge when these concepts come up in later sessions.
 
-After the more theory-oriented session 1, this time we will dive into more
-complicated exercises (after covering a few more concepts). Of course, if anything
-is unclear, you can check back with the [previous exercise](/exercises/1-c-asm-basics),
-ask your teaching assistant, or post in the Toledo forums!
+If you have any questions or anything is unclear, ask your teaching assistant or reach out to us on the Toledo forums!
 
-Let's start off by practicing everything you've learned about RISC-V assembly in the previous
-session.
+# Instruction set architectures (ISAs)
 
-### Exercise 1
-A switch case is a more efficient way to denote multiple if statements on the same variable.
+How do we know which instructions we (or the compiler) can use when writing assembly/machine code?
+Different processors can execute different instructions. The list of instructions a given CPU can
+execute is defined in the instruction set architecture (ISA). This specification includes the list of
+possible instructions (and their behavior), but also the list of registers or other hardware features that must be supported
+to be able to execute these instructions.
 
-Take the following C code:
+The most widely used ISA today is x86, which is implemented by almost all Intel and AMD processors. x86 is called a
+CISC (*complex* instruction set computer) ISA, its specification has evolved over many years and currently includes
+thousands of instructions, some of which are very specialized to increase performance (e.g., dedicated
+instructions for performing AES encryption).
 
-```c
-switch (operation) {
-    case 0: result = a + b; break; // If operation == 0, then result = ...
-    case 1: result = a - b; break; // If operation == 1, then result = ...
-    case 2: result = a + 5; break;
-    case 3: result = b + 5; break;
-}
+In this course, we will focus on a RISC (*reduced* instruction set computer) ISA, namely **RISC-V**. RISC ISAs
+contain a lot fewer instructions and are easier to write by hand and understand. This does not necessarily mean
+worse performance however! Apple's M1 processor also uses a RISC ISA (ARMv8) and outperforms many other
+commercial CPUs.
+
+RISC-V is an open standard, both the [specification](https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf) of the ISA and many of the development tools and
+reusable components are open-source, which makes using the ISA, experimenting with it, and extending
+it easier. These days it is being increasingly used not only in academia, but also in industry.
+
+# RISC-V assembly
+
+## Integers in assembly
+In contrast to C, in RISC-V assembly we can only perform arithmetic operations on values stored in registers:
+```text
+addi t0, zero, 4      # t0 = zero + 4 (zero is a special register containing the value 0)
+addi t1, zero, 5      # t1 = zero + 5
+addi t2, t0, 3        # t2 = t0 + 3
+mul  t2, t2, t1       # t2 = t2 * t1
 ```
 
-Convert this code into RISC-V assembly!
-Assume that the variables `operation`, `a`, and `b` are integers stored in memory (the data section).
-You can store the result in the `a0` register.
+> :pencil: Hashmarks `#` represent line comments in RISC-V assembly, while in C we can use `//` for the same purpose.
 
-> :bulb: Tip: If at first you're scared of the `switch` statement, don't be!
-> Think about how you would convert it into consecutive `if` statements in C.
+> :fire: Warm-up: Try out this example in [RARS](/tutorials/rars)! Check whether you see the correct value in `t2` after executing the program.
 
-{% if site.solutions.show_session_2 %}
+## Breakdown of assembly instructions
+
+We have already seen an example of RISC-V assembly:
+
+```text
+addi t2, t0, 3        # t2 = t0 + 3
+mul  t2, t2, t1       # t2 = t2 * t1
+```
+
+We can already deduct some things from these instructions:
+1. Instructions always start with the desired operation (`addi`, `mul`) called the **mnemonic**, followed by its **operands**.
+2. If there is a destination register (where the result of the operation is written), it is the first parameter of the instruction.
+3. The subsequent parameters are used for the operation, and they can be either other registers (`t2`, `t1`) or immediate values (`3`). The `i` at the end of `addi` also refers to this immediate value (adding two register values would use the `add` instruction).
+
+There are four different types of instructions, the two above are called *I-type* (immediate) and *R-type* (register) instructions, respectively.
+Later in the course we will see the other two types used for jump and branch instructions.
+
+### Pseudo-instructions
+
+When working with RARS, you might notice that after assembling your code, certain instructions
+are assembled into two consecutive machine code instructions, or your instruction is switched out
+for another one. This happens when you use *pseudo-instructions*. These instructions are part of the ISA,
+but they do not have a machine code representation. Instead, they are implemented using other instructions,
+which are automatically substituted by the assembler.
+
+One example is the `mv t0, t1` instruction (copy `t1` into `t0`), which is implemented using the
+`addi t0, t1, 0` instruction (adding `0` to the value in `t1` and writing it to `t0`).
+You can also see how the `lw` (load word) instruction is translated to two separate instructions at the end of
+the [RARS tutorial](/tutorials/rars).
+
+# Registers in RISC-V
+
+RISC-V is actually a collection of ISAs, it has different variants
+and extensions for different purposes. You can find the descriptions of all base ISA variants and the
+extensions in the [RISC-V specification](https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf).
+
+In SOCS, we will use the RV32I (32-bit integer) instruction set. This specifies a total of 32 32-bit
+registers and 47 instructions. The instructions are also encoded as 32-bit words.
+
+> :pencil: You might have heard about computers switching from 32-bit instruction sets to 64-bit ones. One important
+> reason for this change is that RAM is usually addressed by a value stored in a register. In other
+> words, the size of one register limits the size of addressable memory. 32-bit registers can only store
+> numbers up to 2^32, which means that you can only address about 4 GB of memory, which is increasingly
+> insufficient today.
+
+As mentioned previously, RISC-V instructions perform operations on values stored in registers,
+which are located inside the CPU.
+All registers `x0-x31` are given a standard name that refers to their conventional usage
+(you can use these names when writing RISC-V assembly in RARS). These can be found
+[here](https://github.com/riscv-non-isa/riscv-asm-manual/blob/master/riscv-asm.md#general-registers)
+in full. You can also find the short description and names of all registers on the [RISC-V card](/files/riscv-card.pdf).
+For example, the first register, `x0`, is referred to as `zero` because reading from it
+always returns `0` and writes to it are ignored.
+
+Number | Name | Role
+:-----:|:----:|-----
+x0 | zero | Always returns 0
+x2 | sp | Stack pointer
+x5 | t0 | Temporary register 0
+... | ... | ...
+
+In theory, the other 31 registers (other than `zero`) could be used for any purpose, but in practice they all have assigned
+roles. What does this mean? If all the software on the computer is written by you, you can choose to
+use the registers as you please (e.g., storing your first variable in `x1`, the second in `x2`, ...),
+as you have complete control over the instructions that are executing.
+
+In most cases, however, the programs you write will have to cooperate with other software:
+you will want to use the operating system to write to the console or into files, and you will
+want to call functions defined in libraries (e.g., `printf`). This means that your programs will have
+to use the registers in a way that's in line with the expectations of other software. This is very
+important, for example, when passing arguments to a library function or saving the return value of
+that same function call. You also don't want those function calls to overwrite important data that
+you store in registers at the time of calling.
+
+The rules for register usage are called *calling conventions*, and we will deal with them in more
+detail in [later sessions](/exercises/3-functions-stack#summary-complete-calling-conventions).
+
+# Memory sections in assembly
+
+So far, we have only used registers to store values in assembly. But in many cases, we want to store
+values in memory (e.g., if we have more variables than the number of available registers). This is of
+course also possible in assembly.
+
+A program is made up of multiple **memory sections**. The C compiler manages this for us transparently,
+but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](#compiling-c)
+we've seen, you'll see the string `"Hello world"` is stored in `.section .rodata`.
+
+## The `.text` section
+
+In RISC-V assembly, we will make use of two sections. The program code (the instructions) are
+stored in the `.text` section. If you only write instructions in RARS, it will automatically put
+them in this section, this is why the warm-up program worked as it did. But it's good practice to always define it:
+
+```text
+.text
+main:
+    addi t2, t0, 3
+    mul  t2, t2, t1
+```
+
+Notice that we've also added `main:` to our program. This is called a **label**, and it can be used to
+point to a certain instruction or data in memory. In the x86 example above, you can also find a `main:` label,
+but also `.LC0:`, which points to the string literal.
+
+`main:` is a special label, RARS will start execution from here if it can find it. This is useful if you have
+a longer file, and you don't necessarily want RARS to start executing from the first line. (This will be useful
+for example when you define multiple functions in the same file)(Remember to enable "*Initialize Program Counter to global 'main' if defined*" in the settings of RARS)
+
+To enable external programs to also use these labels, you can use the `.globl` directive. For example,
+writing `.globl main` will allow other programs to start executing your program from the `main:` label.
+We will always add this directive when working in RARS.
+
+```text
+.globl main
+.text
+main:
+    addi t2, t0, 3
+```
+
+## The `.data` section
+
+We can store variables in the `.data` section. These will work very similarly to C variables, but there is
+a weaker notion of data types in assembly. For integers, we will usually reserve a word (32 bits) of memory,
+which corresponds to the size of `int` in C in most cases (an `int` in C does not have a concretely defined
+size in the specification).
+
+We also use a label (`a:`) to give a name to our word in memory, otherwise it would be difficult to
+refer back to it.
+
+```text
+.data
+    a: .word 5
+.text
+    la t0, a       # load address of `a` into `t0`
+    lw t1, (t0)    # load value at address `t0` into `t1`
+    addi t1, t1, 3
+    sw t1, (t0)    # store value from `t1` to address `t0`
+```
+
+When reserving a `word`, we can also give it an initial value in memory. In the above example,
+we chose to give our variable `a` the initial value 5. In our program, we first load the address
+of `a` into `t0` (`la`), then load the word at this address (now contained in `t0`)
+into `t1`. After increasing this value by 3, we write it back to the original memory location.
+
+If you want to reserve space in the data section with a byte granularity (not full words),
+you can use the `.space N` directive, where `N` is the number of bytes you want to reserve.
+For example, you can reserve 4 bytes of space with `empty: .space 4`. In this case,
+you can't provide initial values for the memory, you need to store a value to it
+from your program explicitly.
+
+In the example above we first loaded the address of `a` into `t0` to then load the value stored at the address of `a` into `t1`. We can also do this in a single step, which gives us the same end result:\
+(Under the hood there is a [slight difference](https://stackoverflow.com/a/54011727) but that would take us too far)
+```text
+.data
+    a: .word 5
+.text
+    lw t1, a
+```
+
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+la register,symbol                  | Place the address of the symbol into the register (Does **not** perform memory access)
+lw register,symbol                  | Place the value of the symbol (So which the address points to) into the register (Does perform memory access)
+lb register,symbol                  | The same as lw, but for byte-sized memory accesses
+(t0)                                | Dereference a pointer, * operator in C
+
+
+
+
+### Exercise 1
+
+Write a RISC-V program that calculates the following: `c = a^2 + b^2`.
+Use the data section to reserve memory for `a`, `b`, and `c`.
+Use the debugging features in RARS (memory viewer, register contents) to make sure
+that your program works as intended!
+
+{% if site.solutions.show_session_1 %}
 #### Solution
 ```text
-{% include_relative 2-advanced-c-asm/sol1.S %}
+{% include_relative 1-c-asm-basics/sol2.S %}
 ```
 {% endif %}
 
-# Functions in C
+# Branches
 
-In this session, we will briefly introduce functions in C, but the detailed description of how to
-translate them into assembly will be the topic of the [third session](/exercises/3-functions-stack).
-
-You probably remember that every C program must contain the `int main(void)` function,
-this is where the execution will start. Remember that the first `int` means that
-the function will return an integer value, while `(void)` shows that the function
-does not take any arguments. The void is optional, it is also possible to write `int main()`
-
-You can use the same syntax to define your own functions in your file:
+In C, you can create conditional branches and loops like in other languages:
 
 ```c
-int difference(int, int);
-
-int main(void) {
-    int x = 5;
-    int y = 13;
-    int d = difference(x, y);
-    // ...
-}
-
-int difference(int a, int b) {
-    if (a >= b) {
-        return a - b;
-    } else {
-        return b - a;
-    }
+if (a != b) {
+    a = b;
+} else {
+    calculate(a);
 }
 ```
 
-## Function declarations
-
-What is the role of the first line in the example above?
-
 ```c
-int difference(int, int); // function declaration
+while (a <= b) {
+    a++;
+}
 ```
 
-The compiler moves linearly in the file, it needs to already know the *signature* (return type, parameters) of functions
-when using them (in `main` or in other functions).
-For this reason, it's sometimes necessary to include the **function declaration** at the
-top of the file.
+In assembly, constructing these control structures is a bit more tricky. We will
+once again need to make use of the labels that were previously introduced.
+In the branch and jump instructions we include these labels as jump targets.
 
-In the example above, it would have also been fine to just move the function definition
-above `main`, in which case you don't need the declaration on the first line anymore.
-(But think of an example where two functions call each other, in that case one of them
-has to go above the other!)
+```text
+loop:
+    addi t0, t0, 1
+    j loop
+```
 
-> :pencil: When you include a header file, such as `#include <stdio.h>`, that file
-> also [contains](https://www.tutorialspoint.com/c_standard_library/stdio_h.htm) a list of function declarations, just like this one! This is how your
-> compiler knows the list of functions implemented by the standard library.
+The above is a simple example of an infinite loop; `j loop` will always jump back
+to the instruction following the `loop:` label, so the `t0` register will be incremented
+until the heat death of the universe.
+
+This is of course not very useful, so there are many instructions that perform
+conditional branching.
+
+```text
+    mv t0, zero
+    addi t1, zero, 5
+loop:
+    addi t0, t0, 1
+    bne t0, t1, loop
+    mul t2, t0, t1
+```
+
+In this example, we used the `bne` instruction, which only jumps to the `loop:` label
+if the two register operands are not equal. Otherwise, the program continues executing
+at the next instruction (`mul`). You can find other useful branching instructions on the
+[RISC-V card](/files/riscv-card.pdf).
 
 ### Exercise 2
 
-Write a C program that computes the factorial of every number between 1 and 10.
-Avoid duplicating code (use loops and functions where applicable).
+Translate the following program from the [previous session](/exercises/1-c-basics) to RISC-V. The C-program asks the user for a positive integer and iteratively computes the factorial of this integer. You don't have to ask for user input,
+store the input integer in the data section.
 
-> Hint: Example syntax of a `for` loop in C: `for (int i; condition; i++){}`
-
-> :pencil: `i++` or `++i` both increment the variable `i` but there is a [slight difference](https://stackoverflow.com/questions/24853/what-is-the-difference-between-i-and-i) in their behaviour (Not relevant for loops)
-{% if site.solutions.show_session_2 %}
-#### Solution
 ```c
-{% include_relative 2-advanced-c-asm/sol2.c %}
+{% include_relative 1-c-asm-basics/sol4.c %}
 ```
 {% endif %}
 
-# Structs
-
-We often want to group different variables into one object. For example if our
-program handles user data, and we want to store the name and age of each user,
-it's a lot more convenient to group these two variables into one object.
-
-This is possible in C using structs.
-
-```c
-struct person {
-    int age;
-    char *name; // Notice the pointer to a string, this will become more clear later
-};
-
-int main(void) {
-    struct person John;
-    John.age = 42;
-    John.name = "John";
-    // ...
-}
+{% if site.solutions.show_session_1 %}
+#### Solution
+```text
+{% include_relative 1-c-asm-basics/sol5.S %}
 ```
-
-You can refer to the variables inside the struct with the `.` operator. These values
-are going to be placed in consecutive memory by the compiler, but sometimes the compiler
-leaves some empty space between the different fields (e.g., for optimization reasons). This is called
-**padding**.
-
-If you have _a pointer_ to a struct, you can still refer to the fields of the pointed object:
-
-```c
-void birthday(struct person *sp) {
-    (*sp).age += 1;
-}
-```
-
-This notation is a bit cumbersome, so you can replace it with the `->` operator:
-
-```c
-void birthday(struct person *sp) {
-    sp->age += 1;
-}
-```
-
-Think about this function! Would it work as intended if we passed the struct itself as the parameter,
-not a pointer to it? Try it out!
-
-<details>
-  <summary>Solution</summary>
-
-Whenever we call a function, the parameters passed to that function are copied.
-If we pass the struct itself, the function will operate on a copy of it. We can
-update the fields of this copy, but those changes will not be reflected in the
-original struct. This is why we need to pass a pointer (= create a copy of the pointer),
-because by pointing to the location of the original struct, we allow
-the function to update it.
-</details>
+{% endif %}
 
 ### Exercise 3
 
-Define a struct containing a float *f*, double *d*, long *l*, integer *pointer* *p*, and a
-single char *c*.
-* Print the size of the struct.
-* Create a new instance of this struct and print the addresses of each field.
-* Draw the memory layout chosen by the compiler.
-* Did the compiler introduce padding? If so, where and how much?
+Write a RISC-V program that calculates: `c = a^b`.
+Make sure that your solution works for all `b >= 0`!
 
-{% if site.solutions.show_session_2 %}
-#### Solution
-```c
-{% include_relative 2-advanced-c-asm/sol3.c %}
-```
-
-The memory layout might be different on your computer, but here is an example execution:
-
-```
-The size of the struct is 40 bytes
-f: 0x7ffe33ed6b20
-d: 0x7ffe33ed6b28
-l: 0x7ffe33ed6b30
-p: 0x7ffe33ed6b38
-c: 0x7ffe33ed6b40
-```
-
-To know whether padding was introduced, we need to know the real sizes of the data
-types. The real size of a data type [is not fixed](https://www.tutorialspoint.com/cprogramming/c_data_types.htm) in C.
-There's one thing we can immediately notice: the size of a char is
-always 1 byte, and here it is the last element of the struct, placed at
-byte `0x..40`. But the struct has a size of 40 bytes, so the last byte that belongs to it
-in hexadecimal is `0x..20 + 0x27 (39 in decimal) = 0x..47`, meaning there are 7 unused bytes after the
-character.
-
-{% endif %}
-
-# Fixed-length arrays
-
-We have already seen integer variables in both C and assembly. How can we create
-an array of many integers? Let's say, for example, that we want to store how many
-classes we have on each day. We could of course just declare a variable for each
-day (`int monday, tuesday, ...;`), but this would get out of hand quickly if we
-want to perform an operation on all variables.
-
-We can instead create an array with a fixed number of elements:
-
-```c
-int classes[7] = {4, 3, 1, 4, 2, 0, 0};
-```
-
-> :pencil: You might be wondering: isn't it redundant to first declare that the array
-> will contain 7 elements, then list 7 elements? You're right, you can omit the number
-> from between the square brackets: `int pair[] = {32, 64};`.
->
-> You can also
-> omit elements from the *initializer list* on the right side (if you first specify the length of the array): `int classes_two[7] = {4, 3, 1, 4, 2};`.
-> This array will be the same as the `classes` array declared above. If you specify fewer elements
-> in the list than the number on the left, the remaining elements will be initialized to
-> zero.
-
-## Representation in memory
-
-Arrays are a collection of homogeneous elements, and they are stored contiguously in memory.
-The array from above would have the following (partial) representation in memory:
-
-<center>
-<img src="/exercises/img/array.png" alt="Values of the array in memory" />
-</center>
-
-Notice two things: first, in this example, `int` values take up 4 bytes in memory: the
-first integer is stored in bytes `0x100-0x103`, the second in `0x104-0x107`, and
-so on. Second, this example uses [big-endian](https://nl.wikipedia.org/wiki/Endianness) notation for demonstration purposes, while the x86 and RISC-V
-architectures use little-endian representation.
-
-When we create an array, the variable (`classes`) itself will point to the first element of the array.
-It has some special properties, but for the purposes of this course we can think of it as
-a regular pointer. This means for example that we can copy it to another pointer
-or pass it to a function expecting a pointer argument:
-
-```c
-int classes[7] = {4, 3, 1, 4, 2, 0, 0};
-int *copy = classes; // Note: only the pointer is copied, not the entire array!
-```
-At the end of this example, `classes` and `copy` will refer to the same memory location, namely the beginning of the array, which contains the value 4.
-
-## Elements of the array
-
-So now we know that the `classes` variable points to the first element of the array. That means that if
-we want to read or write that value, we can just dereference the pointer with `*classes`, as we've done with other pointers.
-
-But how can we access the other elements of the array? Since we know that they are placed next to each
-other in memory, we can simply add an offset to the starting pointer to access further elements! If we want to get the
-third element of the array, we can write `*(classes + 2)`, because we know that we have to move 2 places to the right in
-memory compared to the first element.
-
-> :pencil: Hold on! How come we increment the pointer by 1 for each element
-> if the memory addresses increase by 4 for each `int`? If `int`s take up 4 bytes
-> in memory, we should also increment the pointer by 4 to get to the next `int`, right?
->
-> Well, in C, when you increment an `int` pointer by `N`, it will increment by `N * sizeof(int)` so that it automatically points to the next `int` in memory. [The same is true for other pointer types.](https://stackoverflow.com/a/5610311/3680834)
->
-> Keep this in mind though for when you're doing arithmetic with pointers in assembly,
-> as there you will have to take care of this yourself!
-
-So for example, if we want to change the value stored for Thursday, we can just write:
-
-```c
-*(classes + 3) = 5;
-```
-
-This notation is a bit verbose, so C allows us to shorten it using the index notation:
-```c
-classes[3] = 5;
-```
-
-Of course, you can also use a variable as an index for an array. If you want to iterate over all
-the elements of the array, this is a very handy way of doing it (keep in mind that
-the first element is at index `0`!):
-
-```c
-for (int i = 0; i < 7; ++i) {
-    printf("%d ", classes[i]);
-}
-```
-
-## Where do arrays end?
-
-With regular arrays, it's problematic to detect how long an array is. If all the information we have available
-is the starting address, how can we tell where the last value of the array is?
-
-In the example above, we explicitly iterated over 7 values, because we know that the week has 7 days.
-But what happens if we want to write a function that operates on arrays of varying sizes?
-
-A possible option is to designate a special value as a termination indicator; if our arrays can only contain
-positive numbers, we can use a special 0 or negative number as the last value of the array. This way, we can just
-iterate over the values of the array until we encounter that special value. This, however, only works if
-the possible values are limited. If our array can contain any integer values, what can we do?
-
-### Exercise 4
-
-Write a C program that prints the array `1, 2, 3, 4, 5` (so you know the length) on a single
-line separated by spaces, together with the addresses of the elements.
-Ask the user for an integer, multiply all elements
-of the original array with this integer and print the array again. Now, define
-a function to print the array to avoid duplicating your code. Don’t hardcode the size of the array in the printing function: your function should work with various array sizes!
-
-Hint: Don't be discouraged if your solution looks ugly, you can ask the teaching assistant whether it's correct! :)
-
-{% if site.solutions.show_session_2 %}
-#### Solution
-```c
-{% include_relative 2-advanced-c-asm/sol4.c %}
-```
-{% endif %}
-
-## Strings
-
-How can strings be represented in C? If you think about it, strings are just arrays of characters,
-that's also how C handles them. One advantage of characters in the [ASCII encoding](https://www.asciitable.com/)
-(used by C) is that they have a
-limited set of valid values, so we will be able to use the approach outlined above for indicating the end
-of strings.
-
-In C, we always use a null byte `\0` to indicate the end of strings. All the functions in the standard library
-that operate on strings will expect to see a null byte at the end of the strings they receive as parameters.
-
-That means that if we want to create a string containing the word `hello`, we need to write the following:
-
-```c
-char hello[] = {'h', 'e', 'l', 'l', 'o', '\0'};
-```
-
-Notice that this means that we use one extra byte to store the string, compared to the number of characters!
-
-C also has special syntax for strings (that we have seen before) to make it easier to work with them.
-
-```c
-char hello[] = "hello"; // Notice the [] 
-```
-
-This will allocate the same array as the example before, complete with the terminating null byte.
-
-### Exercise 5
-
-Write a C program that asks the user for a string and outputs
-the length of the string.
-You can use
-the function `fgets` [with the parameter `stdin`](http://www.cplusplus.com/reference/cstdio/fgets/) to read a whole string from the console.
-
-> :pencil: stdin refers to the standard input, stdout to the standard output. When you run a program in a terminal, stdin is the input from the terminal you can provide.
-
-
-First, write a version using the function `unsigned long strlen(char *)`
-declared in the header `string.h` to get the length. Then create a second version where `strlen`
-is not used, so you have to implement your own method to count the length of the entered string. Note that the last character of the string will be the null byte
-(`\0`).
-
-{% if site.solutions.show_session_2 %}
-#### Solution
-```c
-{% include_relative 2-advanced-c-asm/sol5.c %}
-```
-{% endif %}
-
-### Exercise 6
-
-Modify the program above so that it prints the hexadecimal
-representation of each character in the string in order. Verify the
-output using an ASCII table. Hint: use the format
-string `%02x`.
-
-{% if site.solutions.show_session_2 %}
-#### Solution
-
-We add one extra line in our function:
-
-```c
-{% include_relative 2-advanced-c-asm/sol6.c %}
-```
-{% endif %}
-
-# Arrays in assembly
-
-In RISC-V assembly, there is no strong notion of arrays. But since we
-know that arrays are just consecutive values in memory, we can implement them the
-same way in assembly as they work in C. You can use comma-separated values to reserve consecutive
-words in memory:
-
-```text
-.data
-    array: .word 1, 2, 3, 4 # Will reserve 4 consecutive words in memory
-```
-
-### Exercise 7
-
-Write a RISC-V program that multiplies all numbers in an
-array with a constant number without using the `mul` instruction.
-
-{% if site.solutions.show_session_2 %}
-#### Solution
-
-In this program, we move in reverse order of the elements to avoid explicitly
-needing to take care of which element we're dealing with.
-
-```text
-{% include_relative 2-advanced-c-asm/sol7.S %}
-```
-{% endif %}
-
-## Strings in assembly
-
-For strings, we again have special syntax:
-
-```text
-.data
-    str: .string "hello"
-```
-
-This string notation behaves the same way as in C, complete with the terminating
-zero byte. You can also see this in RARS, consider the following 'program':
-
-```text
-.data
-    str1: .string "hello"
-    str2: .string "world"
-```
-If you assemble this program and look at the 'Data Segment' you will find both strings, each `\0` terminated:
-
-<center>
-<img src="/exercises/img/string-layout.png" alt="Values of the array in memory" />
-</center>
-Each hexadecimal digit represents 4 bits, and you know a char consists of a single byte. Reading it out gives:
-
-Value                               | To text
------------------------------------:|:-------------
-0x6c6c6568                          | lleh
-0x6f77006f                          | ow`\0`o
-0x00646c72                          | `\0`dlr
-
-
-
-### Exercise 8
-
-Translate the C program calculating the length of a string without `strlen` from exercise 5
-to RISC-V. The string can be provided in the data section. The resulting
-length should be stored in register `a0`.
-
-{% if site.solutions.show_session_2 %}
+{% if site.solutions.show_session_1 %}
 #### Solution
 ```text
-{% include_relative 2-advanced-c-asm/sol8.S %}
+{% include_relative 1-c-asm-basics/sol6.S %}
 ```
 {% endif %}
 
-### Exercise 9
-
-Write a RISC-V program that searches for a given zero-terminated
-substring in a string (e.g., `"loss"` in `"blossom"`) and returns 1 if it is present, 0 if it isn’t. Define the
-strings in the data section and place the result in register `a0`. First, write
-a solution assuming that the characters of the string are 32-bit words (use
-`.word` instead of `.string`). What changes if the characters are bytes (using
-`.string`)?
-
-{% if site.solutions.show_session_2 %}
-#### Solution
-
-A possible solution for comparing strings:
-
-```text
-{% include_relative 2-advanced-c-asm/sol9.S %}
-```
-
-If we compare words instead of characters in a string, we need to be careful with
-two things:
-
-1. Using `lw` instead of `lbu` to load individual words (instead of characters)
-2. Increasing the array pointers by 4 (one word is 4 bytes long)
-
-{% endif %}
