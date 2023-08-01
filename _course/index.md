@@ -16,10 +16,19 @@ For a few years now, we provided the exercise sessions as web pages for a simila
 There will be 2 tests during the semester. The difficulty will not be greater than the more difficult exercises from the exercise sessions. An example test will be made available.
 These tests will take place on a computer.
 
-| Content       | Date             |
+| Week       | Session name             |
 | :-----        | :-----------     |
-| Session 1-    | 8 november 2023  |
-| Session .-... | 20 december 2023 |
+| Okt 2  | Introduction to C  |
+| Okt 9 | Assembly basics |
+| Okt 16 | Advanced C & assembly |
+| Okt 23 | Functions and the stack |
+| Okt 30 | Dynamic memory |
+| Nov 6 | Recap session 1 |
+| Nov 13 | Operating Systems |
+| Nov 20 | Linked Lists |
+| Nov 27 | Caches |
+| Dec 4 | Performance and Microarchitecture
+| Dec 11 | Recap session 2 |
 
 ## Exercises
 
