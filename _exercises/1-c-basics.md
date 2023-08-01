@@ -434,7 +434,7 @@ encoding.
 In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:
 `sizeof(int)` or `sizeof(a)`.
 
-### Exercise 3
+### Exercise 2
 
 Write a C program that asks the user for an integer. Print the address, the value
 and the size in bytes of this integer. Now store the address of this integer in a pointer.
@@ -452,11 +452,11 @@ they should be at least 2 bytes long. This program will tell you exactly how man
 bytes these types use on your computer.
 
 ```c
-{% include_relative 1-c-asm-basics/sol3.c %}
+{% include_relative 1-c-basics/sol2.c %}
 ```
 {% endif %}
 
-### Exercise 4
+### Exercise 3
 
 Write a C program that asks the user for a positive integer and iteratively computes the
 factorial of this integer.
@@ -466,6 +466,6 @@ factorial of this integer.
 {% if site.solutions.show_session_1 %}
 #### Solution
 ```c
-{% include_relative 1-c-asm-basics/sol4.c %}
+{% include_relative 1-c-basics/sol3.c %}
 ```
 {% endif %}
