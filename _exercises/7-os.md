@@ -216,7 +216,7 @@ main:
 ```
 
 ### Releasing allocated memory
-It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of previous session](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
+It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of session 5](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
 
 ### Releasing memory in RARS
 It is possible to pass a negative integer to the `sbrk` system call in RARS. This could be used to *free* previously allocated memory. However, this would not always be sufficient to release any memory that you previously allocated. It only allows to *free* the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
