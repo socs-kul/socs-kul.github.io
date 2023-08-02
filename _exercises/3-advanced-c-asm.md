@@ -18,7 +18,7 @@ has_toc: false
 
 After the more theory-oriented sessions 1 & 2, this time we will dive into more
 complicated exercises (after covering a few more concepts). Of course, if anything
-is unclear, you can check back with the [previous exercise](/exercises/1-c-asm-basics),
+is unclear, you can check back with the [previous exercise](https://socs-kul.github.io/exercises/1-c-asm-basics),
 ask your teaching assistant, or post in the Toledo forums!
 
 Let's start off by practicing everything you've learned about RISC-V assembly in the previous
@@ -55,7 +55,7 @@ You can store the result in the `a0` register.
 # Functions in C
 
 In this session, we will briefly introduce functions in C, but the detailed description of how to
-translate them into assembly will be the topic of the [third session](/exercises/3-functions-stack).
+translate them into assembly will be the topic of the [fourth session](/exercises/4-functions-stack).
 
 You probably remember that every C program must contain the `int main(void)` function,
 this is where the execution will start. Remember that the first `int` means that
