@@ -25,7 +25,7 @@ The difficulty of the test will not be greater than the more difficult exercises
 ## Structure of this test
 Test 1 will consist of two questions:
 
-**Question 1**: A larger question where you have to translate C into RISC-V assembly. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). You will receive a simplified version of our test suite to test the validity of your own code. Note that even if all tests in this simplified test suite pass, it is not guaranteed that you will receive the maximum grade. Try to create your own unit tests to check your implementation. This question should take *at most 1 hour and 20 minutes*.
+**Question 1**: A larger question where you have to write RISC-V assembly. You may encounter either a description of a program or an actual C program that you'll need to translate to RISC-V. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). You will receive a simplified version of our test suite to test the validity of your own code. Note that even if all tests in this simplified test suite pass, it is not guaranteed that you will receive the maximum grade. Try to create your own unit tests to check your implementation. This question should take *at most 1 hour and 20 minutes*.
 
 **Question 2**: A short exercise that tests your knowledge of the C programming language (see sessions 1, 3 and 5). This should take *at most 20-30 minutes*.
 ## Practice exam
