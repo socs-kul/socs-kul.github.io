@@ -131,7 +131,7 @@ that same function call. You also don't want those function calls to overwrite i
 you store in registers at the time of calling.
 
 The rules for register usage are called *calling conventions*, and we will deal with them in more
-detail in [later sessions](/exercises/4-functions-stack).
+detail in [later sessions](/exercises/4-functions-stack/#summary-complete-calling-conventions).
 
 # Memory sections in assembly
 
