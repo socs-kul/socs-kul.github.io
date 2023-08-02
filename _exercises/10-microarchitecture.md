@@ -7,8 +7,8 @@ search_exclude: false
 has_children: false
 has_toc: false
 riscv:
-   - /exercises/8-microarchitecture/risc-v-stages.png
-   - /exercises/8-microarchitecture/risc-v-stages-annotated.png
+   - /exercises/10-microarchitecture/risc-v-stages.png
+   - /exercises/10-microarchitecture/risc-v-stages-annotated.png
 ---
 
 ## Table of contents
@@ -38,7 +38,7 @@ While these are an important piece of the optimization puzzle, we will not look 
 
 Going down the stack, two performance improvements happen at the programming language level.
 The choice of programming language and the optimizations that are done at the assembly level by the compiler may have great impact on the runtime of a function.
-You have already seen glimpses of this when doing [tail recursion in session 3](/exercises/3-functions-stack/#excursion-tail-recursion).
+You have already seen glimpses of this when doing [tail recursion in session 4](/exercises/4-functions-stack/#excursion-tail-recursion).
 Smart choices on assembly level may have great impact on the performance of the code, even if on the higher level, the algorithm may stay the same.
 
 **In this session**, we will focus on three topics that go across different layers in the abstraction:
@@ -52,7 +52,7 @@ In the main part of this session we will talk about *microarchitectural awarenes
 You have already seen caches in the last session and will now learn about pipelining, out-of-order execution, and what issues arise in this context.
 Lastly, we will also shortly discuss some *general architectural awareness* across multiple layers from the choice of programming language down to the microarchitecture, concerning the design of memory accesses and the order of operations.
 
-![Improving performance across all abstraction layers](/exercises/8-microarchitecture/abstraction-layers.drawio.svg){: .center-image }
+![Improving performance across all abstraction layers](/exercises/10-microarchitecture/abstraction-layers.drawio.svg){: .center-image }
 
 
 # Instruction set architectural awareness
@@ -61,13 +61,13 @@ Before we delve into the details of instruction set architectures, remember the 
 The CPU is driven by a clock that switches between two voltages (high and low).
 The time it takes for the clock to complete one cycle of high and then low voltage is known as the *clock period*.
 
-![Simple clock cycle diagram](/exercises/8-microarchitecture/clock.drawio.svg){: .center-image }
+![Simple clock cycle diagram](/exercises/10-microarchitecture/clock.drawio.svg){: .center-image }
 
 When we talk about the runtime of a program, we can look at the general formula below:
 The time it takes to run a program depends on the number of instructions, the cycles that each instruction takes, and finally the time that each cycle takes.
 Improving the performance runtime of a program can now be done by decreasing either of these components: Reducing the number of instructions that are needed, reducing the cycles per instruction, or reducing the time per cycle.
 
-![General formula for the runtime of a program](/exercises/8-microarchitecture/isa-program-runtime.svg){: .center-image }
+![General formula for the runtime of a program](/exercises/10-microarchitecture/isa-program-runtime.svg){: .center-image }
 
 ## Designing an ISA
 
@@ -120,7 +120,7 @@ other words, even if an instruction could in theory execute faster (e.g., an
 go through the memory access step), it is limited by the clock speed, which
 itself is limited by the worst-case instruction.
 
-![Single cycle processor](/exercises/8-microarchitecture/single-cycle.drawio.svg){: .center-image }
+![Single cycle processor](/exercises/10-microarchitecture/single-cycle.drawio.svg){: .center-image }
 
 The performance of such a single cycle processor is therefore constrained by the
 worst-case instruction. This becomes really problematic when the instruction set
@@ -136,7 +136,7 @@ pipeline stage and takes one cycle to execute, as illustrated below. The
 processor can execute the stages in parallel instead of waiting for an
 instruction to go through all the stages like in a single-cycle design.
 
-{% include gallery.html images=page.riscv  ratio_image="/exercises/8-microarchitecture/riscv-ratio.png" %}
+{% include gallery.html images=page.riscv  ratio_image="/exercises/10-microarchitecture/riscv-ratio.png" %}
 
 Pipelining does not increase the time to execute a single instruction (called
 the **latency**), but increases the number of instructions that can be executed
@@ -144,7 +144,7 @@ simultaneously and thus the rate at which instructions are executed (called the
 **throughput**). In the best case scenario, this five stage pipeline is five
 times faster than the single-cycle processor:
 
-![Pipelined processor](/exercises/8-microarchitecture/pipeline.drawio.svg){: .center-image }
+![Pipelined processor](/exercises/10-microarchitecture/pipeline.drawio.svg){: .center-image }
 
 
 ## Exercise 1 - Microarchitecture and Performance
@@ -281,13 +281,13 @@ First draw the clock signal indicating at which time intervals a new CPU cycle s
 Clearly indicate the start and end of each of the 5 datapath stages (IF, ID, EX, MEM, WB) for all instructions.
 Note: you can assume the CPU starts from a clean state (e.g., after a system reset).
 
-![Ex 2.3: Pipeline question](/exercises/8-microarchitecture/pipelining-diagrams.png){: .center-image }
+![Ex 2.3: Pipeline question](/exercises/10-microarchitecture/pipelining-diagrams.png){: .center-image }
 
 
 {% if site.solutions.show_session_8 %}
 #### Solution
 
-![Ex 2.3: Pipeline solution](/exercises/8-microarchitecture/sol2-3.png){: .center-image }
+![Ex 2.3: Pipeline solution](/exercises/10-microarchitecture/sol2-3.png){: .center-image }
 
 From these figures, we can see how much more efficient the pipelined design is, even for shorter programs.
 {% endif %}
@@ -339,9 +339,9 @@ There are three basic data dependencies that indicate a data hazard:
 - Write after read (WAR): Data is written after it was read earlier. In some pipelines and optimizations, the "later" write may already affect the earlier read.
 - Write after write (WAW): Two writes may conflict with each other.
 
-![Read after write data hazard](/exercises/8-microarchitecture/data-hazard.drawio.svg){: .center-image }
+![Read after write data hazard](/exercises/10-microarchitecture/data-hazard.drawio.svg){: .center-image }
 
-![Stalling to resolve read after write data hazard](/exercises/8-microarchitecture/data-hazard-stalling.drawio.svg){: .center-image }
+![Stalling to resolve read after write data hazard](/exercises/10-microarchitecture/data-hazard-stalling.drawio.svg){: .center-image }
 
 
 ### Exercise 2.5
@@ -374,16 +374,16 @@ To tackle data hazards more structurally, a CPU pipeline can **forward** informa
 This prevents specific data hazards from occurring.
 Below, you see a simple forwarding mechanism from the EX stage to the EX stage that forwards the new value of a register to immediately be available for the `lw` instruction in the next cycle.
 
-![Forwarding](/exercises/8-microarchitecture/forwarding.drawio.svg){: .center-image }
+![Forwarding](/exercises/10-microarchitecture/forwarding.drawio.svg){: .center-image }
 
 While forwarding like this has many benefits, it also has limitations. Below, you see one example where forwarding cannot help because the information of `lw` only becomes available in the MEM stage, which happens at the same time when the next instruction, `addi`, requires it in the EX stage.
 
-![Problems with forwarding](/exercises/8-microarchitecture/forwarding-problems.drawio.svg){: .center-image }
+![Problems with forwarding](/exercises/10-microarchitecture/forwarding-problems.drawio.svg){: .center-image }
 
 The only way to deal with this is to **stall** the current execution (also called inserting a **bubble**), and let the processor wait until the information becomes available. This is equivalent to inserting a `nop` (no operation) instruction between the instructions causing the hazard.
 Simply said, if the information becomes available in the same cycle that it is needed, there is nothing we can do with forwarding and we instead have to stall. Below you see a solution to this problem with stalling and a forwarding from the MEM stage to the EX stage.
 
-![Forwarding with stalling](/exercises/8-microarchitecture/forwarding-stall.drawio.svg){: .center-image }
+![Forwarding with stalling](/exercises/10-microarchitecture/forwarding-stall.drawio.svg){: .center-image }
 
 
 ## Exercise 3 - Forwarding
@@ -481,7 +481,7 @@ outcome of a branch. For instance, the processor can predict that branches are
 never taken and start fetching and executing corresponding instructions as shown
 in the following example:
 
-![Control hazard](/exercises/8-microarchitecture/control-hazard1.drawio.svg){: .center-image }
+![Control hazard](/exercises/10-microarchitecture/control-hazard1.drawio.svg){: .center-image }
 
 If the prediction is correct, we have a performance gain and the pipeline
 proceeds at full speed. If the prediction is incorrect, we have to discard the
@@ -492,7 +492,7 @@ instructions (called **transient executions**) can be reverted (for instance, th
 must not write to memory). In this case, the penalty is roughly equivalent to
 stalling.
 
-![Control hazard](/exercises/8-microarchitecture/control-hazard2.drawio.svg){: .center-image }
+![Control hazard](/exercises/10-microarchitecture/control-hazard2.drawio.svg){: .center-image }
 
 Such prediction mechanisms are called **speculative execution** and are
 implemented in almost all processors. Modern processors have more sophisticated
@@ -586,7 +586,7 @@ Fill out the following instruction/time diagram for this program until the instr
 Assume that the processor features data forwarding but does not feature branch prediction: it simply continues executing instructions that follow a branch until the target of the branch is known.
 Execution starts from the first `add` instruction with `PC=0x2000`.
 
-![Instruction time diagram](/exercises/8-microarchitecture/instruction-time-diagram.png){: .center-image }
+![Instruction time diagram](/exercises/10-microarchitecture/instruction-time-diagram.png){: .center-image }
 
 
 {% if site.solutions.show_session_8 %}
@@ -594,7 +594,7 @@ Execution starts from the first `add` instruction with `PC=0x2000`.
 
 In this exercise, we need to pay attention to branches and jumps. The processor does no prediction, so it continues executing instructions that follow the branch instruction. The program counter is updated in the EX stage of the branch instructions, so the fetching of the correct next instruction can only start after this stage finished executing. This means that after each branch that is taken, the processor starts executing two incorrect instructions. These executions need to be stopped, the pipeline is flushed after the program counter updates.
 
-![Instruction time diagram](/exercises/8-microarchitecture/sol5.png){: .center-image }
+![Instruction time diagram](/exercises/10-microarchitecture/sol5.png){: .center-image }
 
 
 {% endif %}
