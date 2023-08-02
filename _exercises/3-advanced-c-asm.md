@@ -18,7 +18,7 @@ has_toc: false
 
 After the more theory-oriented sessions 1 & 2, this time we will dive into more
 complicated exercises (after covering a few more concepts). Of course, if anything
-is unclear, you can check back with the [previous exercise](https://socs-kul.github.io/exercises/1-c-asm-basics),
+is unclear, you can check back with the previous exercise,
 ask your teaching assistant, or post in the Toledo forums!
 
 Let's start off by practicing everything you've learned about RISC-V assembly in the previous
