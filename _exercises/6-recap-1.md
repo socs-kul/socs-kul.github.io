@@ -40,3 +40,6 @@ Aside from attempting the practice exam, you should redo as many exercises from 
 > :bulb: Tip: Don't neglect the theoretical aspects of this course! 
 > Having a solid grasp of the theory will make it a lot easier for you to
 > (re)do the exercises and complete the practice exam.
+
+## Re-examination
+The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
