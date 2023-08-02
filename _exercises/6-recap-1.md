@@ -32,6 +32,7 @@ Test 1 will consist of two questions:
 To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. 
 
 **---zet hier het voorbeeldexamen (link of gewoon erin)---**
+
 Here is the test suite for the third question: **---zet hier de testsuite---**
 
 Aside from attempting the practice exam, you should redo as many exercises from the previous sessions as possible. These materials will be sufficient for you to pass the test with flying colors.
