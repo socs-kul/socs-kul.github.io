@@ -33,11 +33,11 @@ that can be resized at runtime (for instance, Python lists or Java
 `ArrayList`s).
 
 ## Recap: pointers in C
-In the [first exercise session](/exercises/1-c-asm-basics/#pointers-in-c), you had
+In the [first exercise session](/exercises/1-c-basics/#pointers-in-c), you had
 an introduction to pointers in C. We'll now give a quick reminder about how to use
 pointers. In this session we will use pointers a lot; if necessary, you can
 go back to the explanations in the [first exercise
-session](/exercises/1-c-asm-basics/#pointers-in-c) or ask your teaching assistant
+session](/exercises/1-c-basics/#pointers-in-c) or ask your teaching assistant
 for more explanations.
 
 Variables are stored in memory and have an **address**. The address of a
@@ -160,7 +160,7 @@ decreases the value of the pointer `p` by `n * sizeof(type)`.
 > especially convenient for iterating through arrays.
 
 ## Pointers and arrays
-In the [second exercise session](/exercises/advanced-c-asm/#fixed-length-arrays)
+In the [third exercise session](/exercises/3-advanced-c-asm/#fixed-length-arrays)
 we have seen how to represent a collection of homogeneous elements using **arrays**.
 
 For instance, an array of 4 integers can be defined like this:
