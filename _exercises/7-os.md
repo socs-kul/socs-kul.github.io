@@ -21,7 +21,7 @@ During previous sessions, you learned how to write small functions and programs.
 The OS is a piece of software that acts as a layer between programs and the hardware. It manages resources and provides an interface with a set of services such as input and output, and memory allocation. The kernel is the core of an OS. It controls all hardware resources with the aid of device drivers. The kernel acts as a *layer* for input and output requests from software and handles memory.
 
 <center>
-<img src="/exercises/5-os/kernel.drawio.png" alt="The kernel connects applications to hardware" />
+<img src="/exercises/7-os/kernel.drawio.png" alt="The kernel connects applications to hardware" />
 </center>
 
 The OS also provides a form of security. Different program processes are isolated from each other when they are running at the same time. It is also not possible to overwrite the code of your OS.
@@ -29,7 +29,7 @@ The OS also provides a form of security. Different program processes are isolate
 A **Central Processing Unit (CPU)** usually offers different *modes*. These modes have different levels of privileges. The most privileged mode has unrestricted access to all resources and instructions. Less privileged modes have a limited set of instructions that they can use and usually do not have direct access to resources. The amount of modes depends on the CPU's architecture. The OS provides different services by using these modes: isolation of processes, scheduling of processes, communication between different processes, file systems...
 
 <center>
-<img src="/exercises/5-os/rings.drawio.png" alt="Rings have different levels of privilege" />
+<img src="/exercises/7-os/rings.drawio.png" alt="Rings have different levels of privilege" />
 </center>
 
 RISC-V offers three privilege levels or *modes*:
@@ -48,7 +48,7 @@ RISC-V offers three privilege levels or *modes*:
 > in RARS.
 
 ## Requesting OS services
-The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different *mode* with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is **no need to save callee-saved registers** before a system call, contrary to a normal function call (cf. [calling conventions](../3-functions-stack/#summary-complete-calling-conventions)).
+The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different *mode* with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is **no need to save callee-saved registers** before a system call, contrary to a normal function call (cf. [calling conventions](../4-functions-stack/#summary-complete-calling-conventions)).
 
 A system call can be invoked by using the `ecall` instruction in RARS. The system call number has to be placed in `a7` prior to invoking the `ecall` instruction. Some system calls take some input in specific registers and may produce some output. Following table lists a few examples of system calls that are provided by the OS of RARS. The full list is available on [GitHub](https://github.com/TheThirdOne/rars/wiki/Environment-Calls).
 
@@ -99,7 +99,7 @@ Write a user program that uses system calls to read two numbers from the user’
 #### Solution
 
 ```text
-{% include_relative 5-os/sol1.asm %}
+{% include_relative 7-os/sol1.asm %}
 ```
 
 {% endif %}
@@ -163,7 +163,7 @@ Write a program which reads the name of the user from the keyboard. Afterwards, 
 #### Solution
 
 ```text
-{% include_relative 5-os/sol2.asm %}
+{% include_relative 7-os/sol2.asm %}
 ```
 
 {% endif %}
@@ -192,7 +192,7 @@ This approach has the following problems:
 For every program that you run in RARS, a fixed address space is provided by the RARS OS for the program's process. For 32bit RARS, the process layout is as follows:
 
 <center>
-<img src="/exercises/5-os/process_layout.drawio.png" alt="32bit RARS process layout" />
+<img src="/exercises/7-os/process_layout.drawio.png" alt="32bit RARS process layout" />
 </center>
 
 The `.text` sections contains the program's code. Every *jump* or *branch* that you write will land in this section. The `.data` section contains the global variables that you declared in advance. The *heap* and *stack* are both dynamic regions: their size can grow and shrink when required. The OS reserves just enough memory for the program to run. When the processes requires more memory, more memory can dynamically be requested from the *heap* region, which is initially empty, through a system call. This is in contrast with our approach that reserved a *heap* in the `.data` section: we might have reserved a lot of bytes that the process would never even use or need, which would be a waste of memory.
@@ -216,7 +216,7 @@ main:
 ```
 
 ### Releasing allocated memory
-It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of previous session](/exercises/4-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
+It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of previous session](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
 
 ### Releasing memory in RARS
 It is possible to pass a negative integer to the `sbrk` system call in RARS. This could be used to *free* previously allocated memory. However, this would not always be sufficient to release any memory that you previously allocated. It only allows to *free* the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
@@ -251,10 +251,10 @@ main:
 {% endhighlight %}
 </td>
 <td>
-<img src="/exercises/5-os/heap1.drawio.png" alt="Heap after allocation" />
+<img src="/exercises/7-os/heap1.drawio.png" alt="Heap after allocation" />
 </td>
 <td>
-<img src="/exercises/5-os/heap2.drawio.png" alt="Heap after free" />
+<img src="/exercises/7-os/heap2.drawio.png" alt="Heap after free" />
 </td>
 </tr>
 </table>
@@ -435,7 +435,7 @@ Write a custom user-mode exception handler. The exception handler should do noth
 #### Solution
 
 ```text
-{% include_relative 5-os/sol3.asm %}
+{% include_relative 7-os/sol3.asm %}
 ```
 
 {% endif %}
@@ -458,7 +458,7 @@ Make sure to restore all register values before returning from the trap handler.
 #### Solution
 
 ```text
-{% include_relative 5-os/sol4.asm %}
+{% include_relative 7-os/sol4.asm %}
 ```
 
 {% endif %}
@@ -588,7 +588,7 @@ main:
 #### Solution
 
 ```text
-{% include_relative 5-os/sol5.asm %}
+{% include_relative 7-os/sol5.asm %}
 ```
 
 {% endif %}
