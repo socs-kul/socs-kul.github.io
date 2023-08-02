@@ -131,7 +131,7 @@ that same function call. You also don't want those function calls to overwrite i
 you store in registers at the time of calling.
 
 The rules for register usage are called *calling conventions*, and we will deal with them in more
-detail in [later sessions](/exercises/4-functions-stack/#summary-complete-calling-conventions).
+detail in [later sessions](https://socs-kul.github.io/exercises/4-functions-stack/#summary-complete-calling-conventions).
 
 # Memory sections in assembly
 
@@ -140,7 +140,7 @@ values in memory (e.g., if we have more variables than the number of available r
 course also possible in assembly.
 
 A program is made up of multiple **memory sections**. The C compiler manages this for us transparently,
-but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](/exercises/1-c-basics/#compiling-c)
+but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](https://socs-kul.github.io/exercises/1-c-basics/#compiling-c)
 we've seen, you'll see the string `"Hello world"` is stored in `.section .rodata`.
 
 ## The `.text` section
