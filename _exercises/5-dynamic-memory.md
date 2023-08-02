@@ -254,14 +254,14 @@ Consider the following C function, where `in1`, `in2` and `out` are all pointers
 to arrays of `n` integers. What does the function do? Translate this function to RISC-V.
 
 ```c
-{% include_relative 4-dynamic-memory/ex1.c %}
+{% include_relative 5-dynamic-memory/ex1.c %}
 ```
 
 {% if site.solutions.show_session_4 %}
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol1.asm %}
+{% include_relative 5-dynamic-memory/sol1.asm %}
 ```
 {% endif %}
 
@@ -271,14 +271,14 @@ and 0 if they are not. Notice how we don't need to pass the length of the string
 Translate this function to RISC-V.
 
 ```c
-{% include_relative 4-dynamic-memory/ex2.c %}
+{% include_relative 5-dynamic-memory/ex2.c %}
 ```
 
 {% if site.solutions.show_session_4 %}
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol2.asm %}
+{% include_relative 5-dynamic-memory/sol2.asm %}
 ```
 {% endif %}
 
@@ -387,7 +387,7 @@ sw a0, 36(s0)       # Link the second part of the list to the first one
   {: .text-gamma .text-blue-000 }
 
 ``` text
-{% include_relative 4-dynamic-memory/warm-up3.asm %}
+{% include_relative 5-dynamic-memory/warm-up3.asm %}
 ```
 </details>
 
@@ -479,7 +479,7 @@ Don't forget the calling conventions!
 </center> -->
 
 ```text
-{% include_relative 4-dynamic-memory/ex3.asm %}
+{% include_relative 5-dynamic-memory/ex3.asm %}
 ```
 
 ![Representation of the stack in the memory](/exercises/img/rars-stack-ex3-drawio.png)
@@ -489,7 +489,7 @@ Don't forget the calling conventions!
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol3.asm %}
+{% include_relative 5-dynamic-memory/sol3.asm %}
 ```
 
 {% endif %}
@@ -502,7 +502,7 @@ simple allocator that tries to do exactly this. Can you see any problems with
 this approach?
 
 ```text
-{% include_relative 4-dynamic-memory/ex4.asm %}
+{% include_relative 5-dynamic-memory/ex4.asm %}
 ```
 
 <details closed markdown="block">
@@ -539,7 +539,7 @@ metadata.
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol5.asm %}
+{% include_relative 5-dynamic-memory/sol5.asm %}
 ```
 
 {% endif %}
