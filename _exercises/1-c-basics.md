@@ -346,9 +346,9 @@ of this value, together with the original number.
 
 # Pointers in C
 
-As mentioned [before](#integers-in-c-and-assembly), variables in C are stored in memory locations.
+As mentioned [before](#integers-in-c), variables in C are stored in memory locations.
 Of course, now we see that to perform operations on these values, first they need to be loaded into
-registers (usually using the `lw` instruction).
+registers (usually using the `lw` instruction in assembly).
 
 You can use the `&` operator to get the memory address of a given variable. Notice that we have already
 used this syntax in `scanf`, where we needed to specify *where in memory* the user input should be written.
