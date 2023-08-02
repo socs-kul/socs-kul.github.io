@@ -10,7 +10,7 @@ has_toc: false
 
 # Preparing for Test 1
 ## Information
-The first test will take place on November 8th. It serves to examine your understanding of all the material we have seen up until this point. This includes:
+The first test will take place on **November 8th**. It serves to examine your understanding of all the material we have seen up until this point. This includes:
 
 | Session 1  | Introduction to C  |
 | Session 2 | Assembly basics |

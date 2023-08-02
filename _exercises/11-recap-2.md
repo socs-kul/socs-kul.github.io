@@ -9,7 +9,7 @@ has_toc: false
 ---
 # Preparing for Test 2
 ## Information
-The second test will take place on December 20th. It serves to examine your understanding of all the material we have seen since the first test. This includes:
+The second test will take place on **December 20th**. It serves to examine your understanding of all the material we have seen since the first test. This includes:
 
 | Session 7  | Operating Systems |
 | Session 8 | Linked Lists |
