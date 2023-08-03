@@ -28,7 +28,7 @@ The solutions contain a lot of information, some of it probably should be moved 
 {% if site.solutions.show_session_7 %}
 # Cache simulator
 
-<script src="/exercises/7-cache/script.js"></script>
+<script src="/exercises/9-cache/script.js"></script>
 
 <script>
     let cache = [];
