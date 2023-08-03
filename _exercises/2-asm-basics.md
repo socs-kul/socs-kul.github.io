@@ -73,6 +73,14 @@ We can already deduct some things from these instructions:
 There are four different types of instructions, the two above are called *I-type* (immediate) and *R-type* (register) instructions, respectively.
 Later in the course we will see the other two types used for jump and branch instructions.
 
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+add register 1,register 2,register 3       | Adds the values from registers 2 and 3 and stores the result in register 1
+mul register 1,register 2,register 3       | Multiplies the values from registers 2 and 3 and stores the result in register 1
+addi register 1,register 2,immediate       | Adds the immediate value (not in register) to the value from register 2 and stores the result in register 1
+
 ### Pseudo-instructions
 
 When working with RARS, you might notice that after assembling your code, certain instructions
