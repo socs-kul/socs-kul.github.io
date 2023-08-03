@@ -28,6 +28,9 @@ Simply download the `.AppImage` file from the [Ripes github page](https://github
 Download the release for Mac, unzip it and run it by clicking on the .app file.
 
 ## On Windows
-As stated on the Github page for Ripes, you wil need the C++ runtime library. By default you will probably have this installed, so just proceed with the installation of Ripes. If you get a *msvcp140.dll* error during the installation, please install the [C++ runtime library](https://www.microsoft.com/en-us/download/details.aspx?id=48145) and try again.
+First install [the latest Ripes version .zip file](https://github.com/mortbopet/Ripes/releases). Select the version for Windows:
+![Windows_install](/tutorials/img/windows-rars-install.png "Installation of RARS on Windows")
 
-Download the release for Windows, unzip it and click on the .exe.
+Unzip the file, then run the ripes.exe program.
+
+As stated on the Github page for Ripes, you wil need the C++ runtime library. By default you will probably have this installed, so just proceed with the installation of Ripes. If you get a *msvcp140.dll* error during the installation, please install the [C++ runtime library](https://www.microsoft.com/en-us/download/details.aspx?id=48145) and try again.
