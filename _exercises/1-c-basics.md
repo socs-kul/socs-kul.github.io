@@ -428,7 +428,7 @@ variants in C:
 
 For floating point numbers, you can use `float` and `double` (where the latter has double the precision).
 
-Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](asciitable.com/)
+Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](https://www.asciitable.com/)
 encoding.
 
 In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:
