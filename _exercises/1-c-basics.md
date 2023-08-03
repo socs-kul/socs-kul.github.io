@@ -160,7 +160,7 @@ int add(int a, int b){
     return a+b;
 }
 ```
-If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](/exercises/1-c-asm-basics/#dissecting-hello-world)
+If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](/exercises/1-c-basics/#dissecting-hello-world)
 
 
 
