@@ -244,7 +244,7 @@ blocks and find a matching tag.
 
 ![Illustration of a n-way set-associative cache](/exercises/9-cache/n-way_associative_cache.png){: .center-image }
 
-### Exercise 3
+### Exercise 1
 
 Suppose a computer’s address size is k bits (using byte addressing), the cache data size (the total of the stored data, excluding the metadata such as tags) is S bytes,
 the block size is B bytes, and the cache is A-way set-associative. Assume that B is a power of two, so B=2^b. Figure
@@ -299,7 +299,7 @@ Each block contains `8B` data bits and contains the following metadata: `1` vali
 `= S/B * (8B + 1 + (k - log_2(S/(A*B)) - b))`
 {% endif %}
 
-### Exercise 4
+### Exercise 2
 
 Consider a processor with a 32-bit addressing mode and a direct mapped cache, with 8-word block
 size and a total size of 1024 blocks. Calculate how many bits of the address are used to tag a block, to select the
@@ -322,7 +322,7 @@ The total size of the cache is, using a similar calculation as before:
 For each set, we have a block size of `8 * 32` bits, and we have one valid bit and `17` tag bits per line.
 {% endif %}
 
-### Exercise 5
+### Exercise 3
 
 Here is a series of address references given as word addresses: 2, 3, 11, 16, 21, 13, 64, 48, 19, 11, 3,
 22, 4, 27, 11. Label each reference in the list as a hit or a miss and show the final content of the cache, assuming:
@@ -443,7 +443,7 @@ In the third exercise, we have a 2-word block size, so the last bit of the addre
 ```
 {% endif %}
 
-### Exercise 6
+### Exercise 4
 
 Associativity usually improves the hit ratio, but not always. Consider a direct mapped cache with
 16 1-word blocks and a 2-way set-associative cache with 1-word block size and a total size of 16 words. Find a
