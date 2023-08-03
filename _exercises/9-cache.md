@@ -352,7 +352,7 @@ The following table shows an example format of a possible solution for a direct-
 #### Solution
 
 
-You can try out all of these exercises in the [cache simulator](#cache-simulator) below!
+You can try out all of these exercises in the [cache simulator](#cache-simulator) above!
 
 Whenever we have to decide to which set a given address belongs to, it is useful to think about the address' representation in binary notation. If the block contains multiple words, the least significant bits of the address will determine the word index within the block. The following bits will determine the index of the set. The most significant bits are kept as the tag, which does not play a role in this exercise.
 
