@@ -34,7 +34,7 @@ SOCS                                | Machine Code         | `...0100110111010..
 Digitale Elektronica en Processoren | Digital Hardware     | Logic gates
 
 The majority of the sessions will focus on writing assembly programs from scratch.
-This first session is more theoretical and might be a bit overwhelming, but understanding
+The first two sessions are more theoretical and might be a bit overwhelming, but understanding
 the concepts covered now will be very important for the later sessions. You can
 also come back here to refresh your knowledge when these concepts come up in later sessions.
 
