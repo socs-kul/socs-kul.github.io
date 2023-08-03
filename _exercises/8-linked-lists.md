@@ -57,7 +57,7 @@ Before you begin, make sure that RARS is configured correctly. Open the `Setting
 
 # Linked lists interface
 
-To get started, download [linked_list.zip](/exercises/8-linked-lists/exercise-files.zip). Inside, you will find the following files:
+To get started, download [linked_list.zip](/exercises/8-linked-lists/exercise-files(3).zip). Inside, you will find the following files:
 
 * `c/linked_list.h`: header file containing the definition of the interface functions.
 * **+** `c/linked-list.c`: the template in which you need to implement all function definitions.
