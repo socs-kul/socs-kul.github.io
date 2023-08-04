@@ -16,9 +16,9 @@ has_toc: false
 
 # Introduction
 
-After the more theory-oriented session 1, this time we will dive into more
+After the more theory-oriented sessions 1 & 2, this time we will dive into more
 complicated exercises (after covering a few more concepts). Of course, if anything
-is unclear, you can check back with the [previous exercise](/exercises/1-c-asm-basics),
+is unclear, you can check back with the previous exercise,
 ask your teaching assistant, or post in the Toledo forums!
 
 Let's start off by practicing everything you've learned about RISC-V assembly in the previous
@@ -48,14 +48,14 @@ You can store the result in the `a0` register.
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```text
-{% include_relative 2-advanced-c-asm/sol1.S %}
+{% include_relative 3-advanced-c-asm/sol1.S %}
 ```
 {% endif %}
 
 # Functions in C
 
 In this session, we will briefly introduce functions in C, but the detailed description of how to
-translate them into assembly will be the topic of the [third session](/exercises/3-functions-stack).
+translate them into assembly will be the topic of the [fourth session](/exercises/4-functions-stack).
 
 You probably remember that every C program must contain the `int main(void)` function,
 this is where the execution will start. Remember that the first `int` means that
@@ -116,7 +116,7 @@ Avoid duplicating code (use loops and functions where applicable).
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```c
-{% include_relative 2-advanced-c-asm/sol2.c %}
+{% include_relative 3-advanced-c-asm/sol2.c %}
 ```
 {% endif %}
 
@@ -189,7 +189,7 @@ single char *c*.
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```c
-{% include_relative 2-advanced-c-asm/sol3.c %}
+{% include_relative 3-advanced-c-asm/sol3.c %}
 ```
 
 The memory layout might be different on your computer, but here is an example execution:
@@ -328,7 +328,7 @@ Hint: Don't be discouraged if your solution looks ugly, you can ask the teaching
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```c
-{% include_relative 2-advanced-c-asm/sol4.c %}
+{% include_relative 3-advanced-c-asm/sol4.c %}
 ```
 {% endif %}
 
@@ -377,7 +377,7 @@ is not used, so you have to implement your own method to count the length of the
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```c
-{% include_relative 2-advanced-c-asm/sol5.c %}
+{% include_relative 3-advanced-c-asm/sol5.c %}
 ```
 {% endif %}
 
@@ -394,7 +394,7 @@ string `%02x`.
 We add one extra line in our function:
 
 ```c
-{% include_relative 2-advanced-c-asm/sol6.c %}
+{% include_relative 3-advanced-c-asm/sol6.c %}
 ```
 {% endif %}
 
@@ -422,7 +422,7 @@ In this program, we move in reverse order of the elements to avoid explicitly
 needing to take care of which element we're dealing with.
 
 ```text
-{% include_relative 2-advanced-c-asm/sol7.S %}
+{% include_relative 3-advanced-c-asm/sol7.S %}
 ```
 {% endif %}
 
@@ -467,7 +467,7 @@ length should be stored in register `a0`.
 {% if site.solutions.show_session_2 %}
 #### Solution
 ```text
-{% include_relative 2-advanced-c-asm/sol8.S %}
+{% include_relative 3-advanced-c-asm/sol8.S %}
 ```
 {% endif %}
 
@@ -486,7 +486,7 @@ a solution assuming that the characters of the string are 32-bit words (use
 A possible solution for comparing strings:
 
 ```text
-{% include_relative 2-advanced-c-asm/sol9.S %}
+{% include_relative 3-advanced-c-asm/sol9.S %}
 ```
 
 If we compare words instead of characters in a string, we need to be careful with

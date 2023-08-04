@@ -28,7 +28,7 @@ The solutions contain a lot of information, some of it probably should be moved 
 {% if site.solutions.show_session_7 %}
 # Cache simulator
 
-<script src="/exercises/7-cache/script.js"></script>
+<script src="/exercises/9-cache/script.js"></script>
 
 <script>
     let cache = [];
@@ -82,7 +82,7 @@ become much faster than the memory, forming a bottleneck for the performance
 of the computer in general.
 
 <!-- Marton: I don't like this figure, what is this Y axis? -->
-![Illustration of the performance gap between memory and CPU](/exercises/7-cache/performance_gap.png){: .center-image }
+![Illustration of the performance gap between memory and CPU](/exercises/9-cache/performance_gap.png){: .center-image }
 
 To solve this issue, **caches** were introduced. Cache memories are not as fast
 as registers, but can include more data, and are much faster than the main
@@ -92,17 +92,17 @@ cache (L1) is the fastest but also the smallest cache, Level 2 cache (L2) is
 slower but larger, and the last level cache (L3 or LLC), which is the slowest but the
 biggest.
 
-![Illustration of memory hierarchy in a computer](/exercises/7-cache/memory_hierarchy.png){: .center-image }
+![Illustration of memory hierarchy in a computer](/exercises/9-cache/memory_hierarchy.png){: .center-image }
 
 Caches can be local to a single processor core (this is typically for case for
 L1 and L2 caches), or shared across multiple cores. Finally, the L1 cache is
 usually split into an instruction cache (L1I), which contains program
 instructions, and a data cache (L1D), which contains program data.
 
-![Illustration of cache hierarchy in a computer](/exercises/7-cache/cache_hierarchy.png){: .center-image }
+![Illustration of cache hierarchy in a computer](/exercises/9-cache/cache_hierarchy.png){: .center-image }
 
 
-<!-- | ![Illustration of memory hierarchy in a computer](/exercises/7-cache/memory_hierarchy.png){: .center-image } | ![Illustration of cache hierarchy in a computer](/exercises/7-cache/cache_hierarchy.png){: .center-image } | -->
+<!-- | ![Illustration of memory hierarchy in a computer](/exercises/9-cache/memory_hierarchy.png){: .center-image } | ![Illustration of cache hierarchy in a computer](/exercises/9-cache/cache_hierarchy.png){: .center-image } | -->
 
 ## Locality principle
 
@@ -113,7 +113,7 @@ that same location again in the near future. This is called **temporal locality*
 location that is accessed by a program can be cached to speed up future
 accesses!
 
-![Illustration of temporal locality](/exercises/7-cache/temporal_locality.png){:
+![Illustration of temporal locality](/exercises/9-cache/temporal_locality.png){:
 .center-image }
 
 Additionally, when a program accesses a memory location, it is likely to access
@@ -122,7 +122,7 @@ variables on the stack or nearby array members). This is called **spatial locali
 Hence, when a memory location is accessed, we transfer entire blocks
 (multiple contiguous words in memory) into the cache at once, pulling nearby data into the cache.
 
-![Illustration of temporal locality](/exercises/7-cache/spatial_locality.png){:
+![Illustration of temporal locality](/exercises/9-cache/spatial_locality.png){:
 .center-image }
 
 By exploiting these two locality principles, caches can cause a huge
@@ -175,7 +175,7 @@ data in the cache and the tag indicates whether we have a cache hit or a cache
 miss.
 
 ![Illustration of a direct mapped
-cache](/exercises/7-cache/direct_mapped_cache1.png){: .center-image }
+cache](/exercises/9-cache/direct_mapped_cache1.png){: .center-image }
 
 A memory address, composed of a tag `t` and an index `i`, is in the cache (cache
 hit) if the tag at index `i` in the cache matches `t`. For instance, accessing
@@ -195,7 +195,7 @@ For instance, the address `001000` corresponds to the value `A0`, while the
 address `001001` corresponds to the value `A1`.
 
 ![Illustration of a direct mapped
-cache where a cache set contains 2 cache blocks](/exercises/7-cache/direct_mapped_cache2.png){: .center-image }
+cache where a cache set contains 2 cache blocks](/exercises/9-cache/direct_mapped_cache2.png){: .center-image }
 
 > :bulb: **Summary.**\\
 > A memory address (of size 32 bits) is composed of:
@@ -207,7 +207,7 @@ cache where a cache set contains 2 cache blocks](/exercises/7-cache/direct_mappe
 > cache line is valid or not (e.g., in order to synchronize data across
 > different caches).
 
-![Summary of a direct mapped cache](/exercises/7-cache/direct_mapped_cache_summary.png){: .center-image }
+![Summary of a direct mapped cache](/exercises/9-cache/direct_mapped_cache_summary.png){: .center-image }
 
 ## Set-associativity
 
@@ -225,7 +225,7 @@ illustrate below a 2-way cache. Now, even though `000100` and `010100` map to
 the same cache set (at index `01`), they can be placed in two different ways and
 can be in the cache at the same time!
 
-![Illustration of a 2-way set-associative cache](/exercises/7-cache/2-way_associative_cache.png){: .center-image }
+![Illustration of a 2-way set-associative cache](/exercises/9-cache/2-way_associative_cache.png){: .center-image }
 
 
 Finally, a **fully associative cache** is made up of a *single cache set*
@@ -242,9 +242,9 @@ blocks and find a matching tag.
 > cache. Hence, an n-way set-associative cache provides an interesting tradeoff
 > between a direct-mapped cache and a fully associative cache.
 
-![Illustration of a n-way set-associative cache](/exercises/7-cache/n-way_associative_cache.png){: .center-image }
+![Illustration of a n-way set-associative cache](/exercises/9-cache/n-way_associative_cache.png){: .center-image }
 
-### Exercise 3
+### Exercise 1
 
 Suppose a computer’s address size is k bits (using byte addressing), the cache data size (the total of the stored data, excluding the metadata such as tags) is S bytes,
 the block size is B bytes, and the cache is A-way set-associative. Assume that B is a power of two, so B=2^b. Figure
@@ -299,7 +299,7 @@ Each block contains `8B` data bits and contains the following metadata: `1` vali
 `= S/B * (8B + 1 + (k - log_2(S/(A*B)) - b))`
 {% endif %}
 
-### Exercise 4
+### Exercise 2
 
 Consider a processor with a 32-bit addressing mode and a direct mapped cache, with 8-word block
 size and a total size of 1024 blocks. Calculate how many bits of the address are used to tag a block, to select the
@@ -322,7 +322,7 @@ The total size of the cache is, using a similar calculation as before:
 For each set, we have a block size of `8 * 32` bits, and we have one valid bit and `17` tag bits per line.
 {% endif %}
 
-### Exercise 5
+### Exercise 3
 
 Here is a series of address references given as word addresses: 2, 3, 11, 16, 21, 13, 64, 48, 19, 11, 3,
 22, 4, 27, 11. Label each reference in the list as a hit or a miss and show the final content of the cache, assuming:
@@ -352,7 +352,7 @@ The following table shows an example format of a possible solution for a direct-
 #### Solution
 
 
-You can try out all of these exercises in the [cache simulator](#cache-simulator) below!
+You can try out all of these exercises in the [cache simulator](#cache-simulator) above!
 
 Whenever we have to decide to which set a given address belongs to, it is useful to think about the address' representation in binary notation. If the block contains multiple words, the least significant bits of the address will determine the word index within the block. The following bits will determine the index of the set. The most significant bits are kept as the tag, which does not play a role in this exercise.
 
@@ -443,7 +443,7 @@ In the third exercise, we have a 2-word block size, so the last bit of the addre
 ```
 {% endif %}
 
-### Exercise 6
+### Exercise 4
 
 Associativity usually improves the hit ratio, but not always. Consider a direct mapped cache with
 16 1-word blocks and a 2-way set-associative cache with 1-word block size and a total size of 16 words. Find a

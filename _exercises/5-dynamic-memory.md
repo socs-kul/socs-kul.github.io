@@ -33,11 +33,11 @@ that can be resized at runtime (for instance, Python lists or Java
 `ArrayList`s).
 
 ## Recap: pointers in C
-In the [first exercise session](/exercises/1-c-asm-basics/#pointers-in-c), you had
+In the [first exercise session](/exercises/1-c-basics/#pointers-in-c), you had
 an introduction to pointers in C. We'll now give a quick reminder about how to use
 pointers. In this session we will use pointers a lot; if necessary, you can
 go back to the explanations in the [first exercise
-session](/exercises/1-c-asm-basics/#pointers-in-c) or ask your teaching assistant
+session](/exercises/1-c-basics/#pointers-in-c) or ask your teaching assistant
 for more explanations.
 
 Variables are stored in memory and have an **address**. The address of a
@@ -160,7 +160,7 @@ decreases the value of the pointer `p` by `n * sizeof(type)`.
 > especially convenient for iterating through arrays.
 
 ## Pointers and arrays
-In the [second exercise session](/exercises/advanced-c-asm/#fixed-length-arrays)
+In the [third exercise session](/exercises/3-advanced-c-asm/#fixed-length-arrays)
 we have seen how to represent a collection of homogeneous elements using **arrays**.
 
 For instance, an array of 4 integers can be defined like this:
@@ -254,14 +254,14 @@ Consider the following C function, where `in1`, `in2` and `out` are all pointers
 to arrays of `n` integers. What does the function do? Translate this function to RISC-V.
 
 ```c
-{% include_relative 4-dynamic-memory/ex1.c %}
+{% include_relative 5-dynamic-memory/ex1.c %}
 ```
 
 {% if site.solutions.show_session_4 %}
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol1.asm %}
+{% include_relative 5-dynamic-memory/sol1.asm %}
 ```
 {% endif %}
 
@@ -271,14 +271,14 @@ and 0 if they are not. Notice how we don't need to pass the length of the string
 Translate this function to RISC-V.
 
 ```c
-{% include_relative 4-dynamic-memory/ex2.c %}
+{% include_relative 5-dynamic-memory/ex2.c %}
 ```
 
 {% if site.solutions.show_session_4 %}
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol2.asm %}
+{% include_relative 5-dynamic-memory/sol2.asm %}
 ```
 {% endif %}
 
@@ -387,7 +387,7 @@ sw a0, 36(s0)       # Link the second part of the list to the first one
   {: .text-gamma .text-blue-000 }
 
 ``` text
-{% include_relative 4-dynamic-memory/warm-up3.asm %}
+{% include_relative 5-dynamic-memory/warm-up3.asm %}
 ```
 </details>
 
@@ -479,7 +479,7 @@ Don't forget the calling conventions!
 </center> -->
 
 ```text
-{% include_relative 4-dynamic-memory/ex3.asm %}
+{% include_relative 5-dynamic-memory/ex3.asm %}
 ```
 
 ![Representation of the stack in the memory](/exercises/img/rars-stack-ex3-drawio.png)
@@ -489,7 +489,7 @@ Don't forget the calling conventions!
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol3.asm %}
+{% include_relative 5-dynamic-memory/sol3.asm %}
 ```
 
 {% endif %}
@@ -502,7 +502,7 @@ simple allocator that tries to do exactly this. Can you see any problems with
 this approach?
 
 ```text
-{% include_relative 4-dynamic-memory/ex4.asm %}
+{% include_relative 5-dynamic-memory/ex4.asm %}
 ```
 
 <details closed markdown="block">
@@ -539,7 +539,7 @@ metadata.
 #### Solution
 
 ```text
-{% include_relative 4-dynamic-memory/sol5.asm %}
+{% include_relative 5-dynamic-memory/sol5.asm %}
 ```
 
 {% endif %}

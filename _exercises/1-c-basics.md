@@ -35,7 +35,7 @@ SOCS                                | Machine Code         | `...0100110111010..
 Digitale Elektronica en Processoren | Digital Hardware     | Logic gates
 
 The majority of the sessions will focus on writing assembly programs from scratch.
-This first session is more theoretical and might be a bit overwhelming, but understanding
+The first two sessions are more theoretical and might be a bit overwhelming, but understanding
 the concepts covered now will be very important for the later sessions. You can
 also come back here to refresh your knowledge when these concepts come up in later sessions.
 
@@ -161,7 +161,7 @@ int add(int a, int b){
     return a+b;
 }
 ```
-If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](/exercises/1-c-asm-basics/#dissecting-hello-world).
+If you try to run this program for yourself, you will hopefully notice there is no output being printed. We will see output in [Dissecting hello world](#dissecting-hello-world).
 
 
 
@@ -348,7 +348,7 @@ of this value, together with the original number.
 # Pointers in C
 
 As mentioned [before](#integers-in-c), variables in C are stored in memory locations.
-Of course, now we see that to perform operations on these values, first they need to be loaded into
+To perform operations on these values, first they need to be loaded into
 registers (usually using the `lw` instruction in assembly).
 
 You can use the `&` operator to get the memory address of a given variable. Notice that we have already
@@ -429,7 +429,7 @@ variants in C:
 
 For floating point numbers, you can use `float` and `double` (where the latter has double the precision).
 
-Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](asciitable.com/)
+Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](https://www.asciitable.com/)
 encoding.
 
 In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:

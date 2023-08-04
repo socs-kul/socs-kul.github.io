@@ -73,6 +73,16 @@ We can already deduct some things from these instructions:
 There are four different types of instructions, the two above are called *I-type* (immediate) and *R-type* (register) instructions, respectively.
 Later in the course we will see the other two types used for jump and branch instructions.
 
+To generalize:
+
+Instruction                         | Usage/Meaning
+-----------------------------------:|:-------------
+add register 1,register 2,register 3       | Adds the values from registers 2 and 3 and stores the result in register 1
+mul register 1,register 2,register 3       | Multiplies the values from registers 2 and 3 and stores the result in register 1
+addi register 1,register 2,immediate       | Adds the immediate value (not in register) to the value from register 2 and stores the result in register 1
+
+An overview of all the RISC-V instructions can be found on the [RISC-V card](/files/riscv-card.pdf). 
+
 ### Pseudo-instructions
 
 When working with RARS, you might notice that after assembling your code, certain instructions
@@ -131,7 +141,7 @@ that same function call. You also don't want those function calls to overwrite i
 you store in registers at the time of calling.
 
 The rules for register usage are called *calling conventions*, and we will deal with them in more
-detail in [later sessions](/exercises/3-functions-stack#summary-complete-calling-conventions).
+detail in [later sessions](https://socs-kul.github.io/exercises/4-functions-stack/#summary-complete-calling-conventions).
 
 # Memory sections in assembly
 
@@ -140,7 +150,7 @@ values in memory (e.g., if we have more variables than the number of available r
 course also possible in assembly.
 
 A program is made up of multiple **memory sections**. The C compiler manages this for us transparently,
-but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](#compiling-c)
+but when writing assembly, we need to note these explicitly. If you go back to the [first assembly example](https://socs-kul.github.io/exercises/1-c-basics/#compiling-c)
 we've seen, you'll see the string `"Hello world"` is stored in `.section .rodata`.
 
 ## The `.text` section
