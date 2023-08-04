@@ -332,7 +332,7 @@ To create a new list, a function named `PyMem_Calloc` is called (see its [implem
 
 
 # Interrupts and exceptions
-Suppose you press a key on your keyboard which is connected to your computer. The OS has to be aware that a key has been pressed, in order to pass it on to an application. An OS is continuously executing different processes. It does not only wait and listen for these key-presses. Hence, an **interrupt** of the current process is required in order to handle the key-press. When such an interrupt takes place, a flag will be raised in order to alert the OS that an interrupt has been requested. The OS checks this flag when it has found the right moment. Following table lists the different kind of interrupts in RARS:
+Suppose you press a key on your keyboard which is connected to your computer. The OS has to be aware that a key has been pressed, in order to pass it on to an application. An OS is continuously executing different processes. It does not only wait and listen for these key-presses. Hence, an **interrupt** of the current process is required in order to handle the key-press. When such an interrupt takes place, a flag will be raised in order to alert the OS that an interrupt has been requested. The OS checks this flag when it has found the right moment. The following table lists the different kinds of interrupts in RARS:
 
 | Code  | Description                         |
 |-------|-------------------------------------|
