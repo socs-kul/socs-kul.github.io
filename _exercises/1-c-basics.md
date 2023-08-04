@@ -28,6 +28,7 @@ range in this stack than many other courses.
 
 Course                              | Topics               | Example
 -----------------------------------:|:---------------------|:--------------------
+Objectgericht programmeren          | Object-Oriented Code | `Car c = new Car();`
 SOCS                                | Procedural Code      | `malloc(sizeof(...));`
 SOCS                                | Assembly             | `add t0, t1, t2`
 SOCS                                | Machine Code         | `...0100110111010...`
