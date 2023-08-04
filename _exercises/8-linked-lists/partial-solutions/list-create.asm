@@ -15,7 +15,7 @@ list_create:
 	li a0, 1
 	jal malloc
 
-	# Check whether maloc failed
+	# Check whether malloc failed
 	bnez a0, end
 
 	# Malloc failed (it is zero). Return out of memory.
