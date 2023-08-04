@@ -292,8 +292,8 @@ at the next instruction (`mul`). You can find other useful branching instruction
 
 ### Exercise 2
 
-Translate the following program from the [previous session](/exercises/1-c-basics) to RISC-V. The C-program asks the user for a positive integer and iteratively computes the factorial of this integer. You don't have to ask for user input,
-store the input integer in the data section.
+Translate the following program from the [previous session](/exercises/1-c-basics) to RISC-V. The C-program asks the user for a positive integer and iteratively computes the factorial of this integer. You don't have to ask for user input;
+you can store the input integer in the data section.
 
 ```c
 {% include_relative 1-c-basics/sol3.c %}
