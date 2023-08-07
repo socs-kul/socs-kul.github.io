@@ -16,7 +16,7 @@ has_toc: false
 
 # Introduction
 
-In the SOCS exercise sessions, you will learn how programs are executed on computers.
+In the SOCS exercise sessions, you will learn how computers execute programs.
 We will explain high-level concepts in the C programming language,
 then show how these concepts are translated to assembly code by the compiler.
 You will also learn how the CPU executes the (generated) machine code, and

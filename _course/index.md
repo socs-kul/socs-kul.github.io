@@ -30,7 +30,7 @@ both the theory, the exercises, and the solutions. The solutions are hidden unti
 of each week.
 
 Please bring your laptops to the exercise sessions. You can work at your own pace, and don't
-be afraid of asking questions from the teaching assistant. If you don't have time to finish
+be afraid to ask questions to the teaching assistant. If you don't have time to finish
 the exercises, it is recommended to finish them before starting the next session.
 
 Even if the solutions are already visible, it is strongly recommended to first write the
@@ -56,13 +56,13 @@ The 11 sessions will have the following contents:
 ## YouTube videos
 
 There are videos available from 2020 on [Youtube](https://www.youtube.com/playlist?list=PLMXWnt556xY4Sexd5FMBc-ZF7pFb2SLnU), where the theory of each session is explained.
-These videos might help with understanding the concepts, but watching them is not required,
+These videos might aid in understanding the concepts, but watching them is not required,
 and they do not substitute working through the material yourself, as there might be new
 content included this year.
-Note that we changed the exercises slightly to make the introduction to C and assembly easier, so there are already differences compared to the videos. For example, some exercises and their solutions that are presented on the Youtube channel are shuffled around or are different this year. Nonetheless, the videos can be a good addition if you prefer the video style to a website.
+Note that we changed the exercises slightly to make the introduction to C and assembly easier, so there are already differences compared to the Youtube videos. Nonetheless, the videos can be a good addition if you prefer the video style to a website.
 
 ## Other useful resources
 
-There are lots of other alternative resources out there that teach you the same concepts as this course does. If you find a resource that you liked exceptionally well, why not reach out to us or create a pull request for the website so that we can expand the list below? Just be aware that we can't verify that 100% of the information on the resources below is indeed correct, we just quickly checked that they look good to give you options when studying for the course.
+There are lots of other alternative resources out there that teach you the same concepts as this course does. If you find a resource that you like exceptionally well, why not reach out to us or create a pull request for the website so that we can expand the list below? Just be aware that we can't verify that 100% of the information from the resources below is indeed correct, we just quickly checked that they look good to give you options when studying for the course.
 
 - [Edd Yerburgh: A collection of notes and references for self-studying computer science](https://notes.eddyerburgh.me/computer-architecture)
