@@ -16,7 +16,7 @@ has_toc: false
 {:toc}
 
 # Installing and using Ripes
-[Ripes](https://github.com/mortbopet/Ripes) is a visual computer architecture simulator and assembly code editor built for RISC-V. We are going to use Ripes to simulate different processors such as a single-cycle and different pipelined RISC-V cores.
+[Ripes](https://github.com/mortbopet/Ripes) is a visual computer architecture simulator and assembly code editor built for RISC-V. We are going to use Ripes to simulate different processors, such as a single-cycle and different pipelined RISC-V cores.
 
 
 ## On Linux
@@ -25,7 +25,7 @@ Simply download the `.AppImage` file from the [Ripes github page](https://github
 > :pencil: .AppImage files are complete app executables so usually they do not need any 'installation'.
 
 ## On Mac
-Download the release for Mac, unzip it and run it by clicking on the .app file.
+Download the latest release for Mac, unzip it and run it by clicking on the .app file.
 
 ## On Windows
 First install [the latest Ripes version .zip file](https://github.com/mortbopet/Ripes/releases). Select the version for Windows:
