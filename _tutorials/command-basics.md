@@ -15,15 +15,15 @@ has_children: false
 
 
 # Getting used to the CLI
-You are probably used a graphical user interface (GUI) to interact with your system. However, using the command line interface (CLI) can save you much time and will sometimes even be necessary in some cases such as with WSL. Here we will put a small tutorial to get to know the basics of getting around the file system.
+You are likely accustomed to using a graphical user interface (GUI) for interacting with your system. Nevertheless, utilizing the command-line interface (CLI) can significantly enhance efficiency and, in certain instances – as is the case with WSL – even prove essential. In this guide, we will provide a brief tutorial to help you familiarize yourself with the fundamental aspects of navigating the file system through the command line.
 
 ## Directories and files
 ### Moving around Directories and finding files
 To view your current location in the directory, you can use the `pwd` command. This stands for 'print working directory'.
 
-To list all files and folders in your current directory, use the `ls` command. There are some helpful options you could give the `ls` command so it provides more information, such as -la (list all). To find out what options there are and how to use them, use `man ls`. man stands for manual. Usually you can also give `--help` as an argument to get a shorter description. Another great command to get a short recap of how to use a tool is to use `tldr`, you will probably have to install it separately.
+To list all files and folders in your current directory, use the `ls` command. There are some helpful options you could give the `ls` command so it provides more information, such as -la (list all). To find out what options there are and how to use them, use `man ls`. man stands for manual. Usually you can also give `--help` as an argument to get a shorter description. Another great command to get a short recap of how to use a tool is to use `tldr`, but you will probably have to install it yourself.
 
-You can use the `cd` command to **c**hange your **d**irectory, for example
+You can use the `cd` command to **c**hange your **d**irectory, for example:
 ```bash
 $ cd .. # .. refers to the parent directory, so it takes you back a level
 $ cd .  # .  refers to the current directory, so it doesn't do anything
@@ -49,7 +49,7 @@ rm -rf <directory> # Remove a directory and its contents recursively
 apropos <command> # If you don't know the exact spelling of a command
 clear # Clear your terminal, you can also press ctrl+L for a similar effect usually
 ```
-**Please never do `rm -rf /`** since this will remove everything recursively starting from root. Since in Linux everything is a file so you'll just end up bricking your entire system.
+**Please never do `rm -rf /`** since this will remove everything recursively starting from root. In Linux everything is a file, so you'll just end up bricking your entire system.
 
 ### Terminology
 The terminal is the surrounding program you use to interact with the shell. Examples include the Gnome Terminal, Alacritty, Foot...\
@@ -59,7 +59,7 @@ The shell runs inside the terminal and is the way you interact with your system.
 ## Extra resources
 ### Custom Prompts
 It is possible to customize your prompt to display more useful information, an example can be found below.
-This prompt gives the user information about the current directory they're in and also on the git status:\
+This prompt gives the user information about the current directory they're in and also the git status:\
 \
 ![Custom prompt](/tutorials/img/custom-prompt.png)
 
