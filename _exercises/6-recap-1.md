@@ -25,15 +25,92 @@ The difficulty of the test will not be greater than the more difficult exercises
 ## Structure of this test
 Test 1 will consist of two questions:
 
-**Question 1**: A larger question where you have to write RISC-V assembly. You may encounter either a description of a program or an actual C program that you'll need to translate to RISC-V. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). You will receive a simplified version of our test suite to test the validity of your own code. Note that even if all tests in this simplified test suite pass, it is not guaranteed that you will receive the maximum grade. Try to create your own unit tests to check your implementation. This question should take *at most 1 hour and 20 minutes*.
-
-**Question 2**: A short exercise that tests your knowledge of the C programming language (see sessions 1, 3 and 5). This should take *at most 20-30 minutes*.
+**Question 1**: A question where you have to write RISC-V assembly. You will receive a description of a program, which you will have to implement. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). Try to create your own unit tests to check your implementation. This question should take *at most 40 minutes*.
+**Question 2**: In this question you will be given a program description and an implementation in C. You have to translate this C code into RISC-V assembly. This question is usually a little harder than the first one. It should take *at most 1 hour*.
 ## Practice exam
-To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. 
+To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. Solutions to both questions will be provided a few days before the test. Try to solve these questions yourself before looking at the model solutions!
 
-**---zet hier het voorbeeldexamen (link of gewoon erin)---**
+> :pencil: **Question 1**: Given a sorted array, the length of the array and a target value. If the target value is in the array,
+> return its index. If it is not in the array, return the index where it should be inserted.
+>
+> Respect the RISC-V calling conventions. Do not make use of a custom exception handler (It will interfere with the test-suite). Try to write unit tests to test the validity of your implementation. Make sure to think about edge cases. Use .globl findIndex as the function name. Do not forget to ‘ret’ at the end of your function!
+>
+>
+> Inputs (you can assume that these are given): a0 = array; a1=length; a2=target.
+>
+> *Examples*:
+>
+>    array = [1 3 5 7 9]
+>    target = 1
+>    -> return 0
+>    
+>    array = [1 3 5 7 9]
+>    target = 6
+>    -> return 3
 
-Here is the test suite for the third question: **---zet hier de testsuite---**
+
+> :pencil: **Question 2**: Determine if a word or phrase is an isogram.
+> An isogram (also known as a "non-pattern word") is a word or phrase without a repeating letter.
+>
+>
+> Examples of isograms:
+>
+>   *lumberjacks*
+>
+>   *background*
+>
+>   *downstream*
+>
+> Create a RISC-V program that checks whether a given input string (given in register a0) is an isogram. 
+> An implementation in C is given below to help you solve this problem. Instead of printing the result, 
+> you should return 1 if the input string is an isogram, 0 if it isn’t. 
+> You can assume that the input strings only contain characters from the alphabet, so no hyphens, spaces… All input characters
+> are lowercase. No input validation is needed.
+>
+> The C code is given below:
+
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int is_isogram(const char *str) {
+	int char_count[26] = {0}; // Assuming only lowercase letters are considered
+
+	for (int i = 0; str[i] != '\0'; i++) {
+    	char c = tolower(str[i]);
+
+    	if (isalpha(c)) {
+        	int index = c - 'a';
+        	if (char_count[index] > 0) {
+            	return 0; // Not an isogram
+        	}
+        	char_count[index]++;
+    	}
+	}
+
+	return 1; // Isogram
+}
+
+int main() {
+	char input[1000];
+	printf("Enter a string: ");
+	fgets(input, sizeof(input), stdin);
+
+	// Remove the newline character from fgets
+	input[strcspn(input, "\n")] = '\0';
+
+	if (is_isogram(input)) {
+    	printf("The string is an isogram.\n");
+	} else {
+    	printf("The string is not an isogram.\n");
+	}
+
+	return 0;
+}
+```
+
 
 Aside from attempting the practice exam, you should redo as many exercises from the previous sessions as possible. These materials will be sufficient for you to pass the test with flying colors.
 
