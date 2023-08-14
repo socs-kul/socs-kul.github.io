@@ -14,7 +14,7 @@ The second test will take place on **December 20th**. It serves to examine your 
 | Session 7  | Operating Systems |
 | Session 8 | Linked Lists |
 
-These two chapters have built upon the previous ones (sessions 1-5), which is why you still need to be familiar with the previous material. However, sessions 1 through 5 will not be explicitly asked in the test.
+These two chapters have built upon the previous ones (sessions 1-5), which is why you still need to be familiar with the previous material. However, sessions 1 through 5 will not be explicitly examined on the test. Nevertheless, we still recommend going through these sessions if you're having difficulty with solving the linked lists excercises.
 
 The material regarding caches and performance will not be asked on the test, but on the final exam in january. The test is centered entirely around writing RISC-V code, just like the first test.
 
