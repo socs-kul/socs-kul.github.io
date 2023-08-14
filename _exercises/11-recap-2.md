@@ -9,14 +9,14 @@ has_toc: false
 ---
 # Preparing for Test 2
 ## Information
-The second test will take place on **December 20th**. It serves to examine your understanding of all the material we have seen since the first test. This includes:
+The second test will take place on **December 20th**. It serves to examine your understanding of all the material we have seen since the first test, except for the last two sessions. This includes:
 
 | Session 7  | Operating Systems |
 | Session 8 | Linked Lists |
-| Session 9 | Caches |
-| Session 10 | Performance and Microarchitecture |
 
-These four chapters have built upon the previous ones (sessions 1-5), which is why you still need to be familiar with the previous material. However, sessions 1 through 5 will not be explicitly asked in the test.
+These two chapters have built upon the previous ones (sessions 1-5), which is why you still need to be familiar with the previous material. However, sessions 1 through 5 will not be explicitly asked in the test.
+
+The material regarding caches and performance will not be asked on the test, but on the final exam in january. The test is centered entirely around writing RISC-V code, just like the first test.
 
 The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the ECTS course description for more information about how this course is graded.
 
@@ -25,17 +25,18 @@ The difficulty of the test will not be greater than the more difficult exercises
 ## Structure of this test
 Test 2 will consist of three questions:
 
-**Question 1**: A short question about caches, as seen in session 9. This should take *at most 20 minutes*.
-
-**Question 2**: A short question about performance and microarchitectural awareness, as seen in session 10. This should take *at most 20 minutes*.
-
-**Question 3**: A more difficult question about linked lists. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). You will receive a simplified version of our test suite to test the validity of your own code. Note that if all tests in this simplified test suite pass, it is not guaranteed that you will receive the maximum grade. Try to create your own unit tests to check your implementation. This question should take *at most 1 hour*.
+**Question 1**: A question about linked lists. We provide a description of a program related to linked lists, and you must implement it in RISC-V assembly. We will check that your implementation gives the correct results, and that you have respected the RISC-V calling conventions (see session 4). You may receive certain auxiliary programs like *list_create*, *list_append*, etc. depending on the question. Your implementation will be assessed automatically using a test suite. Try to create your own unit tests to check the validity of your code. This question should take *at most 1 hour*.
 ## Practice exam
 To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. 
 
-**---zet hier het voorbeeldexamen (link of gewoon erin)---**
+> :pencil: **Question 1**
+> You are given a linked list in register a0. Write a RISC-V program that reverses the order of the elements in the list.
+> This must happen in-place, meaning you will not create a new list, but reverse the original one. 
+> Return the pointer to the list in register a0.
 
-Here is the test suite for the third question: **---zet hier de testsuite---**
+> Respect the RISC-V calling conventions. Do not make use of a custom exception handler (It will interfere with the test-suite). 
+> Try to write unit tests to test the validity of your implementation. Make sure to think about edge cases. 
+> Use .globl reverse_list as the function name. Do not forget to ‘ret’ at the end of your function!
 
 Aside from attempting the practice exam, you should redo as many exercises from the previous sessions as possible. These materials will be sufficient for you to pass the test with flying colors.
 
