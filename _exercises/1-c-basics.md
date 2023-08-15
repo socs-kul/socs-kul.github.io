@@ -122,7 +122,7 @@ x = 5; // Assignment of the variable x
 int y = 10; // Both at once
 ```
 
-If we want to do something with these variables, we could insert a function. Don't worry if you do not understand this part yet, in the third exercise session we will go into more depth on functions.
+If we want to do something with these variables, we could insert a function. Don't worry if you do not understand this part yet, in the fourth exercise session we will go into more depth on functions.
 
 Let's look at a very simple program that adds two numbers together:
 
