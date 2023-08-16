@@ -678,3 +678,27 @@ sum = sum1 + sum2 + sum3 + sum4;
 ## Loop tiling
 
 Lastly, the access pattern of a loop can be optimized by processing the loop in chunks instead of over the whole range repeatedly. [This Wikipedia article](https://en.wikipedia.org/wiki/Loop_nest_optimization) explains the concept well. Essentially loop tiling aims to decrease the number of cache misses during the processing of a loop which can decrease runtime considerably.
+
+# Additional exercises
+## Exercise 6
+2) The latencies of the five stages of a RISC processor is given in the following table:
+
+![Table with latencies](/exercises/10-microarchitecture/latencies2.png){: .center-image }
+
+Give the clock frequency for the following processor types:
+- single-cycle processor
+- pipelined processor
+- multi-cycle processor	
+
+
+We now execute the following instructions on the pipelined processor with no forwarding:
+	
+```
+add t3, t1, t0
+
+sw t2, 0(t3)
+
+add t2, t2, t3
+```
+
+- How many clock cycles are needed to execute this code?
