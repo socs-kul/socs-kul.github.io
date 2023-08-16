@@ -94,7 +94,7 @@ biggest.
 
 ![Illustration of memory hierarchy in a computer](/exercises/9-cache/memory_hierarchy.png){: .center-image }
 
-Caches can be local to a single processor core (this is typically for case for
+Caches can be local to a single processor core (this is typically the case for
 L1 and L2 caches), or shared across multiple cores. Finally, the L1 cache is
 usually split into an instruction cache (L1I), which contains program
 instructions, and a data cache (L1D), which contains program data.
@@ -117,7 +117,7 @@ accesses!
 .center-image }
 
 Additionally, when a program accesses a memory location, it is likely to access
-nearby memory locations in a near future (think for instance about nearby
+nearby memory locations in the near future (think for instance about nearby
 variables on the stack or nearby array members). This is called **spatial locality**.
 Hence, when a memory location is accessed, we transfer entire blocks
 (multiple contiguous words in memory) into the cache at once, pulling nearby data into the cache.
@@ -143,6 +143,10 @@ We say that we have a **cache hit** if the address `0x10010000` is in the cache.
 In this case, the corresponding value is directly served from the cache and the
 memory access is *fast*.
 
+![Cache hits and misses](/exercises/9-cache/cache_miss_hit.jpg){:
+.center-image }
+
+
 We can express the performance of the caching algorithm with the **hit rate**,
 which is the number of cache hits divided by the total number of memory accesses.
 We can also talk about the **miss rate**, which is equal to *(1 - hit rate)*, or
@@ -167,7 +171,7 @@ memory address to a *unique* block in the cache.
 
 Take for instance the cache model given below, where each cache set only
 contains a single block. Given a memory address, the index of the corresponding
-cache set is determined using the two least significant bits of the address (`index = adress %
+cache set is determined using the two least significant bits of the address (`index = address %
 4`). Because multiple addresses map to a single cache block, the cache also needs
 to keep track of a **tag**, corresponding to the most significant bits of the
 address. Therefore, given an address, the index determines where to look for the
@@ -185,9 +189,9 @@ the tag in the cache at index `01` is `00`. However, accessing the address
 the cache at index `10` is `01`.
 
 The data in one cache block typically contains more than one byte. This is to
-enable spatial locality: when the data from a certain address is loaded, the
+enable spatial locality; when the data from a certain address is loaded, the
 contents of the neighboring memory locations are also placed in the cache, in
-case they are also accessed in the future.
+case they are also accessed in the near future.
 
 For instance, in the cache model given below, the size of a block is 4 bytes. The
 lower bits of the address correspond to the offset of the data in a cache block.
@@ -197,12 +201,13 @@ address `001001` corresponds to the value `A1`.
 ![Illustration of a direct mapped
 cache where a cache set contains 2 cache blocks](/exercises/9-cache/direct_mapped_cache2.png){: .center-image }
 
-> :bulb: **Summary.**\\
+> :bulb: **Summary**\\
 > A memory address (of size 32 bits) is composed of:
 > 1. an offset (the least significant bits of *b*) which determines the offset into one cache block;
 > 2. an index (the next k bits), which determines the cache set;
 > 3. a tag (the remaining 32-(k+b) most significant bits), which determines whether
 > we have a cache miss or a cache hit.
+>
 > Additionally, the cache contains a *Valid* bit, which indicates whether a
 > cache line is valid or not (e.g., in order to synchronize data across
 > different caches).
