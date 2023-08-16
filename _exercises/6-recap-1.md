@@ -112,7 +112,7 @@ int main() {
 ```
 
 
-Aside from attempting the practice exam, you should redo as many exercises from the previous sessions as possible. These materials will be sufficient for you to pass the test with flying colors.
+Aside from attempting the practice exam, you should redo as many exercises from the previous sessions as possible. These materials will be sufficient for you to pass the test with flying colors. The additional exercises from session 3 are especially recommended. Try to apply your knowledge from session 4 and 5 to those questions if you want to be fully prepared for the exam.
 
 > :bulb: Tip: Don't neglect the theoretical aspects of this course! 
 > Having a solid grasp of the theory will make it a lot easier for you to

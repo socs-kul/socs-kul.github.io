@@ -496,3 +496,64 @@ two things:
 2. Increasing the array pointers by 4 (one word is 4 bytes long)
 
 {% endif %}
+
+# Additional exercises
+### Exercise 10
+A palindrome is a word that reads the same forward and backward. An example would be 'racecar'. Write a program that, given a string containing one or more words (separated by spaces), returns the amount of palindromes in the given sentence (in register a0). All sentences given will be lowercase.
+
+Example:
+
+    Input (in register a0): "this honda civic can hardly be called a racecar"
+    Output (in register a0): 3
+    Explanation: 'civic', 'racecar' and 'a' are all palindromes. The other words are not.
+
+### Exercise 11
+The following C program checks if two strings are anagrams of each other. An anagram is a word that is created by rearranging the letters in another word. An example would be 'night' and 'thing'. Translate the C program to RISC-V assembly. You do not have to ask the strings as user input, and you should not print anything to the console like in the C program. Instead, simply return 1 if both strings are anagrams of each other, and 0 otherwise. You can assume that there are no spaces in the strings. 
+
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+int main()
+{
+    char str1[20], str2[20];
+    int len, len1, len2, i, j, found=0, not_found=0;
+    printf("Enter first string: ");
+    gets(str1);
+    printf("Enter second string: ");
+    gets(str2);
+    len1 = strlen(str1);
+    len2 = strlen(str2);
+    if(len1 == len2)
+    {
+        len = len1;
+        for(i=0; i<len; i++)
+        {
+            found = 0;
+            for(j=0; j<len; j++)
+            {
+                if(str1[i] == str2[j])
+                {
+                    found = 1;
+                    break;
+                }
+            }
+            if(found == 0)
+            {
+                not_found = 1;
+                break;
+            }
+        }
+        if(not_found == 1)
+            printf("\nStrings are not Anagram");
+        else
+            printf("\nStrings are Anagram");
+    }
+    else
+        printf("\nBoth string must contain same number of character to be an Anagram Strings");
+    getch();
+    return 0;
+}
+```
+
+Load two strings into register a0 and a1 to test your program. Write a few unit tests to test your implementation.

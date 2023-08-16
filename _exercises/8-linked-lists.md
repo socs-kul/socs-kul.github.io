@@ -181,3 +181,48 @@ We provide a partial solution to the first two functions (`list-create` and `lis
 ```
 
 {% endif %}
+
+# Additional exercises
+Make sure to respect the RISC-V calling conventions in the following exercises. Write a few unit tests to validate your implementations. These questions are very similar to the ones you will receive on test 2.
+### Exercise 1
+Create a RISC-V program that, given a linked list, swaps every number that is divisble by 3 with its right neighbour and returns the amount of swaps that have taken place. The swap count must be appended to the end of the list. Print the final list and the swap count to the terminal.. You may only use list_append and list_print as auxiliary functions.
+
+### Exercise 2
+Write a RISC-V program that creates a new linked list by merging two lists of equal size as follows: the element at index k (with k from 0 to the end of the lists) that is the smallest of the two lists is inserted at the front of the list, the largest is inserted at the end. Print the resulting list to the terminal.
+
+Example:
+
+  Input: {1,2,3} and {4,1,5}
+  Output: {3,1,1,4,2,5}
+  Explanation: the steps are as follows: {1,4} -> {1,1,4,2} -> {3,1,1,4,2,5} 
+
+### Exercise 3
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Given the head of a linked list, the C program below returns the node where the cycle begins. If there is no cycle, it returns null. Translate the C program to RISC-V assembly. Return the position of the cycle (or -1 if there is none) in register a0, and print its value to the console.
+
+```c
+struct ListNode *detectCycle(struct ListNode *head) {
+    if (head == NULL || head->next == NULL)
+        return NULL;
+
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast)
+            break;
+    }
+
+    if (fast == NULL || fast->next == NULL)
+        return NULL;
+
+    slow = head;
+    while (slow != fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    return slow;
+}
+```
