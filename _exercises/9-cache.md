@@ -463,7 +463,7 @@ The strength of the 1-word block cache is that it has 16 separate blocks.  Altho
 {% endif %}
 
 # Additional exercises
-## Exercise 5
+### Exercise 5
 
 Consider a processor with a 32-bit addressing mode and a 4-way set-associative mapped cache, 
 with 8-word block size and a total size of 2048 blocks. Calculate how many bits of the address are used…
