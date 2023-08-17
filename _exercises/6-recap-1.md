@@ -33,7 +33,7 @@ To help you prepare for the first test, we have provided a practice exam. The fo
 > :pencil: **Question 1**: Given a sorted array, the length of the array and a target value. If the target value is in the array,
 > return its index. If it is not in the array, return the index where it should be inserted.
 >
-> Respect the RISC-V calling conventions. Do not make use of a custom exception handler (It will interfere with the test-suite). Try to write unit tests to test the validity of your implementation. Make sure to think about edge cases. Use .globl findIndex as the function name. Do not forget to ‘ret’ at the end of your function!
+> Respect the RISC-V calling conventions. Do not make use of a custom exception handler (it will interfere with the test-suite). Try to write unit tests to test the validity of your implementation. Make sure to think about edge cases. Use .globl findIndex as the function name. Do not forget to ‘ret’ at the end of your function!
 >
 >
 > Inputs (you can assume that these are given): a0 = array; a1=length; a2=target.
