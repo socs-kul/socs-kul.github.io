@@ -123,7 +123,7 @@ To test the validity of your implementation, it is useful to write simple unit t
 
 A simple unit test for question 1 above could for example be:
 
-'''text
+```text
 .globl q1_test
 .data
     array: .space 12
@@ -163,7 +163,8 @@ test_succes:
 test_fail:
     li   t4, -1  # If failed, load -1 into t4
     ret
-'''
+
+```
 After you run the test, register t4 will contain the value 1 if the test was a succes and -1 if the test failed.
 
 ## Re-examination
