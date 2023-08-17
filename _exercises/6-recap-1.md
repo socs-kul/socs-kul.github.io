@@ -118,5 +118,11 @@ Aside from attempting the practice exam, you should redo as many exercises from 
 > Having a solid grasp of the theory will make it a lot easier for you to
 > (re)do the exercises and complete the practice exam.
 
+## Writing unit tests
+To test the validity of your implementation, it is useful to write simple unit tests and test your program for different cases. To do this, you open a new file and make sure your testfile is in the same directory as your implementation or you assemble all the currently open files by going to *settings* and selecting the box *Assemble all files currently open*. You then load the necessary input for your implementation into the correct registers (probably a0) and run your implementation with a *jump-and-link instruction*. To check if the return value is correct, you can simply put the correct value in a register and check if it matches the return value with a *Branch if equal instruction*. If the value is correct, load a certain value in a register and another value if it is wrong.
+
+A simple unit test for question 1 above could for example be:
+
+
 ## Re-examination
 The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
