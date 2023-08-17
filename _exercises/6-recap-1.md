@@ -123,7 +123,48 @@ To test the validity of your implementation, it is useful to write simple unit t
 
 A simple unit test for question 1 above could for example be:
 
+'''text
+.globl q1_test
+.data
+    array: .space 12
 
+
+.text
+q1_test:
+    # Making an array [1,2,3] pointed to by a0
+    la   a0, array
+    li   t0, 1
+    li   t1, 2
+    li   t2, 3 
+    sw   t0, 0(a0)
+    sw   t1, 4(a0)
+    sw   t2, 8(a0) 
+    
+    
+    # Load the other input into the correct registers
+    li   a1, 3     # a1 = length of the array
+    li   a2, 2     # a2 = target value
+    
+    # Run your implementation
+    jal findIndex
+    
+    # Load the expected value into a register (in this case the expected index is 1)
+    li   t3, 1
+    
+    # Check if the returned value matches the expected value
+    beq   a0, t3, test_succes
+    bne   a0, t3, test_fail
+    
+    
+test_succes:
+    li   t4, 1   # If succes, load 1 into t4
+    ret
+
+test_fail:
+    li   t4, -1  # If failed, load -1 into t4
+    ret
+'''
+After you run the test, register t4 will contain the value 1 if the test was a succes and -1 if the test failed.
 
 ## Re-examination
 The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
