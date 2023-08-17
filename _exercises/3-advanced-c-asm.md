@@ -561,7 +561,7 @@ int main()
 [Source](https://codescracker.com/c/program/c-anagram-program.htm)
 
 
-Load two strings into register a0 and a1 to test your program. Write a few unit tests to test your implementation.
+Load two strings into register a0 and a1 to test your program. Write a few [unit tests](https://socs-kul.github.io/exercises/6-recap-1/#writing-unit-tests) to test your implementation.
 
 ### Exercise 12
 The following C program finds the two elements in array whose sum is closest to zero. Translate this program into RISC-V assembly.
