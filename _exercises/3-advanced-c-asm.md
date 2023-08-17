@@ -499,21 +499,22 @@ two things:
 
 # Additional exercises
 ### Exercise 10
-A palindrome is a word that reads the same forward and backward. An example would be 'racecar'. Write a program that, given a string containing one or more words (separated by spaces), returns the amount of palindromes in the given sentence (in register a0). All sentences given will be lowercase.
+A palindrome is a word that reads the same forward and backward. An example would be 'racecar'. Write a program that, given a string containing one or more words (separated by spaces), returns the amount of palindromes in the given sentence (in register a0). You can assume that all input sentences contain only lowercase letters and no other characters.
 
-Example:
+**Example**:
 
     Input (in register a0): "this honda civic can hardly be called a racecar"
     Output (in register a0): 3
     Explanation: 'civic', 'racecar' and 'a' are all palindromes. The other words are not.
 
 ### Exercise 11
-The following C program checks if two strings are anagrams of each other. An anagram is a word that is created by rearranging the letters in another word. An example would be 'night' and 'thing'. Translate the C program to RISC-V assembly. You do not have to ask the strings as user input, and you should not print anything to the console like in the C program. Instead, simply return 1 if both strings are anagrams of each other, and 0 otherwise. You can assume that there are no spaces in the strings. 
+The following C program checks if two strings are anagrams of each other. An anagram is a word that is created by rearranging the letters in another word. An example would be 'night' and 'thing'. Translate the C program to RISC-V assembly. You do not have to ask the strings as user input, and you should not print anything to the console like in the C program. Instead, simply return 1 if both strings are anagrams of each other, and 0 otherwise. You can assume that there are no spaces and no non-letter characters in the strings. 
 
 ```c
-#include<stdio.h>
-#include<conio.h>
-#include<string.h>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+
 int main()
 {
     char str1[20], str2[20];
@@ -522,8 +523,10 @@ int main()
     gets(str1);
     printf("Enter second string: ");
     gets(str2);
+
     len1 = strlen(str1);
     len2 = strlen(str2);
+    
     if(len1 == len2)
     {
         len = len1;
@@ -555,5 +558,63 @@ int main()
     return 0;
 }
 ```
+[Source](https://codescracker.com/c/program/c-anagram-program.htm)
+
 
 Load two strings into register a0 and a1 to test your program. Write a few unit tests to test your implementation.
+
+### Exercise 12
+The following C program finds the two elements in array whose sum is closest to zero. Translate this program into RISC-V assembly.
+
+```c
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+void findMinSumPair(int *arr1, int arr_size)
+{
+  int i, j, sum, minSum, min1Pair, min2Pair;
+
+  if(arr1 == NULL || arr_size < 2)
+      return;
+  min1Pair = arr1[0];
+  min2Pair = arr1[1];
+  minSum = min1Pair + min2Pair;
+  
+  for(i = 0; i < arr_size-1; i++) 
+  {
+    for(j = i+1; j < arr_size; j++) 
+	{
+      sum = arr1[i] + arr1[j];
+      if(abs(sum) < abs(minSum)) 
+	  {
+        minSum = sum;
+        min1Pair = arr1[i];
+        min2Pair = arr1[j];
+      }
+    }
+  }
+  printf("[%d, %d]\n", min1Pair, min2Pair);
+}
+ 
+int main()
+{
+    int arr1[] = {38, 44, 63, -51, -35, 19, 84, -69, 4, -46}; 
+    int ctr = sizeof(arr1)/sizeof(arr1[0]);
+    int i;  
+
+    // print original array
+	printf("The given array is :  ");
+	for(i = 0; i < ctr; i++)
+	{
+	printf("%d  ", arr1[i]);
+    } 
+    printf("\n");
+
+    printf("The Pair of elements whose sum is minimum are: \n");
+    findMinSumPair(arr1, ctr);
+    return 0;
+}
+```
+
+[Source](https://www.w3resource.com/c-programming-exercises/array/c-array-exercise-45.php)

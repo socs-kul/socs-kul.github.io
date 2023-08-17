@@ -185,14 +185,14 @@ We provide a partial solution to the first two functions (`list-create` and `lis
 # Additional exercises
 Make sure to respect the RISC-V calling conventions in the following exercises. Write a few unit tests to validate your implementations. These questions are very similar to the ones you will receive on test 2.
 ### Exercise 1
-Create a RISC-V program that, given a linked list, swaps every number that is divisble by 3 with its right neighbour and returns the amount of swaps that have taken place. If the last element is divisible by 3, it must be swapped with the first element of the list. The swap count must be appended to the end of the list. 
+Create a RISC-V program that, given a linked list, swaps every number that is divisble by 3 with its right neighbour and returns the amount of swaps that have taken place. The list is traversed once, from left to right. If the last element is divisible by 3, it must be swapped with the first element of the list. The swap count must be appended to the end of the list. 
 
 **Example**
 - Input: {1,3,7,9}
 - Output: {9,7,3,1,2}
 - Explanation: 3 is divisible by itself, so 3 and 7 are swapped first. 9 is also divisible by 3 and on the last index of the list, so it is swapped with the first element (1). Two swaps have taken place, so 2 is appended to the end of the list. 
 
-Print the final list and the swap count to the terminal. You may only use list_append and list_print as auxiliary functions.
+Print the final list and the swap count to the terminal. You may only use *list_append* and *list_print* as auxiliary functions.
 
 ### Exercise 2
 Write a RISC-V program that creates a new linked list by merging two lists of equal size as follows: the element at index k (with k from 0 to the end of the lists) that is the smallest of the two lists is inserted at the front of the list, the largest is inserted at the end. Print the resulting list to the terminal.
@@ -203,7 +203,11 @@ Write a RISC-V program that creates a new linked list by merging two lists of eq
 - Explanation: the steps are as follows: {1,4} -> {1,1,4,2} -> {3,1,1,4,2,5}, because 4 > 1, 2 > 1, 5 > 3. 
 
 ### Exercise 3
-There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Given the head of a linked list, the C program below returns the node where the cycle begins. If there is no cycle, it returns null. Translate the C program to RISC-V assembly. Return the position of the cycle (or -1 if there is none) in register a0, and print its value to the console.
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. See the following figure:
+
+![Cycle in a linked list](/exercises/8-linked-lists/images/cycle.png)
+
+Given the head of a linked list, the C program below returns the node where the cycle begins. If there is no cycle, it returns null. Translate the C program to RISC-V assembly. Return the position of the cycle (or -1 if there is none) in register a0, and print its value to the console.
 
 ```c
 struct ListNode *detectCycle(struct ListNode *head) {
@@ -232,3 +236,4 @@ struct ListNode *detectCycle(struct ListNode *head) {
     return slow;
 }
 ```
+Source: [Leetcode solution for finding cycle in linked list](https://leetcode.com/problems/linked-list-cycle-ii/solutions/3775317/using-c-effective-code/)
