@@ -105,14 +105,24 @@ of certain variables, not only their values.
 ## The very basics of C
 Before considering on how to even run a C program, let's look at the basics. C is a statically typed language, this means that the type associated with each and every variable must be known before compiling.
 
-Some C type examples:
+Here are some of the most common types in C:
 
-Type                                | C notation           | Example
------------------------------------:|:---------------------|:--------------------
-integer                             | int                  | 1, 2, -5, 6...
-character                           | char                 | "a", "b", "z"...
-float                               | float                | 1.5, -2.354, 0.001...
-void			                    | void                 | no type, no value
+Type                                  | C notation           | Example
+-------------------------------------:|:---------------------|:--------------------
+signed integer                        | int                  | 1, 2, -5, 6...
+unsigned integer (non-negative values)| unsigned int         | 1, 2, 3, 4...
+signed integer, at least 32 bits      | long                 | 1, 2, -5, 6...
+character                             | char                 | "a", "b", "z"...
+floating point number                 | float / double       | 1.5, -2.354, 0.001...
+void			                      | void                 | no type, no value
+
+For floating point numbers, you can use `float` and `double` (where the latter has double the precision).
+
+Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](https://www.asciitable.com/)
+encoding.
+
+In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:
+`sizeof(int)` or `sizeof(a)`.
 
 
 A very simple example, containing only variables:
@@ -416,24 +426,6 @@ we see that it points to an integer variable (<code class="language-plaintext hi
 when we cover the last asterisk, we still have <code class="language-plaintext highlighter-rouge">int *</code>
 remaining, so we know x points to an integer pointer (<code class="language-plaintext highlighter-rouge">p</code>)!</p>
 </details>
-
-# Other data types
-
-So far, we've only seen integers in C. Already with integers, you can come across many
-variants in C:
-
-- `int`: signed integer, at least 16 bits in size
-- `unsigned int`: unsigned integer (non-negative values)
-- `long`: signed integer, at least 32 bits
-- `unsigned long`, `long long`, `unsigned long long`...
-
-For floating point numbers, you can use `float` and `double` (where the latter has double the precision).
-
-Characters can be stored in the `char` type. This is 1 byte in size, so it stores the character in the [ASCII](https://www.asciitable.com/)
-encoding.
-
-In your C programs, you can find the precise size of a data type or a variable (in bytes) with the `sizeof()` function:
-`sizeof(int)` or `sizeof(a)`.
 
 ### Exercise 2
 
