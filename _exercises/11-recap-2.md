@@ -44,5 +44,8 @@ Aside from attempting the practice exam, you should redo as many exercises from 
 > Having a solid grasp of the theory will make it a lot easier for you to
 > (re)do the exercises and complete the practice exam.
 
+## Unit tests
+It is again recommended to write a few [test cases](https://socs-kul.github.io/exercises/6-recap-1/#writing-unit-tests) for your implementation during the exam. For some questions, you may have access to list_create and list_append to create linked lists for your tests.
+
 ## Re-examination
 The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
