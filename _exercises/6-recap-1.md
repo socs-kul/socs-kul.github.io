@@ -124,5 +124,6 @@ To test the validity of your implementation, it is useful to write simple unit t
 A simple unit test for question 1 above could for example be:
 
 
+
 ## Re-examination
 The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
