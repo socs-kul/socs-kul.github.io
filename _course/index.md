@@ -10,7 +10,7 @@ permalink: /
 This website is the source of all information regarding the exercise sessions of the
 'Structuur en organisatie van computersystemen' course (SOCS).
 
-For a few years now, we provided the exercise sessions as web pages for a similar course, this is the first year we will do it for SOCS. So far the feedback has been positive, but please reach out to us if you disagree or if you think we could make the course better. If you find mistakes or errors, just reach out to us on Toledo, in person, or through email. You are also most welcome to create pull requests: The source code of this website is available on [GitHub](https://github.com/socs-kul/socs-kul.github.io). Both in the GitHub repository as well as on this website, you may be able to find some pages that are hidden from the menu and that are not unlocked yet (such as future sessions or solutions). You are free to look at these pages, but please be aware that we will be actively working on each session up until the Monday of the session's week - so be careful when roaming around as the pages may not be final yet!
+For the past few years, we've been delivering the exercise sessions as web pages for a similar course. This is the first year we will do it for SOCS. So far the feedback has been positive, but please reach out to us if you disagree or if you think we could make the course better. If you find mistakes or errors, just reach out to us on Toledo, in person, or through email. You are also most welcome to create pull requests: The source code of this website is available on [GitHub](https://github.com/socs-kul/socs-kul.github.io). Both in the GitHub repository as well as on this website, you may be able to find some pages that are hidden from the menu and that are not unlocked yet (such as future sessions or solutions). You are free to look at these pages, but please be aware that we will be actively working on each session up until the Monday of the session's week - so be careful when roaming around as the pages may not be final yet!
 
 ## Tests
 There will be 2 tests during the semester. The difficulty will not be greater than the more difficult exercises from the exercise sessions. An example test will be made available.
@@ -21,7 +21,7 @@ These tests will take place on a computer.
 | Test 1 (50%) | Nov 8  |
 | Test 2 (50%) | Dec 20 |
 
-Both tests contribute equally to your grade. The first test covers exercise sessions 1-6, the second test covers sessions 7-11. More details about these tests will be provided in the recap sessions (sessions 6 and 11).
+Both tests contribute equally to your grade. The first test covers exercise sessions 1-6, the second test covers sessions 7 and 8. More details about these tests will be provided in the recap sessions (sessions 6 and 11).
 
 ## Exercises
 

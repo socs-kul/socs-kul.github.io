@@ -564,7 +564,7 @@ int main()
 Load two strings into register a0 and a1 to test your program. Write a few [unit tests](https://socs-kul.github.io/exercises/6-recap-1/#writing-unit-tests) to test your implementation.
 
 ### Exercise 12
-The following C program finds the two elements in array whose sum is closest to zero. Translate this program into RISC-V assembly.
+The following C program finds the two elements in an array whose sum is closest to zero. Translate this program into RISC-V assembly.
 
 ```c
 #include <stdio.h>

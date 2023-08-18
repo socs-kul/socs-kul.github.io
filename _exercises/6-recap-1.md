@@ -18,7 +18,7 @@ The first test will take place on **November 8th**. It serves to examine your un
 | Session 4 | Functions and the stack |
 | Session 5 | Dynamic memory |
 
-The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the ECTS course description for more information about how this course is graded.
+The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the [ECTS course description](https://onderwijsaanbod.kuleuven.be/syllabi/n/G0Q33CN.htm#activetab=doelstellingen_idp994368) for more information about how this course is graded.
 
 The difficulty of the test will not be greater than the more difficult exercises from the exercise sessions. The test will take place on a computer, with a duration of 2 hours. You can access RARS and GCC, but you will not have internet access.
 
@@ -26,6 +26,7 @@ The difficulty of the test will not be greater than the more difficult exercises
 Test 1 will consist of two questions:
 
 **Question 1**: A question where you have to write RISC-V assembly. You will receive a description of a program, which you will have to implement. We will check that your implementation gives the correct results and that you have respected the RISC-V calling conventions (see session 4). Try to create your own unit tests to check your implementation. This question should take *at most 40 minutes*.
+
 **Question 2**: In this question you will be given a program description and an implementation in C. You have to translate this C code into RISC-V assembly. This question is usually a little harder than the first one. It should take *at most 1 hour*.
 ## Practice exam
 To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. Solutions to both questions will be provided a few days before the test. Try to solve these questions yourself before looking at the model solutions!
@@ -168,4 +169,4 @@ test_fail:
 After you run the test, register t4 will contain the value 1 if the test was a succes and -1 if the test failed.
 
 ## Re-examination
-The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the exercise sessions (1 through 11). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
+The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the previous two tests (1 through 8). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.

@@ -18,14 +18,14 @@ These two chapters have built upon the previous ones (sessions 1-5), which is wh
 
 The material regarding caches and performance will not be asked on the test, but on the final exam in january. The test is centered entirely around writing RISC-V code, just like the first test.
 
-The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the ECTS course description for more information about how this course is graded.
+The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the [ECTS course description](https://onderwijsaanbod.kuleuven.be/syllabi/n/G0Q33CN.htm#activetab=doelstellingen_idp994368) for more information about how this course is graded.
 
 The difficulty of the test will not be greater than the more difficult exercises from the exercise sessions. The test will take place on a computer, with a duration of 2 hours. You can access RARS and GCC, but you will not have internet access.
 
 ## Structure of this test
-Test 2 will consist of three questions:
+Test 2 will consist of just one question:
 
-**Question 1**: A question about linked lists. We provide a description of a program related to linked lists, and you must implement it in RISC-V assembly. We will check that your implementation gives the correct results, and that you have respected the RISC-V calling conventions (see session 4). You may receive certain auxiliary programs like *list_create*, *list_append*, etc. depending on the question. Your implementation will be assessed automatically using a test suite. Try to create your own unit tests to check the validity of your code. This question should take *at most 1 hour*.
+**Question 1**: A question about linked lists. We provide a description of a program related to linked lists, and you must implement it in RISC-V assembly. We will check that your implementation gives the correct results, and that you have respected the RISC-V calling conventions (see session 4). You may receive certain auxiliary programs like *list_create*, *list_append*, etc. depending on the question. Your implementation will be assessed automatically using a test suite. Try to create your own unit tests to check the validity of your code.
 ## Practice exam
 To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. 
 

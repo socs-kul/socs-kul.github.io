@@ -236,4 +236,4 @@ struct ListNode *detectCycle(struct ListNode *head) {
     return slow;
 }
 ```
-Source: [Leetcode solution for finding cycle in linked list](https://leetcode.com/problems/linked-list-cycle-ii/solutions/3775317/using-c-effective-code/)
+[Source](https://leetcode.com/problems/linked-list-cycle-ii/solutions/3775317/using-c-effective-code/)
