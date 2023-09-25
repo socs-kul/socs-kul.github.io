@@ -94,7 +94,7 @@ main:
 
 Write a user program that uses system calls to read two numbers from the user’s keyboard. Afterwards, print the sum of these two numbers. Remember that the full list of system calls in RARS can be found on [GitHub](https://github.com/TheThirdOne/rars/wiki/Environment-Calls).
 
-{% if site.solutions.show_session_5 %}
+{% if site.solutions.show_session_7 %}
 
 #### Solution
 
@@ -158,7 +158,7 @@ Write a program which reads the name of the user from the keyboard. Afterwards, 
 > heap: .space 100000
 > ```
 
-{% if site.solutions.show_session_5 %}
+{% if site.solutions.show_session_7 %}
 
 #### Solution
 
@@ -430,7 +430,7 @@ The `main` function first loads the address of the custom trap handler in `utvec
 ## Exercise 3
 Write a custom user-mode exception handler. The exception handler should do nothing but jump over the faulting instruction. Make sure the handler does not modify any regular registers (Hint: use `uscratch`). Do not forget to enable custom trap handling in user mode (`csrrsi zero, ustatus, 1`) before triggering the trap.
 
-{% if site.solutions.show_session_5 %}
+{% if site.solutions.show_session_7 %}
 
 #### Solution
 
@@ -453,7 +453,7 @@ A possible output could be:
 
 Make sure to restore all register values before returning from the trap handler. In theory, you could use the call stack for this purpose. However, the stack pointer itself might be misaligned. Using the stack pointer would then cause an additional exception within the handler. A better alternative is to reserve space in the data section to back-up registers. You will still need to load the initial address of this space into a register, so you will still need to use the `uscratch` register to back-up that specific register.
 
-{% if site.solutions.show_session_5 %}
+{% if site.solutions.show_session_7 %}
 
 #### Solution
 
@@ -583,7 +583,7 @@ main:
 
 ```
 
-{% if site.solutions.show_session_5 %}
+{% if site.solutions.show_session_7 %}
 
 #### Solution
 

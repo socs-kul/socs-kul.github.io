@@ -25,7 +25,7 @@ The solutions contain a lot of information, some of it probably should be moved 
 
 -->
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_9 %}
 # Cache simulator
 
 <script src="/exercises/9-cache/script.js"></script>
@@ -259,7 +259,7 @@ out what the following quantities are in terms of S, B, A, b and k:
 - the number of index bits in the address;
 - the number of bits needed to implement the cache.
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_9 %}
 #### Solution
 
 In this case, we have `A` number of ways.
@@ -311,7 +311,7 @@ size and a total size of 1024 blocks. Calculate how many bits of the address are
 block, a word in the block, a byte in the word. The sum of these numbers must be 32! Calculate the total size
 needed to implement this cache.
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_9 %}
 #### Solution
 
 We see that we have a total number of 1024 blocks. Because this is a direct mapped cache, we also know that the number of blocks equals the number of sets, as there are no additional ways in the cache. From this, we can already conclude that we need `log_2(1024) = 10` index blocks to select the set.
@@ -353,7 +353,7 @@ The following table shows an example format of a possible solution for a direct-
 2 (miss), 3 (hit) 11, 16, 21, 13, 64, 48, 19 (all misses), 11 (hit), 3, 22, 4, 27, 11 (all misses)
 </code></pre></div></div>
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_9 %}
 #### Solution
 
 
@@ -455,7 +455,7 @@ Associativity usually improves the hit ratio, but not always. Consider a direct 
 sequence of memory references for which the associative cache experiences more misses than the direct mapped
 cache.
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_9 %}
 #### Solution
 
 The strength of the 1-word block cache is that it has 16 separate blocks.  Although the set-associative has just as many blocks, each block has twice as many potential memory addresses mapped on it. If we use a FIFO replacement, a sequence of 8, 16, 0 would insert and remove 8 out of a set-associative cache. The direct mapped cache would still have the 8.

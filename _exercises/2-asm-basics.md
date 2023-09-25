@@ -244,7 +244,7 @@ Use the data section to reserve memory for `a`, `b`, and `c`.
 Use the debugging features in RARS (memory viewer, register contents) to make sure
 that your program works as intended!
 
-{% if site.solutions.show_session_1 %}
+{% if site.solutions.show_session_2 %}
 #### Solution
 ```text
 {% include_relative 2-asm-basics/sol1.S %}
@@ -309,7 +309,7 @@ you can store the input integer in the data section.
 {% include_relative 1-c-basics/sol3.c %}
 ```
 
-{% if site.solutions.show_session_1 %}
+{% if site.solutions.show_session_2 %}
 #### Solution
 ```text
 {% include_relative 2-asm-basics/sol2.S %}
@@ -321,7 +321,7 @@ you can store the input integer in the data section.
 Write a RISC-V program that calculates: `c = a^b`.
 Make sure that your solution works for all `b >= 0`!
 
-{% if site.solutions.show_session_1 %}
+{% if site.solutions.show_session_2 %}
 #### Solution
 ```text
 {% include_relative 2-asm-basics/sol3.S %}

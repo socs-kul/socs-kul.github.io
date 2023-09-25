@@ -131,7 +131,7 @@ sw t3, 8(t0)  # array[2] = 5
 
 > :fire: Warm-up 1: Extend the program above to sum the two numbers `a` and `b` and store it in `number`. You don't need to perform function calls just yet, you can ignore the labels for now.
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -175,7 +175,7 @@ If you take a look at the [RISC-V card linked at the top of the website](/files/
 
 > :fire:  Warm-up 2: Change your program to adhere to the register conventions above as if the `sum` label was a function.
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -223,7 +223,7 @@ If you are now unsure about the size of the data that you want to put or retriev
 
 > :fire: Warm-up 4: Expand the example above with simple code that loads the address of the stack into a register, pushes two integers (4 and 5 for example) and then pops these integers again.
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -251,7 +251,7 @@ At this point, it may not surprise you anymore to hear that RISC-V actually has 
 
 > :fire: Warm-up 5: Change your code from the last warm-up to use the `sp` register and the provided stack.
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -358,7 +358,7 @@ Why is this assumption necessary right now?
 {% include_relative 4-functions-stack/ex1.c %}
 ```
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -393,7 +393,7 @@ Follow the calling conventions to pass all arguments correctly.
 {% include_relative 4-functions-stack/ex2.asm %}
 ```
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -418,7 +418,7 @@ Note that `sum_fixme` acts both as a caller and a callee at different times. You
 {% include_relative 4-functions-stack/ex3.asm %}
 ```
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -440,7 +440,7 @@ Consider the following recursive function which calculates `n!`.
 1. Consider the call `fact(3)`. What is the state of stack when it reaches its maximum size (at the deepest level of recursion)?
 1. In [exercise 3 of the first session](/exercises/1-c-basics/#exercise-3) you implemented an iterative factorial function. Compare both factorial implementations in terms of memory usage. Which implementation do you prefer?
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 
@@ -480,7 +480,7 @@ Try to avoid using the call stack during the `fact_tail` implementation. Why is 
 {% include_relative 4-functions-stack/ex5.c %}
 ```
 
-{% if site.solutions.show_session_3 %}
+{% if site.solutions.show_session_4 %}
 
 #### Solution
 

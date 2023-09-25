@@ -257,7 +257,7 @@ to arrays of `n` integers. What does the function do? Translate this function to
 {% include_relative 5-dynamic-memory/ex1.c %}
 ```
 
-{% if site.solutions.show_session_4 %}
+{% if site.solutions.show_session_5 %}
 #### Solution
 
 ```text
@@ -274,7 +274,7 @@ Translate this function to RISC-V.
 {% include_relative 5-dynamic-memory/ex2.c %}
 ```
 
-{% if site.solutions.show_session_4 %}
+{% if site.solutions.show_session_5 %}
 #### Solution
 
 ```text
@@ -484,7 +484,7 @@ Don't forget the calling conventions!
 
 ![Representation of the stack in the memory](/exercises/img/rars-stack-ex3-drawio.png)
 
-{% if site.solutions.show_session_4 %}
+{% if site.solutions.show_session_5 %}
 
 #### Solution
 
@@ -534,7 +534,7 @@ following steps might help:
 1. For free chunks, also store the address of the next free chunk in the chunk
 metadata.
 
-{% if site.solutions.show_session_4 %}
+{% if site.solutions.show_session_5 %}
 
 #### Solution
 

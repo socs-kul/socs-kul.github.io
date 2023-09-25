@@ -162,7 +162,7 @@ typedef enum {
 * `UNINITIALIZED_RETVAL` is used whenever a function provides a return value via a parameter. Thus, the function is supplied a pointer to which to write
 this return value. If that pointer points to `NULL`, return this error code.
 
-{% if site.solutions.show_session_6 %}
+{% if site.solutions.show_session_8 %}
 
 # Partial solutions
 

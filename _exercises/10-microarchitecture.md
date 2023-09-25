@@ -162,7 +162,7 @@ the data paths have the following latencies:
 ### Exercise 1.1
 What is the clock cycle time in a pipelined and single-cycle non-pipelined processor?
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 In a pipelined processor, each pipeline stage executes for one clock cycle. This means that the clock cycle needs to be adjusted to accommodate the most time-consuming pipeline stage.
@@ -180,7 +180,7 @@ In a single-cycle design, the entire execution with all stages executes in one c
 
 What is the total latency of a `lw` instruction in a pipelined and single-cycle non-pipelined processor?
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 The total latency of an instruction is the time it takes between when the instruction starts to be fetched until its results are written back into memory -- in other words, the sum of all stages of execution.
 
@@ -197,7 +197,7 @@ In a pipelined processor, this equals the cycle time multiplied with the number 
 
 If we can split one stage of the pipelined data path into two new stages, each with half the latency of the original stage, which stage would you split and what is the new clock cycle time of the processor?
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 
 #### Solution
 
@@ -226,7 +226,7 @@ Compare clock cycle times and execution times with single-cycle, multi-cycle, an
 
 Calculate the clock cycle time for a single-cycle, multi-cycle, and pipelined implementation of this datapath.
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 
 #### Solution
 
@@ -249,7 +249,7 @@ What are the best and worst case total latencies for an instruction in each of t
 (single-cycle, multi-cycle, pipelined)? Express instruction latency both in number of cycles and in total time
 (ps). Based on these numbers, which design would you prefer? Explain.
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 For the single-cycle and the pipelined design, all instructions take the same amount of time regardless of which stages are used during their execution. In the case of the single-cycle processor, this is 600ps (1 cycle), for the pipelined processor, it is 1000ps (5 cycles, each taking 200ps).
@@ -284,7 +284,7 @@ Note: you can assume the CPU starts from a clean state (e.g., after a system res
 ![Ex 2.3: Pipeline question](/exercises/10-microarchitecture/pipelining-diagrams.png){: .center-image }
 
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 ![Ex 2.3: Pipeline solution](/exercises/10-microarchitecture/sol2-3.png){: .center-image }
@@ -298,7 +298,7 @@ What is the total time and cycles needed to execute the above RISC-V program fro
 What if we add 50 no-operation (`nop`) instructions (`add zero, zero, zero`)?
 Provide a formula to explain your answer.
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 
 #### Solution
 
@@ -356,7 +356,7 @@ lw t2, 10(t3)
 
 Describe the performance implications for each of the three CPU designs from exercise 2, if in the RISC-V program the first instruction is changed to `addi t1, zero, 10` (think about hazards).
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 As there is no parallelism in single-cycle and multi-cycle processors, there are also no hazards. Instructions only start executing once the previous once have completely finished and their modifications have been carried out in memory or the register file.
@@ -399,7 +399,7 @@ or t1, t1, t2
 Indicate the dependencies in the code and their type: read after write (RAW), write after read (WAR), write
 after write (WAW).
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 - Both (2) and (3) read `t1` after (1) writes it (RAW)
@@ -412,7 +412,7 @@ after write (WAW).
 ### Exercise 3.2
 Assume there is no forwarding in the pipelined processor. Indicate hazards and add `nop` instructions in the program to eliminate them.
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 WAR and WAW dependencies do not cause hazards in the pipeline; it does not matter what the value of the register is when it is being written.
@@ -453,7 +453,7 @@ Assume the following cycle times for two processors with different forwarding st
 - Without forwarding: 250ps
 - With full forwarding: 300ps
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 With full forwarding, register values that are calculated in the EX stage can be forwarded to the following instruction's EX stage, which eliminates the hazards in this code. This means that we don't need to add any `nop` instructions.
@@ -529,7 +529,7 @@ sw t5, 16(t0)
 Assume the program above will be executed on a 5-stage pipelined processor with forwarding and hazard detection.
 How many clock cycles will it take to correctly run this RISC-V code?
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 In this code, both `add` instructions will have to be stalled for one cycle. Both of them have a RAW dependency on a register value that is loaded from memory in the previous instruction. This value is only available in the MEM stage of the `lw` instruction, which runs in parallel with the EX stage of the `add` instruction. For this reason, the `add` instructions need to be stalled by one cycle, so that the correct register value can be forwarded to their EX stages.
@@ -545,7 +545,7 @@ In total, this means that we have 5 cycles for the first instruction, 6 (1 each)
 ### Exercise 4.2
 Reorganize the code to optimize the performance. (Hint: try to remove the stalls)
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 If we avoid using a register value in an instruction that is loaded from memory in the previous instruction (without changing the result of the program), we can eliminate the stalls.
@@ -589,7 +589,7 @@ Execution starts from the first `add` instruction with `PC=0x2000`.
 ![Instruction time diagram](/exercises/10-microarchitecture/instruction-time-diagram.png){: .center-image }
 
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_10 %}
 #### Solution
 
 In this exercise, we need to pay attention to branches and jumps. The processor does no prediction, so it continues executing instructions that follow the branch instruction. The program counter is updated in the EX stage of the branch instructions, so the fetching of the correct next instruction can only start after this stage finished executing. This means that after each branch that is taken, the processor starts executing two incorrect instructions. These executions need to be stopped, the pipeline is flushed after the program counter updates.
