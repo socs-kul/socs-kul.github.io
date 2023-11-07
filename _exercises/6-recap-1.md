@@ -29,7 +29,7 @@ Test 1 will consist of two questions:
 
 **Question 2**: In this question you will be given a program description and an implementation in C. You have to translate this C code into RISC-V assembly. This question is usually a little harder than the first one. It should take *at most 1 hour*.
 ## Practice exam
-To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different. Solutions to both questions will be provided a few days before the test. Try to solve these questions yourself before looking at the model solutions!
+To help you prepare for the first test, we have provided a practice exam. The format, difficulty and duration of the practice test are very similar to those of the real test, but the questions will obviously be different.
 
 > :pencil: **Question 1**: Given a sorted array, the length of the array and a target value. If the target value is in the array,
 > return its index. If it is not in the array, return the index where it should be inserted.
