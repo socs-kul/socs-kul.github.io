@@ -95,7 +95,7 @@ The `value` attribute stores the content of the list element and `next` is a poi
 
 ## Functions
 
-In order to make to program work, you will need to implement a number of functions. In this section you can find a description and expected operation of each function. If you are still unsure about what the behavior of the function should be, have a look at the test suite.
+In order to make the program work, you will need to implement a number of functions. In this section you can find a description and expected operation of each function. If you are still unsure about what the behavior of the function should be, have a look at the test suite.
 Each function will return a [status code](#error-codes), indicating whether an error occurred during execution.
 
 > :bulb: **Tip**: Implement the functions in the given order. For some of the more complicated functions, you might need to use a previously written function. The test suite will check the functions in the order below and will abort if a test fails.
