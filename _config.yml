@@ -91,7 +91,7 @@ solutions:
   show_session_5: true
   show_session_6: true
   show_session_7: true
-  show_session_8: false
+  show_session_8: true
   show_session_9: false
   show_session_10: false
   show_session_11: false
