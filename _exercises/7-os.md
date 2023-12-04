@@ -218,8 +218,8 @@ main:
 ### Releasing allocated memory
 It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of session 5](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
 
-### Releasing memory in RARS
-It is possible to pass a negative integer to the `sbrk` system call in RARS. This could be used to *free* previously allocated memory. However, this would not always be sufficient to release any memory that you previously allocated. It only allows to *free* the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
+### Releasing memory acquired through `sbrk`
+It is possible to pass a negative integer to the `sbrk` system call on some operating systems. This could be used to *free* previously allocated memory. However, it would not always be sufficient to release any memory that you previously allocated, as it only allows to *free* the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
 
 <table>
 <tr>
@@ -261,8 +261,10 @@ main:
 
 Suppose you also want to *free* `3` from the heap, but would like to keep `6` on the heap. The only way to *free* it, is by passing `-8` bytes to `sbrk`. This would however also *free* `6` and you would no longer be able to use it.
 
+*Note that it is not possible in RARS to pass negative integers to `sbrk`.*
+
 ### (De)allocating memory in C
-One of the disadvantages of `sbrk` in RARS is that it is not possible to free *any* chunk of memory that you want. Another disadvantage is that system calls, like `sbrk`, have some overhead. A system call consists of multiple instructions that have to be executed. The kernel has to manage the allocation of memory, which will require a switch from *user mode* to another mode with a higher privilege level.
+One of the disadvantages of `sbrk` is that it is not possible to free *any* chunk of memory that you want. Another disadvantage is that system calls, like `sbrk`, have some overhead. A system call consists of multiple instructions that have to be executed. The kernel has to manage the allocation of memory, which will require a switch from *user mode* to another mode with a higher privilege level.
 
 Programming languages sometimes offer complex functions to handle the (de)allocation of memory. In C, this functionality is provided by [`malloc`](https://www.tutorialspoint.com/c_standard_library/c_function_malloc.htm) and [`free`](https://www.tutorialspoint.com/c_standard_library/c_function_free.htm) (provided in `stdlib.h`). `malloc` is a function which allows to dynamically allocate a number of bytes. It returns a pointer to the allocated memory. A pointer can be passed as an argument to `free` to *free* the memory that was previously allocated for the data the pointer is pointing to. Following code snippet shows how `free` and `malloc` can be used:
 
