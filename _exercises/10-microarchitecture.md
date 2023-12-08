@@ -138,7 +138,7 @@ instruction to go through all the stages like in a single-cycle design.
 
 {% include gallery.html images=page.riscv  ratio_image="/exercises/10-microarchitecture/riscv-ratio.png" %}
 
-Pipelining does not increase the time to execute a single instruction (called
+Pipelining does not decrease the time to execute a single instruction (called
 the **latency**), but increases the number of instructions that can be executed
 simultaneously and thus the rate at which instructions are executed (called the
 **throughput**). In the best case scenario, this five stage pipeline is five
