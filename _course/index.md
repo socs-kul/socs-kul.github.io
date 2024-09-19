@@ -18,8 +18,8 @@ These tests will take place on a computer.
 
 | Test       | Date            |
 | :-----        | :-----------     |
-| Test 1 (50%) | Nov 8  |
-| Test 2 (50%) | Dec 20 |
+| Test 1 (50%) | Nov 6  |
+| Test 2 (50%) | Dec 18 |
 
 Both tests contribute equally to your grade. The first test covers exercise sessions 1-6, the second test covers sessions 7 and 8. More details about these tests will be provided in the recap sessions (sessions 6 and 11).
 
@@ -41,17 +41,17 @@ The 11 sessions will have the following contents:
 
 | Week       | Session name             |
 | :-----        | :-----------     |
-| Okt 2  | Introduction to C  |
-| Okt 9 | Assembly basics |
-| Okt 16 | Advanced C & assembly |
-| Okt 23 | Functions and the stack |
-| Okt 30 | Dynamic memory |
-| Nov 6 | Recap session 1 |
-| Nov 13 | Operating Systems |
-| Nov 20 | Linked Lists |
-| Nov 27 | Caches |
-| Dec 4 | Performance and Microarchitecture
-| Dec 11 | Recap session 2 |
+| Sep 30  | Introduction to C  |
+| Okt 7 | Assembly basics |
+| Okt 14 | Advanced C & assembly |
+| Okt 21 | Functions and the stack |
+| Okt 28 | Dynamic memory |
+| Nov 4 | Recap session 1 |
+| Nov 11 | Linked Lists |
+| Nov 18 | Operating Systems |
+| Nov 25 | Caches |
+| Dec 2 | Performance and Microarchitecture
+| Dec 9 | Recap session 2 |
 
 ## YouTube videos
 
