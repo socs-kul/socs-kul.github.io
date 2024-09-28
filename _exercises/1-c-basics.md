@@ -145,7 +145,7 @@ int main(void){ // The main function takes nothing as an argument, hence the 'vo
     int x;
     x = 5;
     int y = 10;
-	
+
     int result = add(x, y); // We call the function add
     return 0; // We return 0 here since our main function is of the integer type (More on this later)
 }
@@ -159,12 +159,12 @@ Now consider the following equivalent program:
 int add(int, int); // This is a function declaration
 
 int main(void){
-    int x;	
+    int x;
     x = 5;
     int y = 10;
-	
+
     int result = add(x, y);
-    return 0; 
+    return 0;
 }
 
 int add(int a, int b){
@@ -254,7 +254,7 @@ The first line tells the compiler to include parts of the C standard library, th
 enables us to use predefined functions, such as the `printf` we use to print to the
 console. This `#include` directive is similar to `import` in Python or Java.
 In this case, we include the `stdio.h` *header*, which includes functions related to
-input/output (**st**an**d**ard **i**nput/**o**utput). 
+input/output (**st**an**d**ard **i**nput/**o**utput).
 
 We use the `printf` function from `stdio.h` to print the text "Hello world" followed
 by a line break (`\n`). Later in this session, we will see how to print values of variables
@@ -460,5 +460,38 @@ factorial of this integer.
 #### Solution
 ```c
 {% include_relative 1-c-basics/sol3.c %}
+```
+{% endif %}
+
+# Additional exercises
+
+### Exercise 4
+
+Create a function `swap(int *a, int *b)` that takes two pointers and swaps their values.
+Implement the swap function *below* the main function, but ensure you can call it from inside the main function.
+Test your function by printing the resulting integers.
+
+{% if site.solutions.show_session_1 %}
+#### Solution
+```c
+{% include_relative 1-c-basics/sol4.c %}
+```
+{% endif %}
+
+### Exercise 5
+
+In C a user can supply data to a program using arguments. These arguments are received in the `main` function using the `argc` (argument count) and `argv` (argument vector) parameters.
+`argc` represents the amount of arguments given to the program. `argv` is an array (think of a list) of arguments given to the program. The first element is always the program name.
+
+You'll see arrays in session 3, but you don't need to know everything about them to solve this exercise.
+For now, think of an array as a pointer pointing to its first element. A string is a character array, represented as a `char *`. `argv` is an array of such pointers.
+
+Knowing this, try to figure out the type of `argv` and print out the first argument (`argv[0]`). You should see the name of the program.
+
+{% if site.solutions.show_session_1 %}
+#### Solution
+The type of `argv` would be `char **argv` (or `char *argv[]`).
+```c
+{% include_relative 1-c-basics/sol5.c %}
 ```
 {% endif %}
