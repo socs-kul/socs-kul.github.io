@@ -328,3 +328,48 @@ Make sure that your solution works for all `b >= 0`!
 ```
 {% endif %}
 
+### Exercise 4
+
+Write a RISC-V program that checks if a given year is a leap year. A year is considered a leap year if:
+- It is divisible by 4 AND
+- It is NOT divisible by 100, unless it is also divisible by 400.
+
+Use the `rem` instruction, which calculates the remainder of a division operation, to check divisibility by 4, 100, and 400. You can use a register value of 1 or 0 to indicate whether the year is a leap year or not.
+
+{% if site.solutions.show_session_2 %}
+#### Solution
+```text
+{% include_relative 2-asm-basics/sol4.S %}
+```
+{% endif %}
+
+### Exercise 5
+
+Write a RISC-V program that calculates the sum of the digits of a given number. You can use the provided C code as a reference to implement the logic:
+```c
+#include <stdio.h>
+
+int add_digits(int num) {
+    int sum = 0;
+    while (num > 0) {
+        sum += num % 10; // Add the last digit to sum
+        num /= 10; // Remove the last digit
+    }
+    return sum;
+}
+
+int main(void) {
+    int number = 12345;
+    int result = add_digits(number);
+    printf("The sum of the digits is: %d\n", result);
+    return 0;
+}
+```
+Use the `rem` instruction to obtain the last digit of the number by calculating the remainder when dividing by 10. Dividing by 10 with the `div` instruction can help remove the last digit of the number. For more details on how to use these instructions, take a look at the [RISC-V card](/files/riscv-card.pdf).
+
+{% if site.solutions.show_session_2 %}
+#### Solution
+```text
+{% include_relative 2-asm-basics/sol5.S %}
+```
+{% endif %}
