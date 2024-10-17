@@ -221,19 +221,7 @@ Now to use this stack, we would do the following actions:
 
 If you are now unsure about the size of the data that you want to put or retrieve from the stack, take a look again at the calling conventions or at the RISC-V sheet, both contain a list of common data types and their size in bytes in our 32-bit RISC-V configuration.
 
-> :fire: Warm-up 4: Expand the example above with simple code that loads the address of the stack into a register, pushes two integers (4 and 5 for example) and then pops these integers again.
-
-{% if site.solutions.show_session_4 %}
-
-#### Solution
-
-```riscvasm
-{% include_relative 4-functions-stack/warmup4.asm %}
-```
-
-{% endif %}
-
-This simple stack that you have written can already help you to overcome all challenges that we described above:
+A stack can help you to overcome all challenges that we described above:
 
 - If we run out of registers, we can temporarily push the variables onto the stack. As long as we remember where we can find the data and how many variables we pushed after this variable, we can always find it again.
 - If we want to send complex data to a function or want to exceed the 8 registers that we can use to send function arguments, we can use such a stack and simply pass the pointer to the data on the stack.
@@ -244,12 +232,12 @@ This simple stack that you have written can already help you to overcome all cha
 At this point, it may not surprise you anymore to hear that RISC-V actually has a dedicated register called the **stack pointer**, and that the calling conventions heavily rely on the mechanisms mentioned above:
 
 - The **stack pointer** (`sp` / `x2`) is already set up for you to point to the CPU stack. You can use it in your programs freely.
-- In RISC-V (and other architectures) the stack grows **downwards**. Thus, instead of increasing the pointer as you did in the warm-up above, you **decrement** it. See the excursion below for more details.
+- In RISC-V (and other architectures) the stack grows **downwards**. See the excursion below for more details.
 - To **push** data (e.g. `t0`) to the stack: first use `addi sp, sp, −4` (decrement the stack pointer to allocate space on the stack); then use `sw t0, 0(sp)` to write `t0` to the stack. The stack pointer should always point to the last pushed value (not to the empty space below it).
 - To **pop** data from the stack (e.g. in `t0`): first load the data at the top
   of the stack using `lw t0, 0(sp)`; then update the stack pointer using `addi sp, sp, 4`.
 
-> :fire: Warm-up 5: Change your code from the last warm-up to use the `sp` register and the provided stack.
+> :fire: Warm-up 4: Write a program that uses the `sp` register and the provided stack to push two integers (4 and 5 for example) onto the stack and then pop these integers again.
 
 {% if site.solutions.show_session_4 %}
 
@@ -368,26 +356,11 @@ Why is this assumption necessary right now?
 
 {% endif %}
 
-# Additional exercises
-
 ### Exercise 2
 
-We have compiled the function `func` from the code example below to 32-bit RISC-V (RV32I) using gcc.
-The compiled function can be found below.
-Translate the main function manually to RISC-V.
-Follow the calling conventions to pass all arguments correctly.
+The calling conventions exist to make writing programs together with other developpers easier. Imagine if everyone had their own way of passing arguments or even using registers in their functions. You would have to change the way you write your program based on who's function you're calling.
 
-> For this exercise, you will have to rely on the [official RISC-V calling conventions](https://riscv.org/wp-content/uploads/2015/01/riscv-calling.pdf).
-> They define the size of the C types and how to pass values that do not fit in
-> a single register!
-
-> :bulb: The nice thing about calling conventions is that you don't have to
-> understand the assembly code of `func` to be able to write the assembly code
-> of `main`!
-
-```c
-{% include_relative 4-functions-stack/ex2.c %}
-```
+The following program does **NOT** follow the calling convetions, can you patch it up? (The lines you have to change/add are marked with comments!)
 
 ```text
 {% include_relative 4-functions-stack/ex2.asm %}
@@ -403,16 +376,26 @@ Follow the calling conventions to pass all arguments correctly.
 
 {% endif %}
 
+# Additional exercises
+
 ### Exercise 3
 
-Fix the function `sum_fixme` in the below program.
-Only add code at the designated `TODO` points, don't modify the existing code.
-Use the stack to make sure *caller-saved* registers are saved by the *caller* and *callee-saved* registers are saved by the *callee*.
-Note that `sum_fixme` acts both as a caller and a callee at different times. Your solution is correct if the execution terminates with
+We have compiled the function `func` from the code example below to 32-bit RISC-V (RV32I) using gcc.
+The compiled function can be found below.
+Translate the main function manually to RISC-V.
+Follow the calling conventions to pass all arguments correctly.
 
-- no errors;
-- the value 3 in `a0`;
-- the value `0xdeadbeef` in `s0`.
+> For this exercise, you will have to rely on the [official RISC-V calling conventions](https://riscv.org/wp-content/uploads/2015/01/riscv-calling.pdf).
+> They define the size of the C types and how to pass values that do not fit in
+> a single register!
+
+> :bulb: The nice thing about calling conventions is that you don't have to
+> understand the assembly code of `func` to be able to write the assembly code
+> of `main`!
+
+```c
+{% include_relative 4-functions-stack/ex3.c %}
+```
 
 ```text
 {% include_relative 4-functions-stack/ex3.asm %}
@@ -430,15 +413,18 @@ Note that `sum_fixme` acts both as a caller and a callee at different times. You
 
 ### Exercise 4
 
-Consider the following recursive function which calculates `n!`.
+Fix the function `sum_fixme` in the below program.
+Only add code at the designated `TODO` points, don't modify the existing code.
+Use the stack to make sure *caller-saved* registers are saved by the *caller* and *callee-saved* registers are saved by the *callee*.
+Note that `sum_fixme` acts both as a caller and a callee at different times. Your solution is correct if the execution terminates with
 
-```c
-{% include_relative 4-functions-stack/ex4.c %}
+- no errors;
+- the value 3 in `a0`;
+- the value `0xdeadbeef` in `s0`.
+
+```text
+{% include_relative 4-functions-stack/ex4.asm %}
 ```
-
-1. Convert this function to RISC-V.
-1. Consider the call `fact(3)`. What is the state of stack when it reaches its maximum size (at the deepest level of recursion)?
-1. In [exercise 3 of the first session](/exercises/1-c-basics/#exercise-3) you implemented an iterative factorial function. Compare both factorial implementations in terms of memory usage. Which implementation do you prefer?
 
 {% if site.solutions.show_session_4 %}
 
@@ -446,46 +432,6 @@ Consider the following recursive function which calculates `n!`.
 
 ```text
 {% include_relative 4-functions-stack/sol4.asm %}
-```
-
-{% endif %}
-
-# Excursion: Tail recursion
-
-A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the **last** instruction of a subroutine (before the return) calls a different subroutine.
-Compilers can take advantage of tail calls to reduce memory usage. This is because for tail calls, no additional stack frame needs to be entered. Instead, we can simply overwrite the function parameters, jump to the function and execute from there by reusing the original function stack frame.
-This is possible since we do not expect to be returned to and instead refer to our original caller that is on our stack frame. Thus, when the (tail-) called function returns, it will not return to us but directly to the original code that called us.
-
-The benefit of tail calls is that they are very light on stack usage. While non-tail recursion adds a stack frame for each recursion depth, tail recursion only uses a single stack frame for any recursion depth.
-
-> :bulb: The call `fact(n-1)` in the previous exercise is **not** a tail call. Why not?
-
-<details closed markdown="block">
-  <summary>
-    Solution
-  </summary>
-  {: .text-gamma .text-blue-000 }
-
-The multiplication must be performed after the recursive function returns. Thus, the recursive function call is **not** the last instruction in the function.
-
-</details>
-
-### Excursion exercise
-
-We have converted the factorial program to use tail recursion.
-Translate this program to RISC-V.
-Try to avoid using the call stack during the `fact_tail` implementation. Why is this possible?
-
-```c
-{% include_relative 4-functions-stack/ex5.c %}
-```
-
-{% if site.solutions.show_session_4 %}
-
-#### Solution
-
-```text
-{% include_relative 4-functions-stack/sol5.asm %}
 ```
 
 {% endif %}

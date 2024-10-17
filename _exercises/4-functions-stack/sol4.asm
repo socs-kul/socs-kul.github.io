@@ -1,34 +1,51 @@
 .globl main
+.text
+callersaveregisterwipe: #Don't modify this function!
+    mv t0, ra
+    li ra, 0
+    li t1, 0
+    li t2, 0
+    li t3, 0
+    li t4, 0
+    li t5, 0
+    li t6, 0
+    li a0, 0
+    li a1, 0
+    li a2, 0
+    li a3, 0
+    li a4, 0
+    li a5, 0
+    li a6, 0
+    li a7, 0
+    jr t0
 
-fact:
-    addi sp, sp, -8   # Make space for 2 words on the stack
-    sw   ra, 4(sp)    # Store the (caller-save) return address
-    sw   a0, 0(sp)    # Store the (caller-save) register a0
+sum_fixme:
 
-    # if (n < 2)
-    slti t0, a0, 2    # Set t0 to 1 if a0 (n) < 2
-    beqz t0, _recurse # Branch to _recurse if a0 > 1 (because then t0 would be 0 now)
+    addi sp, sp, -12 #Reserve 3 words on the stack
 
-    # return 1;
-    li   a0, 1        # Return 1 if a0 <= 1
-    addi sp, sp, 8    # Free 2 words of space on stack
-    ret
+    sw   ra, 0(sp)   #Store caller-save registers on stack
+    sw   a0, 4(sp)
+    sw   a1, 8(sp)
 
-_recurse:
-    #fact(n-1)
-    addi a0, a0, -1   # Decrement $a0
-    jal  fact         # Execute fact
+    jal callersaveregisterwipe  #Don't modify this line
 
-    mv   t0, a0       # Move fact(n-1) result to t0
-    lw   a0, 0(sp)    # Restore initial a0 (old n value)
-    lw   ra, 4(sp)    # Restore initial ra
-    addi sp, sp, 8    # Free 2 words of space on stack
+    lw   ra, 0(sp)   #Restore caller-save registers from stack
+    lw   a0, 4(sp)
+    lw   a1, 8(sp)
 
-    #n*fact(n-1);
-    mul  a0, a0, t0   # a0 = a0 (n) * t0 (fact(n-1))
-    ret               # return n * fact(n-1)
+    sw   s0, 0(sp)   #Store callee-save register on stack so it can be used
 
-main:
-    li  a0, 5         # Input will be 5
-    jal fact          # a0 = fact(5);
+    add  s0, a0, a1  #Don't modify this line
+    mv   a0, s0      #Don't modify this line
 
+    lw   s0, 0(sp)   #Restore callee-save register from stack
+    addi sp, sp, 12  #Restore (callee-save) stack pointer before returning
+
+    ret              #Don't modify this line
+
+main:                #Don't modify this function!
+    li a0, 1
+    li a1, 2
+    li s0, 0xdeadbeef
+    jal sum_fixme
+    #Correct execution should terminate 1) Without errors, 2) with the value 3 in a0 AND 3) with the value 0xdeadbeef in s0

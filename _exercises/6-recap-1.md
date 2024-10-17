@@ -168,5 +168,72 @@ test_fail:
 ```
 After you run the test, register t4 will contain the value 1 if the test was a succes and -1 if the test failed.
 
+## Recursion
+
+What happens when a function calls itself? Functions that depend on a simpler or previous version of themselves are called recursive functions. This also means we have to be very careful when considering the calling convetions mentioned before.
+
+### Exercise Recursion
+
+Consider the following recursive function which calculates `n!`.
+
+```c
+{% include_relative 4-functions-stack/ex5.c %}
+```
+
+1. Convert this function to RISC-V.
+1. Consider the call `fact(3)`. What is the state of stack when it reaches its maximum size (at the deepest level of recursion)?
+1. In [exercise 3 of the first session](/exercises/1-c-basics/#exercise-3) you implemented an iterative factorial function. Compare both factorial implementations in terms of memory usage. Which implementation do you prefer?
+
+{% if site.solutions.show_session_6 %}
+
+#### Solution
+
+```text
+{% include_relative 4-functions-stack/sol5.asm %}
+```
+
+{% endif %}
+
+### Excursion: Tail recursion
+
+A [*tail call*](https://en.wikipedia.org/wiki/Tail_call) occurs whenever the **last** instruction of a subroutine (before the return) calls a different subroutine.
+Compilers can take advantage of tail calls to reduce memory usage. This is because for tail calls, no additional stack frame needs to be entered. Instead, we can simply overwrite the function parameters, jump to the function and execute from there by reusing the original function stack frame.
+This is possible since we do not expect to be returned to and instead refer to our original caller that is on our stack frame. Thus, when the (tail-) called function returns, it will not return to us but directly to the original code that called us.
+
+The benefit of tail calls is that they are very light on stack usage. While non-tail recursion adds a stack frame for each recursion depth, tail recursion only uses a single stack frame for any recursion depth.
+
+> :bulb: The call `fact(n-1)` in the previous exercise is **not** a tail call. Why not?
+
+<details closed markdown="block">
+  <summary>
+    Solution
+  </summary>
+  {: .text-gamma .text-blue-000 }
+
+The multiplication must be performed after the recursive function returns. Thus, the recursive function call is **not** the last instruction in the function.
+
+</details>
+
+#### Excursion exercise
+
+We have converted the factorial program to use tail recursion.
+Translate this program to RISC-V.
+Try to avoid using the call stack during the `fact_tail` implementation. Why is this possible?
+
+```c
+{% include_relative 4-functions-stack/ex6.c %}
+```
+
+{% if site.solutions.show_session_6 %}
+
+##### Solution
+
+```text
+{% include_relative 4-functions-stack/sol6.asm %}
+```
+
+{% endif %}
+
+
 ## Re-examination
 The re-examination will take place in the third exam period. It will consist of only one test, and will cover the full material of the previous two tests (1 through 8). The duration is 2 hours. The questions will have a format and difficulty similar to those of test 1 and 2.
