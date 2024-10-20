@@ -198,28 +198,6 @@ In this case, what we need is a data structure where we *dynamically* add and re
 ## Understanding the stack
 
 A stack is a simple data structure that grows in one direction and that works according to the Last-in-First-Out (LIFO) principle. The idea is as simple as a tower of books where you are only ever able to pick up the top-most book. You can place more books on top of the tower, but have to pick them up again to reach the books at the bottom.
-To realize a simple stack in assembly, we can just define a large memory region in the data section like this:
-
-```text
-.globl main
-.data
-    stack: .space 500
-.text
-main:
-    # ...
-```
-
-Now to use this stack, we would do the following actions:
-
-1. Load the address of the stack into a register
-1. When we want to push data on the stack:
-    1. Store data at the address that the register points to
-    1. Increment the pointer by the size of the data we just added, so that the register points to free space again
-1. When we want to pop data from the stack, we:
-    1. Decrement the pointer by the size of the last data element
-    1. Read the content of the data stored at the current stack pointer
-
-If you are now unsure about the size of the data that you want to put or retrieve from the stack, take a look again at the calling conventions or at the RISC-V sheet, both contain a list of common data types and their size in bytes in our 32-bit RISC-V configuration.
 
 A stack can help you to overcome all challenges that we described above:
 
