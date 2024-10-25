@@ -15,11 +15,12 @@ sum:
     ret             # 2 Use ret instead of j back
     
 square_distance:
-    addi sp, sp, -12 
-    sw ra, 8(sp)    # 3 Save ra 
+    addi sp, sp, -16 
     sw a0, 0(sp) 
     sw a1, 4(sp)    
- 
+    sw ra, 8(sp)    # 3 Save ra 
+    sw s0, 12(sp)   # Save s0 
+
     jal square	    #
     mv s0, a0	    #
     mv a0, a1	    #
@@ -28,7 +29,8 @@ square_distance:
     jal sum	        # 5 Use jal instead of j
 
     lw ra, 8(sp)    # 6 Restore ra
-    addi sp, sp, 12 # 7 Restore sp
+    lw s0, 12(sp)   # Restore s0
+    addi sp, sp, 16 # 7 Restore sp
     ret
     
     
