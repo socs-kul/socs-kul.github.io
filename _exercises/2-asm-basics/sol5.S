@@ -18,4 +18,4 @@ add_digits:
 
 end:
     la t0, result
-    sw t1, (t0) # Store the result
+    sw t2, (t0) # Store the result
