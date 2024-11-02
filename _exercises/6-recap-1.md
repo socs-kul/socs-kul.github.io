@@ -126,13 +126,13 @@ To test the validity of your implementation, it is useful to write simple unit t
 A simple unit test for question 1 above could for example be:
 
 ```text
-.globl q1_test
+.globl main
 .data
     array: .space 12
 
 
 .text
-q1_test:
+main:
     # Making an array [1,2,3] pointed to by a0
     la   a0, array
     li   t0, 1
@@ -154,18 +154,20 @@ q1_test:
     li   t3, 1
 
     # Check if the returned value matches the expected value
-    beq   a0, t3, test_succes
+    beq   a0, t3, test_success
     bne   a0, t3, test_fail
 
 
-test_succes:
-    li   t4, 1   # If succes, load 1 into t4
-    ret
+test_success:
+    li t4, 1   # If success, load 1 into t4
+    j end
 
 test_fail:
-    li   t4, -1  # If failed, load -1 into t4
-    ret
+    li t4, -1  # If failed, load -1 into t4
 
+end:
+    li a7, 93 # Exit system call ends program
+    ecall
 ```
 
 After you run the test, register t4 will contain the value 1 if the test was a succes and -1 if the test failed.
