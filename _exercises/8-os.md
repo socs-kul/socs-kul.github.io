@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 7: Operating Systems"
-nav_order: 7
+title: "Session 8: Operating Systems"
+nav_order: 8
 nav_exclude: false
 search_exclude: false
 has_children: false
@@ -21,7 +21,7 @@ During previous sessions, you learned how to write small functions and programs.
 The OS is a piece of software that acts as a layer between programs and the hardware. It manages resources and provides an interface with a set of services such as input and output, and memory allocation. The kernel is the core of an OS. It controls all hardware resources with the aid of device drivers. The kernel acts as a *layer* for input and output requests from software and handles memory.
 
 <center>
-<img src="/exercises/7-os/kernel.drawio.png" alt="The kernel connects applications to hardware" />
+<img src="/exercises/8-os/kernel.drawio.png" alt="The kernel connects applications to hardware" />
 </center>
 
 The OS also provides a form of security. Different program processes are isolated from each other when they are running at the same time. It is also not possible to overwrite the code of your OS.
@@ -29,7 +29,7 @@ The OS also provides a form of security. Different program processes are isolate
 A **Central Processing Unit (CPU)** usually offers different *modes*. These modes have different levels of privileges. The most privileged mode has unrestricted access to all resources and instructions. Less privileged modes have a limited set of instructions that they can use and usually do not have direct access to resources. The amount of modes depends on the CPU's architecture. The OS provides different services by using these modes: isolation of processes, scheduling of processes, communication between different processes, file systems...
 
 <center>
-<img src="/exercises/7-os/rings.drawio.png" alt="Rings have different levels of privilege" />
+<img src="/exercises/8-os/rings.drawio.png" alt="Rings have different levels of privilege" />
 </center>
 
 RISC-V offers three privilege levels or *modes*:
@@ -99,7 +99,7 @@ Write a user program that uses system calls to read two numbers from the user’
 #### Solution
 
 ```text
-{% include_relative 7-os/sol1.asm %}
+{% include_relative 8-os/sol1.asm %}
 ```
 
 {% endif %}
@@ -163,7 +163,7 @@ Write a program which reads the name of the user from the keyboard. Afterwards, 
 #### Solution
 
 ```text
-{% include_relative 7-os/sol2.asm %}
+{% include_relative 8-os/sol2.asm %}
 ```
 
 {% endif %}
@@ -192,7 +192,7 @@ This approach has the following problems:
 For every program that you run in RARS, a fixed address space is provided by the RARS OS for the program's process. For 32bit RARS, the process layout is as follows:
 
 <center>
-<img src="/exercises/7-os/process_layout.drawio.png" alt="32bit RARS process layout" />
+<img src="/exercises/8-os/process_layout.drawio.png" alt="32bit RARS process layout" />
 </center>
 
 The `.text` sections contains the program's code. Every *jump* or *branch* that you write will land in this section. The `.data` section contains the global variables that you declared in advance. The *heap* and *stack* are both dynamic regions: their size can grow and shrink when required. The OS reserves just enough memory for the program to run. When the processes requires more memory, more memory can dynamically be requested from the *heap* region, which is initially empty, through a system call. This is in contrast with our approach that reserved a *heap* in the `.data` section: we might have reserved a lot of bytes that the process would never even use or need, which would be a waste of memory.
@@ -251,10 +251,10 @@ main:
 {% endhighlight %}
 </td>
 <td>
-<img src="/exercises/7-os/heap1.drawio.png" alt="Heap after allocation" />
+<img src="/exercises/8-os/heap1.drawio.png" alt="Heap after allocation" />
 </td>
 <td>
-<img src="/exercises/7-os/heap2.drawio.png" alt="Heap after free" />
+<img src="/exercises/8-os/heap2.drawio.png" alt="Heap after free" />
 </td>
 </tr>
 </table>
@@ -437,7 +437,7 @@ Write a custom user-mode exception handler. The exception handler should do noth
 #### Solution
 
 ```text
-{% include_relative 7-os/sol3.asm %}
+{% include_relative 8-os/sol3.asm %}
 ```
 
 {% endif %}
@@ -460,7 +460,7 @@ Make sure to restore all register values before returning from the trap handler.
 #### Solution
 
 ```text
-{% include_relative 7-os/sol4.asm %}
+{% include_relative 8-os/sol4.asm %}
 ```
 
 {% endif %}
@@ -590,7 +590,7 @@ main:
 #### Solution
 
 ```text
-{% include_relative 7-os/sol5.asm %}
+{% include_relative 8-os/sol5.asm %}
 ```
 
 {% endif %}

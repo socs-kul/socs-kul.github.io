@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Session 8: Linked Lists"
-nav_order: 8
+title: "Session 7: Linked Lists"
+nav_order: 7
 nav_exclude: false
 search_exclude: false
 has_children: false
@@ -41,13 +41,13 @@ Simply put, a linked list is a data structure that allows to link different node
 Let's have a look at an example of how linked lists work:
 
 1. **Initalization of the list**: We create an empty list where the pointer to the first element has the value `NULL`.
-![Empty memory with list pointer](/exercises/8-linked-lists/images/linked_list_1.png)
+![Empty memory with list pointer](/exercises/7-linked-lists/images/linked_list_1.png)
 2. **Adding an element to the list**: We add the value `5` to the linked list. We can do this by allocating some space on the heap for our new node and setting the value of the `first` pointer to the allocated memory. We can then write our value in memory and let the next pointer of the node point to `NULL`.
-![Adding first node](/exercises/8-linked-lists/images/linked_list_2.png)
+![Adding first node](/exercises/7-linked-lists/images/linked_list_2.png)
 3. **Adding a second node to the list**: We now want to add a second node with the value `3` to the list. We can do this in the same way as the previous step. Note that we want to change the value of the `next` pointer of the previous node to point to our new node.
-![Adding a second node](/exercises/8-linked-lists/images/linked_list_3.png)
+![Adding a second node](/exercises/7-linked-lists/images/linked_list_3.png)
 4. **Removing a node**: We want to delete the previously added node with value `3`. To do this, we need to free the space used for the node we want to delete and make sure that the `next` pointer of the node with value `5` is changed to have the `NULL` value, since there will be no longer a next node in the list.
-![Removing a node](/exercises/8-linked-lists/images/linked_list_4.png)
+![Removing a node](/exercises/7-linked-lists/images/linked_list_4.png)
 
 Now that you understand the basics, we can move on to the exercise.
 
@@ -57,7 +57,7 @@ Before you begin, make sure that RARS is configured correctly. Open the `Setting
 
 # Linked lists interface
 
-To get started, download [linked_list.zip](/exercises/8-linked-lists/exercise-files.zip). Inside, you will find the following files:
+To get started, download [linked_list.zip](/exercises/7-linked-lists/exercise-files.zip). Inside, you will find the following files:
 
 * `c/linked_list.h`: header file containing the definition of the interface functions.
 * **+** `c/linked-list.c`: the template in which you need to implement all function definitions.
@@ -171,13 +171,13 @@ We provide a partial solution to the first two functions (`list-create` and `lis
 ### list_create
 
 ```text
-{% include_relative 8-linked-lists/partial-solutions/list-create.asm %}
+{% include_relative 7-linked-lists/partial-solutions/list-create.asm %}
 ```
 
 ### list_append
 
 ```text
-{% include_relative 8-linked-lists/partial-solutions/list-append.asm %}
+{% include_relative 7-linked-lists/partial-solutions/list-append.asm %}
 ```
 
 {% endif %}
@@ -205,7 +205,7 @@ Write a RISC-V program that creates a new linked list by merging two lists of eq
 ### Exercise 3
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. See the following figure:
 
-![Cycle in a linked list](/exercises/8-linked-lists/images/cycle.png)
+![Cycle in a linked list](/exercises/7-linked-lists/images/cycle.png)
 
 Given the head of a linked list, the C program below returns the node where the cycle begins. If there is no cycle, it returns null. Translate the C program to RISC-V assembly. Return the position of the cycle (or -1 if there is none) in register a0, and print its value to the console.
 
