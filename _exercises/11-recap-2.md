@@ -23,7 +23,7 @@ The material regarding caches and performance will not be asked on the test, but
 
 The first and second test contribute equally to your final grade for the exercises portion of SOCS. Refer to the [ECTS course description](https://onderwijsaanbod.kuleuven.be/syllabi/n/G0Q33CN.htm#activetab=doelstellingen_idp994368) for more information about how this course is graded.
 
-The difficulty of the test will not be greater than the more difficult exercises from the exercise sessions. The test will take place on a computer, with a duration of 2 hours. You can access RARS and GCC, but you will not have internet access.
+The difficulty of the test will not be greater than the more difficult exercises from the exercise sessions. The test will take place on a computer, with a duration of 2 hours. You can access RARS, but you will not have internet access.
 
 ## Structure of this test
 
