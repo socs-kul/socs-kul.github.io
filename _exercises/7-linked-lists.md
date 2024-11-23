@@ -12,10 +12,11 @@ has_toc: false
 <!-- TODO FOR NEXT YEAR: change assembly malloc function to take bytes and not words (to be same as C) -->
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
-{:toc}
+   {:toc}
 
 # Introduction
 
@@ -41,13 +42,13 @@ Simply put, a linked list is a data structure that allows to link different node
 Let's have a look at an example of how linked lists work:
 
 1. **Initalization of the list**: We create an empty list where the pointer to the first element has the value `NULL`.
-![Empty memory with list pointer](/exercises/7-linked-lists/images/linked_list_1.png)
+   ![Empty memory with list pointer](/exercises/7-linked-lists/images/linked_list_1.png)
 2. **Adding an element to the list**: We add the value `5` to the linked list. We can do this by allocating some space on the heap for our new node and setting the value of the `first` pointer to the allocated memory. We can then write our value in memory and let the next pointer of the node point to `NULL`.
-![Adding first node](/exercises/7-linked-lists/images/linked_list_2.png)
+   ![Adding first node](/exercises/7-linked-lists/images/linked_list_2.png)
 3. **Adding a second node to the list**: We now want to add a second node with the value `3` to the list. We can do this in the same way as the previous step. Note that we want to change the value of the `next` pointer of the previous node to point to our new node.
-![Adding a second node](/exercises/7-linked-lists/images/linked_list_3.png)
+   ![Adding a second node](/exercises/7-linked-lists/images/linked_list_3.png)
 4. **Removing a node**: We want to delete the previously added node with value `3`. To do this, we need to free the space used for the node we want to delete and make sure that the `next` pointer of the node with value `5` is changed to have the `NULL` value, since there will be no longer a next node in the list.
-![Removing a node](/exercises/7-linked-lists/images/linked_list_4.png)
+   ![Removing a node](/exercises/7-linked-lists/images/linked_list_4.png)
 
 Now that you understand the basics, we can move on to the exercise.
 
@@ -59,14 +60,14 @@ Before you begin, make sure that RARS is configured correctly. Open the `Setting
 
 To get started, download [linked_list.zip](/exercises/7-linked-lists/exercise-files.zip). Inside, you will find the following files:
 
-* `c/linked_list.h`: header file containing the definition of the interface functions.
-* **+** `c/linked-list.c`: the template in which you need to implement all function definitions.
-* `c/linked-list-tests.c`: the C test suite. This file contains the main function that executes all tests in the suite. Look at the implementation of the different functions to get an idea of how to use the linked list interface.
-* `c/Makefile`: File that is used to build the C project. Use the command `make` inside the C folder to generate the test suite linked-list and run it. You can try this out immediately after downloading. It should simply fail all tests.
-* `asm/linked-list-tests.asm`: the RISC-V test suite. Keep this file open while writing your RISC-V functions. Whenever the test suite fails a certain test, the failing assertion will be highlighted in the simulator. This can be used to quickly discover bugs in your implementation.
-* `asm/malloc.asm`: Our own `malloc` implementation, which is our solution to the complex allocator exercise from session 4. In your implementation you are expected to use `malloc` and `free` to allocate memory, as you would do in C (including the error handling!).
-* **+** `asm/main.asm`: the main function that executes the test suite. It’s possible to write your own tests in this main function before executing the test suite, if you want.
-* **+** `asm/list-*.asm`: a separate file for each interface function that you need to implement. We use separate files per function because RISC-V implementations can become long, and working in a big file can be quite an annoying experience in RARS.
+-   `c/linked_list.h`: header file containing the definition of the interface functions.
+-   **+** `c/linked-list.c`: the template in which you need to implement all function definitions.
+-   `c/linked-list-tests.c`: the C test suite. This file contains the main function that executes all tests in the suite. Look at the implementation of the different functions to get an idea of how to use the linked list interface.
+-   `c/Makefile`: File that is used to build the C project. Use the command `make` inside the C folder to generate the test suite linked-list and run it. You can try this out immediately after downloading. It should simply fail all tests.
+-   `asm/linked-list-tests.asm`: the RISC-V test suite. Keep this file open while writing your RISC-V functions. Whenever the test suite fails a certain test, the failing assertion will be highlighted in the simulator. This can be used to quickly discover bugs in your implementation.
+-   `asm/malloc.asm`: Our own `malloc` implementation, which is our solution to the complex allocator exercise from session 4. In your implementation you are expected to use `malloc` and `free` to allocate memory, as you would do in C (including the error handling!).
+-   **+** `asm/main.asm`: the main function that executes the test suite. It’s possible to write your own tests in this main function before executing the test suite, if you want.
+-   **+** `asm/list-*.asm`: a separate file for each interface function that you need to implement. We use separate files per function because RISC-V implementations can become long, and working in a big file can be quite an annoying experience in RARS.
 
 You should only edit the files that start with a **+**.
 
@@ -74,7 +75,7 @@ You should only edit the files that start with a **+**.
 
 You can use the following data structure to represent a `List` element:
 
-``` c
+```c
 struct List {
     struct ListNode *first;
 };
@@ -100,25 +101,25 @@ Each function will return a [status code](#error-codes), indicating whether an e
 
 > :bulb: **Tip**: Implement the functions in the given order. For some of the more complicated functions, you might need to use a previously written function. The test suite will check the functions in the order below and will abort if a test fails.
 
-> :bulb: **Tip**: In assembly, you can use `malloc` and `free` as defined in the `malloc.asm` file. For `malloc`, pass the number of *words* to allocate (i.e., 1 when you want to allocate 4 bytes), and for `free` pass the address that should be freed. `malloc` will return the address that was allocated (or `NULL`, indicating insufficient memory), while `free` will return nothing.
+> :bulb: **Tip**: In assembly, you can use `malloc` and `free` as defined in the `malloc.asm` file. For `malloc`, pass the number of _words_ to allocate (i.e., 1 when you want to allocate 4 bytes), and for `free` pass the address that should be freed. `malloc` will return the address that was allocated (or `NULL`, indicating insufficient memory), while `free` will return nothing.
 
-* ```struct List *list_create();``` <br>
-  Creates a new list by allocating a `struct List` and returning the address of this list. In C, you can assume that `malloc` will work correctly, but in RISC-V you should return `OUT_OF_MEMORY` if `malloc` fails!
-* ```status list_append(struct List *list, int value);``` <br>
-  Appends a value to the end of an existing list by allocating a new `ListElement` struct and adding it to the chain. Returns either `OK`, `OUT_OF_MEMORY`, or `UNINITIALIZED_LIST`.
-* ```int list_length(struct List *list);``` <br>
-  Counts the number of `ListItem`s in the list and returns the length of this list. Can return `UNINITIALIZED_LIST` if the list was not initialized.
-* ```status list_get(struct List *list, int index, int *value);``` <br>
-Gets the value at position index in an existing list. Stores this value at the address stored in the `int *value` pointer. Returns either `OK`, `INDEX_OUT_OF_BOUNDS`, `UNINITIALIZED_LIST`, or `UNINITIALIZED_RETVAL`.
-* ```status list_print(struct List *list);``` <br>
-Prints all elements of the list to the console. Returns either `OK` or `UNINITIALIZED_LIST`. This function is not tested by the test suites.
-* ```status list_remove_item(struct List *list, int index);``` <br>
-Removes the item with the provided index from the list. Returns either `OK`, `INDEX OUT OF BOUND`, or `UNINITIALIZED_LIST`.
-* ```status list_insert(struct List *list, int index, int value);``` <br>
-Inserts an element with the provided value at the provided index in the list. Thus, executing with index `0` should insert the new element in the
-front of the list, and so forth. Returns either `OK`, `INDEX_OUT_OF_BOUNDS`, `UNINITIALIZED_LIST`, or `OUT_OF_MEMORY`.
-* ```status list_delete(struct List *list);``` <br>
-Frees all allocated memory that was used for the list (all items and the list itself). Returns either `OK` or `UNINITIALIZED_LIST`.
+-   `struct List *list_create();` <br>
+    Creates a new list by allocating a `struct List` and returning the address of this list. In C, you can assume that `malloc` will work correctly, but in RISC-V you should return `OUT_OF_MEMORY` if `malloc` fails!
+-   `status list_append(struct List *list, int value);` <br>
+    Appends a value to the end of an existing list by allocating a new `ListElement` struct and adding it to the chain. Returns either `OK`, `OUT_OF_MEMORY`, or `UNINITIALIZED_LIST`.
+-   `int list_length(struct List *list);` <br>
+    Counts the number of `ListItem`s in the list and returns the length of this list. Can return `UNINITIALIZED_LIST` if the list was not initialized.
+-   `status list_get(struct List *list, int index, int *value);` <br>
+    Gets the value at position index in an existing list. Stores this value at the address stored in the `int *value` pointer. Returns either `OK`, `INDEX_OUT_OF_BOUNDS`, `UNINITIALIZED_LIST`, or `UNINITIALIZED_RETVAL`.
+-   `status list_print(struct List *list);` <br>
+    Prints all elements of the list to the console. Returns either `OK` or `UNINITIALIZED_LIST`. This function is not tested by the test suites.
+-   `status list_remove_item(struct List *list, int index);` <br>
+    Removes the item with the provided index from the list. Returns either `OK`, `INDEX OUT OF BOUND`, or `UNINITIALIZED_LIST`.
+-   `status list_insert(struct List *list, int index, int value);` <br>
+    Inserts an element with the provided value at the provided index in the list. Thus, executing with index `0` should insert the new element in the
+    front of the list, and so forth. Returns either `OK`, `INDEX_OUT_OF_BOUNDS`, `UNINITIALIZED_LIST`, or `OUT_OF_MEMORY`.
+-   `status list_delete(struct List *list);` <br>
+    Frees all allocated memory that was used for the list (all items and the list itself). Returns either `OK` or `UNINITIALIZED_LIST`.
 
 > :bulb: **Tip**: Before translating a complex function to RISC-V it might be a good idea to explicitly write down (in comments) which registers you will
 > allocate to which variables. This makes it much easier to keep track of sometimes very hard to read RISC-V code. It might make your life a lot easier if you have to fix a bug at a later time.
@@ -156,13 +157,13 @@ typedef enum {
 } status;
 ```
 
-* `UNINITIALIZED_LIST` is returned whenever a function is called with the value `NULL` filled in as the list parameter.
-* `OUT_OF_MEMORY` occurs whenever `malloc` returns `NULL`, and thus the function failed to execute.
-* `INDEX_OUT_OF_BOUNDS` occurs in functions that ask for an index parameter when that index is invalid (e.g., has a negative value).
-* `UNINITIALIZED_RETVAL` is used whenever a function provides a return value via a parameter. Thus, the function is supplied a pointer to which to write
-this return value. If that pointer points to `NULL`, return this error code.
+-   `UNINITIALIZED_LIST` is returned whenever a function is called with the value `NULL` filled in as the list parameter.
+-   `OUT_OF_MEMORY` occurs whenever `malloc` returns `NULL`, and thus the function failed to execute.
+-   `INDEX_OUT_OF_BOUNDS` occurs in functions that ask for an index parameter when that index is invalid (e.g., has a negative value).
+-   `UNINITIALIZED_RETVAL` is used whenever a function provides a return value via a parameter. Thus, the function is supplied a pointer to which to write
+    this return value. If that pointer points to `NULL`, return this error code.
 
-{% if site.solutions.show_session_8 %}
+{% if site.solutions.show_session_7 %}
 
 # Partial solutions
 
@@ -183,26 +184,33 @@ We provide a partial solution to the first two functions (`list-create` and `lis
 {% endif %}
 
 # Additional exercises
+
 Make sure to respect the RISC-V calling conventions in the following exercises. Write a few unit tests to validate your implementations. These questions are very similar to the ones you will receive on test 2.
+
 ### Exercise 1
-Create a RISC-V program that, given a linked list, swaps every number that is divisble by 3 with its right neighbour and returns the amount of swaps that have taken place. The list is traversed once, from left to right. If the last element is divisible by 3, it must be swapped with the first element of the list. The swap count must be appended to the end of the list. 
+
+Create a RISC-V program that, given a linked list, swaps every number that is divisble by 3 with its right neighbour and returns the amount of swaps that have taken place. The list is traversed once, from left to right. If the last element is divisible by 3, it must be swapped with the first element of the list. The swap count must be appended to the end of the list.
 
 **Example**
-- Input: {1,3,7,9}
-- Output: {9,7,3,1,2}
-- Explanation: 3 is divisible by itself, so 3 and 7 are swapped first. 9 is also divisible by 3 and on the last index of the list, so it is swapped with the first element (1). Two swaps have taken place, so 2 is appended to the end of the list. 
 
-Print the final list and the swap count to the terminal. You may only use *list_append* and *list_print* as auxiliary functions.
+-   Input: {1,3,7,9}
+-   Output: {9,7,3,1,2}
+-   Explanation: 3 is divisible by itself, so 3 and 7 are swapped first. 9 is also divisible by 3 and on the last index of the list, so it is swapped with the first element (1). Two swaps have taken place, so 2 is appended to the end of the list.
+
+Print the final list and the swap count to the terminal. You may only use _list_append_ and _list_print_ as auxiliary functions.
 
 ### Exercise 2
+
 Write a RISC-V program that creates a new linked list by merging two lists of equal size as follows: the element at index k (with k from 0 to the end of the lists) that is the smallest of the two lists is inserted at the front of the list, the largest is inserted at the end. Print the resulting list to the terminal.
 
 **Example**:
-- Input: {1,2,3} and {4,1,5}
-- Output: {3,1,1,4,2,5}
-- Explanation: the steps are as follows: {1,4} -> {1,1,4,2} -> {3,1,1,4,2,5}, because 4 > 1, 2 > 1, 5 > 3. 
+
+-   Input: {1,2,3} and {4,1,5}
+-   Output: {3,1,1,4,2,5}
+-   Explanation: the steps are as follows: {1,4} -> {1,1,4,2} -> {3,1,1,4,2,5}, because 4 > 1, 2 > 1, 5 > 3.
 
 ### Exercise 3
+
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. See the following figure:
 
 ![Cycle in a linked list](/exercises/7-linked-lists/images/cycle.png)
@@ -236,4 +244,5 @@ struct ListNode *detectCycle(struct ListNode *head) {
     return slow;
 }
 ```
+
 [Source](https://leetcode.com/problems/linked-list-cycle-ii/solutions/3775317/using-c-effective-code/)

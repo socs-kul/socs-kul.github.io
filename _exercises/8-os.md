@@ -9,16 +9,19 @@ has_toc: false
 ---
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
-{:toc}
+   {:toc}
 
 # Introduction
+
 During previous sessions, you learned how to write small functions and programs. Some of these programs required some user input. Until now, the only way to provide this input was by declaring it in the data section. This limits the different kinds of programs we can write: it is for example not possible to write a program that interacts with the user. During this session, you will learn how to interact with the **operating system (OS)** in order to interact with any hardware (e.g.: a mouse or keyboard).
 
 ## The operating system
-The OS is a piece of software that acts as a layer between programs and the hardware. It manages resources and provides an interface with a set of services such as input and output, and memory allocation. The kernel is the core of an OS. It controls all hardware resources with the aid of device drivers. The kernel acts as a *layer* for input and output requests from software and handles memory.
+
+The OS is a piece of software that acts as a layer between programs and the hardware. It manages resources and provides an interface with a set of services such as input and output, and memory allocation. The kernel is the core of an OS. It controls all hardware resources with the aid of device drivers. The kernel acts as a _layer_ for input and output requests from software and handles memory.
 
 <center>
 <img src="/exercises/8-os/kernel.drawio.png" alt="The kernel connects applications to hardware" />
@@ -26,18 +29,19 @@ The OS is a piece of software that acts as a layer between programs and the hard
 
 The OS also provides a form of security. Different program processes are isolated from each other when they are running at the same time. It is also not possible to overwrite the code of your OS.
 
-A **Central Processing Unit (CPU)** usually offers different *modes*. These modes have different levels of privileges. The most privileged mode has unrestricted access to all resources and instructions. Less privileged modes have a limited set of instructions that they can use and usually do not have direct access to resources. The amount of modes depends on the CPU's architecture. The OS provides different services by using these modes: isolation of processes, scheduling of processes, communication between different processes, file systems...
+A **Central Processing Unit (CPU)** usually offers different _modes_. These modes have different levels of privileges. The most privileged mode has unrestricted access to all resources and instructions. Less privileged modes have a limited set of instructions that they can use and usually do not have direct access to resources. The amount of modes depends on the CPU's architecture. The OS provides different services by using these modes: isolation of processes, scheduling of processes, communication between different processes, file systems...
 
 <center>
 <img src="/exercises/8-os/rings.drawio.png" alt="Rings have different levels of privilege" />
 </center>
 
-RISC-V offers three privilege levels or *modes*:
-* **Machine Mode**: Machine mode is usually used during the boot of a machine. It has full access to the machine and the execution of any instruction is allowed.
+RISC-V offers three privilege levels or _modes_:
 
-* **Supervisor Mode**: Supervisor mode allows the execution of most instructions, but not all of them. This mode is typically used when the kernel executes.
+-   **Machine Mode**: Machine mode is usually used during the boot of a machine. It has full access to the machine and the execution of any instruction is allowed.
 
-* **User Mode**: The instructions that are allowed to be executed are limited in user mode. This mode is usually used during the execution of processes.
+-   **Supervisor Mode**: Supervisor mode allows the execution of most instructions, but not all of them. This mode is typically used when the kernel executes.
+
+-   **User Mode**: The instructions that are allowed to be executed are limited in user mode. This mode is usually used during the execution of processes.
 
 > :bulb: The RISC-V architecture only requires that machine mode is available on a CPU.
 > Therefore, not all three modes are available on all CPUs.
@@ -48,20 +52,21 @@ RISC-V offers three privilege levels or *modes*:
 > in RARS.
 
 ## Requesting OS services
-The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different *mode* with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is **no need to save callee-saved registers** before a system call, contrary to a normal function call (cf. [calling conventions](../4-functions-stack/#summary-complete-calling-conventions)).
+
+The OS offers different services to user programs. Such a service can be requested by invoking a **system call** (also named environment call in RISC-V). A system call is similar to a function call, but with two main differences. First, the level of privilege changes: the system call requests a service from the OS, which in turn takes control and fulfills the request in a different _mode_ with a higher privilege level. Second, all registers are saved and restored by the OS, even the callee-saved registers (except for the registers `a0` that holds the return value of the system call). Therefore, there is **no need to save callee-saved registers** before a system call, contrary to a normal function call (cf. [calling conventions](../4-functions-stack/#summary-complete-calling-conventions)).
 
 A system call can be invoked by using the `ecall` instruction in RARS. The system call number has to be placed in `a7` prior to invoking the `ecall` instruction. Some system calls take some input in specific registers and may produce some output. Following table lists a few examples of system calls that are provided by the OS of RARS. The full list is available on [GitHub](https://github.com/TheThirdOne/rars/wiki/Environment-Calls).
 
-| Name | System call number (`a7`) | Description | Inputs | Outputs |
-|:----:|:-------------------------:|:-----------:|:------:|:-------:|
-|`PrintInt`| 1 | Prints an integer | `a0` = integer to print | N/A |
-|`ReadInt` | 5 | Reads an int from input console | N/A | `a0` = the int |
-|`Sbrk` | 9 | Allocate heap memory | `a0` = amount of memory in bytes | `a0` = address to the allocated block |
-|`Exit` | 10 | Exits the program with code 0 | N/A | N/A |
+|    Name    | System call number (`a7`) |           Description           |              Inputs              |                Outputs                |
+| :--------: | :-----------------------: | :-----------------------------: | :------------------------------: | :-----------------------------------: |
+| `PrintInt` |             1             |        Prints an integer        |     `a0` = integer to print      |                  N/A                  |
+| `ReadInt`  |             5             | Reads an int from input console |               N/A                |            `a0` = the int             |
+|   `Sbrk`   |             9             |      Allocate heap memory       | `a0` = amount of memory in bytes | `a0` = address to the allocated block |
+|   `Exit`   |            10             |  Exits the program with code 0  |               N/A                |                  N/A                  |
 
 > :pencil: Not every OS provides the same services through system calls. It depends on the OS (Windows, Linux, MacOS...), hardware, connected devices...
 
-The following example shows how a system call can be used in RARS to print the `int` *666* to the RARS console. Integer *1* is loaded in `a7` to use the `PrintInt` system call. This system call expects the `int` to print in `a0`.
+The following example shows how a system call can be used in RARS to print the `int` _666_ to the RARS console. Integer _1_ is loaded in `a7` to use the `PrintInt` system call. This system call expects the `int` to print in `a0`.
 
 <table>
 <tr>
@@ -75,17 +80,19 @@ The following example shows how a system call can be used in RARS to print the `
 .text
 
 main:
-  li    a0 ,666
-  li    a7, 1 # PrintInt
-  ecall
+li a0 ,666
+li a7, 1 # PrintInt
+ecall
 {% endhighlight %}
+
 </td>
 <td>
 {% highlight bash %}
 666
 
- -- program is finished running (dropped off bottom) --
+-- program is finished running (dropped off bottom) --
 {% endhighlight %}
+
 </td>
 </tr>
 </table>
@@ -94,7 +101,7 @@ main:
 
 Write a user program that uses system calls to read two numbers from the user’s keyboard. Afterwards, print the sum of these two numbers. Remember that the full list of system calls in RARS can be found on [GitHub](https://github.com/TheThirdOne/rars/wiki/Environment-Calls).
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_8 %}
 
 #### Solution
 
@@ -104,7 +111,7 @@ Write a user program that uses system calls to read two numbers from the user’
 
 {% endif %}
 
-The next example shows how a number, which was given by the user, can be printed to the RARS console. The program finishes with status code *0* at the end of its execution.
+The next example shows how a number, which was given by the user, can be printed to the RARS console. The program finishes with status code _0_ at the end of its execution.
 
 <table>
 <tr>
@@ -120,36 +127,39 @@ str: .string "You entered: "
 .text
 
 main:
-  li    a7, 5 # ReadInt
-  ecall
-  mv    t0, a0
-  la    a0, str
-  li    a7, 4 # PrintString
-  ecall
-  mv    a0, t0
-  li    a7, 1 # PrintInt
-  ecall
-  li    a7, 10 # exit(0)
-  ecall
+li a7, 5 # ReadInt
+ecall
+mv t0, a0
+la a0, str
+li a7, 4 # PrintString
+ecall
+mv a0, t0
+li a7, 1 # PrintInt
+ecall
+li a7, 10 # exit(0)
+ecall
 {% endhighlight %}
+
 </td>
 <td>
 {% highlight bash %}
 2
 You entered: 2
 
- -- program is finished running (0) --
+-- program is finished running (0) --
 {% endhighlight %}
+
 </td>
 </tr>
 </table>
 
 ### Exercise 2
 
-Write a program which reads the name of the user from the keyboard. Afterwards, display a greeting message dialog with content *“Welcome [name]”*. Make sure your program does not crash when the user presses cancel or gives long inputs. Instead, display an appropriate error message dialog. *Hint*: Take a look at system calls 54, 55 and 59.
+Write a program which reads the name of the user from the keyboard. Afterwards, display a greeting message dialog with content _“Welcome [name]”_. Make sure your program does not crash when the user presses cancel or gives long inputs. Instead, display an appropriate error message dialog. _Hint_: Take a look at system calls 54, 55 and 59.
 
 > :bulb: Everything placed in the `.data` section is placed in memory right after each other and in the same order that you put it. Remember that strings have an arbitrary length and simply end with a zero byte (0x00). This is because strings are simply an array of characters, 1 byte each. However, we also work with data that is organized in groups of bytes, such as a **word**. In a 32-bit architecture such as the one we are using here, a word contains 32 bits (4 bytes). Whenever you are using the instructions `lw`, `sw` etc, you are instructing to access 4 bytes at a time. To speed up these accesses, the architecture relies on word-aligned memory. That means that these `w` instructions expect the address to be divisible by the word size (4).
 > When you place a string before data that should be word aligned, you may encounter an error when you want to access this data. The solution to this error is an [assembler directive](https://github.com/TheThirdOne/rars/wiki/Assembler-Directives) to tell the assembler to align the next item in the data section according to the word boundary like this:
+>
 > ```text
 > .data
 > str1: .string "Message 1" # May exceed word boundary
@@ -158,7 +168,7 @@ Write a program which reads the name of the user from the keyboard. Afterwards, 
 > heap: .space 100000
 > ```
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_8 %}
 
 #### Solution
 
@@ -169,11 +179,12 @@ Write a program which reads the name of the user from the keyboard. Afterwards, 
 {% endif %}
 
 # The heap - revisited
-During the last session, you learned how to *dynamically allocate memory* on the *heap*. Dynamic allocation is required when data structures have to be allocated that can shrink or grow in size at runtime; it is not known prior to compilation how much memory should be allocated for these data structures.
 
-In order to tackle this problem, a big chunk of memory was reserved in the `.data` section that could be used to dynamically request and allocate memory. We used register `s9` to keep track of the next free memory location in the heap. A simple allocator function could be used to request memory from the *heap* and increase the address of the first free memory location with the amount of bytes that was requested:
+During the last session, you learned how to _dynamically allocate memory_ on the _heap_. Dynamic allocation is required when data structures have to be allocated that can shrink or grow in size at runtime; it is not known prior to compilation how much memory should be allocated for these data structures.
 
-``` text
+In order to tackle this problem, a big chunk of memory was reserved in the `.data` section that could be used to dynamically request and allocate memory. We used register `s9` to keep track of the next free memory location in the heap. A simple allocator function could be used to request memory from the _heap_ and increase the address of the first free memory location with the amount of bytes that was requested:
+
+```text
 .data
   heap: .space 100000
 .text
@@ -185,24 +196,27 @@ allocate_space:    # Assume that s9 keeps track of the next free memory location
 ```
 
 This approach has the following problems:
-- We arbitrarily have to choose the size of the *heap* in the `.data` section. When this size is too small, the program may run out of heap memory too quick. Choosing this size too big may waste memory that is actually not required for the program.
-- We had to violate the RISC-V *calling conventions* in order to keep track of the next free memory location in the *heap* (`s9`).
+
+-   We arbitrarily have to choose the size of the _heap_ in the `.data` section. When this size is too small, the program may run out of heap memory too quick. Choosing this size too big may waste memory that is actually not required for the program.
+-   We had to violate the RISC-V _calling conventions_ in order to keep track of the next free memory location in the _heap_ (`s9`).
 
 ## The OS to the rescue
+
 For every program that you run in RARS, a fixed address space is provided by the RARS OS for the program's process. For 32bit RARS, the process layout is as follows:
 
 <center>
 <img src="/exercises/8-os/process_layout.drawio.png" alt="32bit RARS process layout" />
 </center>
 
-The `.text` sections contains the program's code. Every *jump* or *branch* that you write will land in this section. The `.data` section contains the global variables that you declared in advance. The *heap* and *stack* are both dynamic regions: their size can grow and shrink when required. The OS reserves just enough memory for the program to run. When the processes requires more memory, more memory can dynamically be requested from the *heap* region, which is initially empty, through a system call. This is in contrast with our approach that reserved a *heap* in the `.data` section: we might have reserved a lot of bytes that the process would never even use or need, which would be a waste of memory.
+The `.text` sections contains the program's code. Every _jump_ or _branch_ that you write will land in this section. The `.data` section contains the global variables that you declared in advance. The _heap_ and _stack_ are both dynamic regions: their size can grow and shrink when required. The OS reserves just enough memory for the program to run. When the processes requires more memory, more memory can dynamically be requested from the _heap_ region, which is initially empty, through a system call. This is in contrast with our approach that reserved a _heap_ in the `.data` section: we might have reserved a lot of bytes that the process would never even use or need, which would be a waste of memory.
 
 ### Dynamically allocating memory
+
 The RARS OS provides a system call `sbrk` (system call number 9) to dynamically request memory. When you request `n` bytes with `sbrk`, the OS will increase the heap region with `n` bytes towards the stack and returns an address, pointing inside the heap region, that can be used to store `n` bytes. This system call replaces the use of the simple allocator function. Following code snippet shows how `sbrk` can be used to dynamically allocate 8 bytes and store two integers in this newly allocated heap region.
 
-> :pencil: `sbrk` changes the location of the *program break*, which defines the end of the process's data segment. Hence the abbreviation `sbrk`.
+> :pencil: `sbrk` changes the location of the _program break_, which defines the end of the process's data segment. Hence the abbreviation `sbrk`.
 
-``` text
+```text
 .globl main
 .text
 main:
@@ -216,10 +230,12 @@ main:
 ```
 
 ### Releasing allocated memory
-It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to *free* it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of session 5](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to *free* previous allocated memory.
+
+It would not be efficient to keep increasing the heap when previously allocated memory is no longer in use; we have to _free_ it. This allows to later on reuse this memory when more memory is again required. In the [last exercise of session 5](/exercises/5-dynamic-memory/#exercise-5), you had to come up with an allocator that also allows to _free_ previous allocated memory.
 
 ### Releasing memory acquired through `sbrk`
-It is possible to pass a negative integer to the `sbrk` system call on some operating systems. This could be used to *free* previously allocated memory. However, it would not always be sufficient to release any memory that you previously allocated, as it only allows to *free* the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
+
+It is possible to pass a negative integer to the `sbrk` system call on some operating systems. This could be used to _free_ previously allocated memory. However, it would not always be sufficient to release any memory that you previously allocated, as it only allows to _free_ the last chunk of bytes that previously has been allocated through `sbrk`. Have a look at following example:
 
 <table>
 <tr>
@@ -234,21 +250,21 @@ It is possible to pass a negative integer to the `sbrk` system call on some oper
 .globl main
 .text
 main:
-    li    a7, 9  # sbrk
-    li    a0, 12 # allocate 12 bytes
-    ecall
-    li    t0, 3
-    li    t1, 6
-    li    t2, 7
-    sw    t0, 0(a0) # store int 3
-    sw    t1, 4(a0) # store int 6
-    sw    t2, 8(a0) # store int 7
-    # We no longer need '7' and 'free' it
-    li    a7, 9 # sbrk
-    li    a0, -4 # 'free' 4 bytes
-    ecall
+li a7, 9 # sbrk
+li a0, 12 # allocate 12 bytes
+ecall
+li t0, 3
+li t1, 6
+li t2, 7
+sw t0, 0(a0) # store int 3
+sw t1, 4(a0) # store int 6
+sw t2, 8(a0) # store int 7 # We no longer need '7' and 'free' it
+li a7, 9 # sbrk
+li a0, -4 # 'free' 4 bytes
+ecall
 
 {% endhighlight %}
+
 </td>
 <td>
 <img src="/exercises/8-os/heap1.drawio.png" alt="Heap after allocation" />
@@ -259,14 +275,15 @@ main:
 </tr>
 </table>
 
-Suppose you also want to *free* `3` from the heap, but would like to keep `6` on the heap. The only way to *free* it, is by passing `-8` bytes to `sbrk`. This would however also *free* `6` and you would no longer be able to use it.
+Suppose you also want to _free_ `3` from the heap, but would like to keep `6` on the heap. The only way to _free_ it, is by passing `-8` bytes to `sbrk`. This would however also _free_ `6` and you would no longer be able to use it.
 
-*Note that it is not possible in RARS to pass negative integers to `sbrk`.*
+_Note that it is not possible in RARS to pass negative integers to `sbrk`._
 
 ### (De)allocating memory in C
-One of the disadvantages of `sbrk` is that it is not possible to free *any* chunk of memory that you want. Another disadvantage is that system calls, like `sbrk`, have some overhead. A system call consists of multiple instructions that have to be executed. The kernel has to manage the allocation of memory, which will require a switch from *user mode* to another mode with a higher privilege level.
 
-Programming languages sometimes offer complex functions to handle the (de)allocation of memory. In C, this functionality is provided by [`malloc`](https://www.tutorialspoint.com/c_standard_library/c_function_malloc.htm) and [`free`](https://www.tutorialspoint.com/c_standard_library/c_function_free.htm) (provided in `stdlib.h`). `malloc` is a function which allows to dynamically allocate a number of bytes. It returns a pointer to the allocated memory. A pointer can be passed as an argument to `free` to *free* the memory that was previously allocated for the data the pointer is pointing to. Following code snippet shows how `free` and `malloc` can be used:
+One of the disadvantages of `sbrk` is that it is not possible to free _any_ chunk of memory that you want. Another disadvantage is that system calls, like `sbrk`, have some overhead. A system call consists of multiple instructions that have to be executed. The kernel has to manage the allocation of memory, which will require a switch from _user mode_ to another mode with a higher privilege level.
+
+Programming languages sometimes offer complex functions to handle the (de)allocation of memory. In C, this functionality is provided by [`malloc`](https://www.tutorialspoint.com/c_standard_library/c_function_malloc.htm) and [`free`](https://www.tutorialspoint.com/c_standard_library/c_function_free.htm) (provided in `stdlib.h`). `malloc` is a function which allows to dynamically allocate a number of bytes. It returns a pointer to the allocated memory. A pointer can be passed as an argument to `free` to _free_ the memory that was previously allocated for the data the pointer is pointing to. Following code snippet shows how `free` and `malloc` can be used:
 
 ```c
 #include <stdlib.h>
@@ -294,7 +311,7 @@ int main() {
 }
 ```
 
-Note that `malloc` may return a *null pointer*. This happens when it was unable to allocate the amount of requested bytes. Therefore, it is important to check whether `malloc` returned a *null pointer* or not.
+Note that `malloc` may return a _null pointer_. This happens when it was unable to allocate the amount of requested bytes. Therefore, it is important to check whether `malloc` returned a _null pointer_ or not.
 
 ### Excursion: Allocating memory in Python
 
@@ -314,7 +331,7 @@ One very common Python implementation is `CPython`, a Python interpreter impleme
 Now what exactly happens for our code above? There are too many details to discuss them here in-depth, but a very short explanation of an interpreter like CPython is this:
 
 1. Parse the program line by line, starting from the entry into the program
-2. For each line, *interpret* what is supposed to happen
+2. For each line, _interpret_ what is supposed to happen
 3. Execute the corresponding C function for this specific line of code
 4. Continue with 2 until the program is being exited (which, itself, is a C function `exit` being called)
 
@@ -332,27 +349,27 @@ To create a new list, a function named `PyMem_Calloc` is called (see its [implem
 
 > :bulb: malloc and the `SBRK` system call may seem unimportant, but no modern program can go without it, even if it looks to the end developer as if memory magically appears out of nowhere.
 
-
 # Interrupts and exceptions
+
 Suppose you press a key on your keyboard which is connected to your computer. The OS has to be aware that a key has been pressed, in order to pass it on to an application. An OS is continuously executing different processes. It does not only wait and listen for these key-presses. Hence, an **interrupt** of the current process is required in order to handle the key-press. When such an interrupt takes place, a flag will be raised in order to alert the OS that an interrupt has been requested. The OS checks this flag when it has found the right moment. The following table lists the different kinds of interrupts in RARS:
 
-| Code  | Description                         |
-|-------|-------------------------------------|
-| 0     | User software interrupt             |
-| 1     | Supervisor software interrupt       |
-| 2-3   | *Reserved for future standard use*  |
-| 4     | User timer interrupt                |
-| 5     | Supervisor timer interrupt          |
-| 6-7   | *Reserved for future standard use*  |
-| 8     | User external interrupt             |
-| 9     | Supervisor external interrupt       |
-| 10-15 | *Reserved for future standard use*  |
-| >= 16 | *Reserved for platform use*         |
+| Code  | Description                        |
+| ----- | ---------------------------------- |
+| 0     | User software interrupt            |
+| 1     | Supervisor software interrupt      |
+| 2-3   | _Reserved for future standard use_ |
+| 4     | User timer interrupt               |
+| 5     | Supervisor timer interrupt         |
+| 6-7   | _Reserved for future standard use_ |
+| 8     | User external interrupt            |
+| 9     | Supervisor external interrupt      |
+| 10-15 | _Reserved for future standard use_ |
+| >= 16 | _Reserved for platform use_        |
 
-**Exceptions** are usually raised when something goes wrong in a faulty program. The execution of the program has to be halted and the error has to be resolved if possible. Exceptions have to be handled *immediately*. This is different from an interrupt; an OS will handle an interrupt *as soon as possible*. Exceptions are not only raised when something goes wrong; the `ecall` in RARS is a special kind of exception (see code 8-9 in following table) to handle system calls.
+**Exceptions** are usually raised when something goes wrong in a faulty program. The execution of the program has to be halted and the error has to be resolved if possible. Exceptions have to be handled _immediately_. This is different from an interrupt; an OS will handle an interrupt _as soon as possible_. Exceptions are not only raised when something goes wrong; the `ecall` in RARS is a special kind of exception (see code 8-9 in following table) to handle system calls.
 
 | Code  | Description                        |
-|-------|------------------------------------|
+| ----- | ---------------------------------- |
 | 0     | Instruction address misaligned     |
 | 1     | Instruction access fault           |
 | 2     | Illegal instruction                |
@@ -363,47 +380,51 @@ Suppose you press a key on your keyboard which is connected to your computer. Th
 | 7     | Store/AMO access fault             |
 | 8     | Environment call from U-mode       |
 | 9     | Environment call from S-mode       |
-| 10-11 | *Reserved for future standard use* |
+| 10-11 | _Reserved for future standard use_ |
 | 12    | Instruction page fault             |
 | 13    | Load page fault                    |
-| 14    | *Reserved for future standard use* |
+| 14    | _Reserved for future standard use_ |
 | 15    | Store/AMO page fault               |
-| 16-23 | *Reserved for future standard use* |
-| 24-31 | *Reserved for custom use*          |
-| 32-47 | *Reserved for future standard use* |
-| 48-63 | *Reserved for custom use*          |
-| >= 64 | *Reserved for future standard use* |
+| 16-23 | _Reserved for future standard use_ |
+| 24-31 | _Reserved for custom use_          |
+| 32-47 | _Reserved for future standard use_ |
+| 48-63 | _Reserved for custom use_          |
+| >= 64 | _Reserved for future standard use_ |
 
 ## Handling interrupts and exceptions
-As mentioned before, an interrupt will be handled *as soon as possible* when the OS finds the right moment, while an exception has to be handled *immediately*. When an interrupt or exception occurs, a **trap** is raised.
 
-A **trap handler** comes in action whenever a trap is raised. It's a set of instructions (like a function) that deal with the interrupt or exception. The address of a trap handler is stored in a `tvec` (*Trap Vector*) register. The CPU jumps to the address of the trap handler and continues executing the instructions of the trap handler. Each *mode* has its own `tvec` register:
-- `utvec`: User Trap Vector (user mode)
-- `stvec`: Supervisor Trap Vector (supervisor mode)
-- `mtvec`: Machine Trap Vector (machine mode)
+As mentioned before, an interrupt will be handled _as soon as possible_ when the OS finds the right moment, while an exception has to be handled _immediately_. When an interrupt or exception occurs, a **trap** is raised.
+
+A **trap handler** comes in action whenever a trap is raised. It's a set of instructions (like a function) that deal with the interrupt or exception. The address of a trap handler is stored in a `tvec` (_Trap Vector_) register. The CPU jumps to the address of the trap handler and continues executing the instructions of the trap handler. Each _mode_ has its own `tvec` register:
+
+-   `utvec`: User Trap Vector (user mode)
+-   `stvec`: Supervisor Trap Vector (supervisor mode)
+-   `mtvec`: Machine Trap Vector (machine mode)
 
 A **Control Status Register** (CSR) is special purpose register for trap handling. It contains information specific to trap handling:
-- `ustatus`: keeps track of and controls the current operating state of the CPU.
-- `utvec`: Contains the base address of the user trap handler. The CPU will jump to this address when a trap should be handled in user mode.
-- `uscratch`: A temporary scratch register that can be used by the user trap handler. Note that all *normal* registers must be restored after the trap handler: the trap handler might resume the execution of the program. However, it is not possible to temporarily backup these registers on the stack, because the stack pointer (`sp`) might be corrupted (point to a random or invalid place in memory). For instance, `uscratch` can be used as a backup for a normal register!
-- `uepc`: The user exception program counter contains the address of the instruction that caused the trap. This allows to jump back to the point where the trap was raised after the trap has been handled.
-- `ucause`: This register contains the cause of the raised trap. This corresponds to the codes listed in previous tables. E.g.: `ucause` will have value `4` in case of a load address was misaligned.
-- `utval`: This register contains a bad address or the address of an illegal instruction when applicable. E.g.: `utval` contains the faulty address when a load access fault occurs ot the address of an illegal instruction when it was not valid.
-- `uip`: The user interrupt pending register tells whether the trap was raised by an interrupt (*1*) or exception (*0*).
 
-> :bulb: Traps are handled in machine mode by default in RISC-V. It is however possible to delegate the trap handling to another mode that has a lower privilege level. This can be done by using *deleg* registers. E.g.: `medeleg` can be used to forward exceptions or interrupts from machine mode to the next privilege level and `sedeleg` delegates from supervisor mode to user mode.
+-   `ustatus`: keeps track of and controls the current operating state of the CPU.
+-   `utvec`: Contains the base address of the user trap handler. The CPU will jump to this address when a trap should be handled in user mode.
+-   `uscratch`: A temporary scratch register that can be used by the user trap handler. Note that all _normal_ registers must be restored after the trap handler: the trap handler might resume the execution of the program. However, it is not possible to temporarily backup these registers on the stack, because the stack pointer (`sp`) might be corrupted (point to a random or invalid place in memory). For instance, `uscratch` can be used as a backup for a normal register!
+-   `uepc`: The user exception program counter contains the address of the instruction that caused the trap. This allows to jump back to the point where the trap was raised after the trap has been handled.
+-   `ucause`: This register contains the cause of the raised trap. This corresponds to the codes listed in previous tables. E.g.: `ucause` will have value `4` in case of a load address was misaligned.
+-   `utval`: This register contains a bad address or the address of an illegal instruction when applicable. E.g.: `utval` contains the faulty address when a load access fault occurs ot the address of an illegal instruction when it was not valid.
+-   `uip`: The user interrupt pending register tells whether the trap was raised by an interrupt (_1_) or exception (_0_).
+
+> :bulb: Traps are handled in machine mode by default in RISC-V. It is however possible to delegate the trap handling to another mode that has a lower privilege level. This can be done by using _deleg_ registers. E.g.: `medeleg` can be used to forward exceptions or interrupts from machine mode to the next privilege level and `sedeleg` delegates from supervisor mode to user mode.
 
 ## Handling traps in RARS
-It is not possible to use *regular* instructions to change the content of CSRs. Specific instructions should be used to read from or write values into these registers:
 
-| Example usage | Description |
-|:-:|:-|
-| `csrrc t0, fcsr, t1` | Atomic Read/Clear CSR: read from the CSR `fcsr` into `t0` and clear bits of the CSR according to `t1` |
-| `csrrci t0, fcsr, 10` | Atomic Read/Clear CSR Immediate: read from the CSR  `fcsr` into `t0` and clear bits of `fcsr` according to a constant |
-| `csrrs t0, fcsr, t1` | Atomic Read/Set CSR: read from the CSR `fcsr` into `t0` and logical or `t1` into the CSR  |
-| `csrrsi t0, fcsr, 10` | Atomic Read/Set CSR Immediate: read from the CSR `fcsr` into `t0` and logical or a constant into the CSR |
-| `csrrw t0, fcsr, t1` | Atomic Read/Write CSR: read from the CSR `fcsr` into `t0` and write `t1` into the CSR |
-| `csrrwi t0, fcsr, 10` | Atomic Read/Write CSR Immediate: read from the CSR `fcsr` into `t0` and write a constant into the CSR |
+It is not possible to use _regular_ instructions to change the content of CSRs. Specific instructions should be used to read from or write values into these registers:
+
+|     Example usage     | Description                                                                                                          |
+| :-------------------: | :------------------------------------------------------------------------------------------------------------------- |
+| `csrrc t0, fcsr, t1`  | Atomic Read/Clear CSR: read from the CSR `fcsr` into `t0` and clear bits of the CSR according to `t1`                |
+| `csrrci t0, fcsr, 10` | Atomic Read/Clear CSR Immediate: read from the CSR `fcsr` into `t0` and clear bits of `fcsr` according to a constant |
+| `csrrs t0, fcsr, t1`  | Atomic Read/Set CSR: read from the CSR `fcsr` into `t0` and logical or `t1` into the CSR                             |
+| `csrrsi t0, fcsr, 10` | Atomic Read/Set CSR Immediate: read from the CSR `fcsr` into `t0` and logical or a constant into the CSR             |
+| `csrrw t0, fcsr, t1`  | Atomic Read/Write CSR: read from the CSR `fcsr` into `t0` and write `t1` into the CSR                                |
+| `csrrwi t0, fcsr, 10` | Atomic Read/Write CSR Immediate: read from the CSR `fcsr` into `t0` and write a constant into the CSR                |
 
 System call that are requested in user mode, are handled by the trap handler in supervisor mode in RARS. Therefore, we do not have access to the supervisor trap handler. It is however possible to add a custom trap handler in user mode. This requires that interrupts in user mode are enabled before the trap is raised. This can be done by changing the value of `ustatus`. Following example shows how a custom trap handler can be used:
 
@@ -427,12 +448,14 @@ end:
  	ecall		   # exit (4)
 
 ```
+
 The `main` function first loads the address of the custom trap handler in `utvec` and enables trap handing in user mode. Next, a misaligned load instruction is used to trigger the trap. The custom handler moves the cause of the trap to `a0` and jumps to `end`. The instructions below `end:` exit the program with a status code that reflects the cause of the trap (`a0`).
 
 ## Exercise 3
+
 Write a custom user-mode exception handler. The exception handler should do nothing but jump over the faulting instruction. Make sure the handler does not modify any regular registers (Hint: use `uscratch`). Do not forget to enable custom trap handling in user mode (`csrrsi zero, ustatus, 1`) before triggering the trap.
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_8 %}
 
 #### Solution
 
@@ -443,11 +466,14 @@ Write a custom user-mode exception handler. The exception handler should do noth
 {% endif %}
 
 ## Exercise 4
+
 Extend the handler from previous exercise so that it prints:
-- The cause of the exception
-- The address of the instruction that caused the exception
+
+-   The cause of the exception
+-   The address of the instruction that caused the exception
 
 A possible output could be:
+
 ```bash
   Exception with cause 4 occured at address 0x00400074
   -- program is finished running (0) --
@@ -455,7 +481,7 @@ A possible output could be:
 
 Make sure to restore all register values before returning from the trap handler. In theory, you could use the call stack for this purpose. However, the stack pointer itself might be misaligned. Using the stack pointer would then cause an additional exception within the handler. A better alternative is to reserve space in the data section to back-up registers. You will still need to load the initial address of this space into a register, so you will still need to use the `uscratch` register to back-up that specific register.
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_8 %}
 
 #### Solution
 
@@ -466,15 +492,18 @@ Make sure to restore all register values before returning from the trap handler.
 {% endif %}
 
 # Playing music
+
 System calls can also be used in [RARS to play music](https://github.com/TheThirdOne/rars/wiki/Environment-Calls#using-midi-output). The RARS OS interacts with the sound card of you system in order to play tones.
 
 ## Exercise 5
+
 Create a RARS program that plays music notes using the RARS system calls `MidiOut` (number 31) and `Sleep` (number 32).
 Use following skeleton as a starting point and proceed as follow:
-- Read through the provided skeleton code. How is the music represented as a string?
-- Read through the code for the provided function `next_tone_from_string` which converts a given string element into a MIDI tone value. Which values are returned in the `a0` and `a1` registers? How can they be used?
-- Implement `play_song` by iterating over the null-terminated song string and making use of the `next_tone_from_string` and `play_tone` helper functions. Make sure to adhere to the calling conventions.
-- Now implement `play_tone` by making use of system calls 31 (MIDI out) and 32 (sleep). Make sure to first read the [documentation](https://github.com/TheThirdOne/rars/wiki/Environment-Calls) for system call 31 (MIDI out). How many parameters are required? Which parameters are provided as global constants in the code skeleton and which parameters vary depending on the music string?
+
+-   Read through the provided skeleton code. How is the music represented as a string?
+-   Read through the code for the provided function `next_tone_from_string` which converts a given string element into a MIDI tone value. Which values are returned in the `a0` and `a1` registers? How can they be used?
+-   Implement `play_song` by iterating over the null-terminated song string and making use of the `next_tone_from_string` and `play_tone` helper functions. Make sure to adhere to the calling conventions.
+-   Now implement `play_tone` by making use of system calls 31 (MIDI out) and 32 (sleep). Make sure to first read the [documentation](https://github.com/TheThirdOne/rars/wiki/Environment-Calls) for system call 31 (MIDI out). How many parameters are required? Which parameters are provided as global constants in the code skeleton and which parameters vary depending on the music string?
 
 ```text
 .data
@@ -585,7 +614,7 @@ main:
 
 ```
 
-{% if site.solutions.show_session_7 %}
+{% if site.solutions.show_session_8 %}
 
 #### Solution
 
@@ -596,4 +625,5 @@ main:
 {% endif %}
 
 ## Bonus - Exercise 6
+
 Implement the `-` sign in the music string of this exercise to make notes sound longer. This would work as follows: `C- B-- A` would play `C` for 2 times the normal duration, `B` for 3 times the normal duration and `A` would be played as normal.
