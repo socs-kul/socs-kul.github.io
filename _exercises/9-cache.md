@@ -437,8 +437,8 @@ In the third exercise, we have a 2-word block size, so the last bit of the addre
 +---+---+----+----+
 | 0 | 0 | 48 | 49 |
 |   | 1 | 64 | 65 |
-| 1 | 2 | 26 | 27 |
-|   | 3 | 10 | 11 |
+| 1 | 2 | 10 | 11 |
+|   | 3 | 26 | 27 |
 | 2 | 4 |  4 |  5 |
 |   | 5 | 12 | 13 |
 | 3 | 6 | 22 | 23 |
@@ -465,9 +465,9 @@ The strength of the 1-word block cache is that it has 16 separate blocks.  Altho
 # Additional exercises
 ### Exercise 5
 
-Consider a processor with a 32-bit addressing mode and a 4-way set-associative mapped cache, 
+Consider a processor with a 32-bit addressing mode and a 4-way set-associative mapped cache,
 with 8-word block size and a total size of 2048 blocks. Calculate how many bits of the address are used…
-- to select the set 
+- to select the set
 - to tag a block
 - to select a word in the block
 - to select a byte in the word.
