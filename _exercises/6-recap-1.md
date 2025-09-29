@@ -12,7 +12,7 @@ has_toc: false
 
 ## Information
 
-The first test will take place on **November 6th**. It serves to examine your understanding of all the material we have seen up until this point. This includes:
+The first test will take place on **November 3rd**. It serves to examine your understanding of all the material we have seen up until this point. This includes:
 
 | Session 1 | Introduction to C |
 | Session 2 | Assembly basics |
